@@ -1,0 +1,117 @@
+    class Solution {
+        public List<Integer> findSubstring(String s, String[] words) {
+            return f2(s, words);
+        }
+
+        private List<Integer> f1(String s, String[] words) {
+            List<Integer> res = new ArrayList<>();
+            if (s == null || s.length() == 0 || words == null || words.length == 0 || words[0] == null || words[0].length() == 0) {
+                return res;
+            }
+            int numOfWords = words.length;
+            Map<String, Integer> wordNumMap = new HashMap<>();
+            for (String word : words) {
+                if (wordNumMap.containsKey(word)) {
+                    Integer curNum = wordNumMap.get(word);
+                    wordNumMap.put(word, curNum + 1);
+                } else {
+                    wordNumMap.put(word, 1);
+                }
+            }
+            int wordLen = words[0].length();
+            int lenOfCandidate = wordLen * numOfWords;
+            Map<String, Integer> tmpMap = new HashMap<>();
+            for (int i = 0; i <= s.length() - lenOfCandidate; ++i) {
+                String candidate = s.substring(i, i + lenOfCandidate);
+                int j = 0;
+                while (j < candidate.length()) {
+                    String curWord = candidate.substring(j, j + wordLen);
+                    if (!wordNumMap.containsKey(curWord)) {
+                        break;
+                    } else {
+                        if (tmpMap.containsKey(curWord)) {
+                            int curNum = tmpMap.get(curWord);
+                            if (curNum >= wordNumMap.get(curWord)) {
+                                break;
+                            } else {
+                                tmpMap.put(curWord, curNum + 1);
+                            }
+                        } else {
+                            tmpMap.put(curWord, 1);
+                        }
+                    }
+                    j = j + wordLen;
+                }
+                if (j == candidate.length()) {
+                    res.add(i);
+                }
+                tmpMap.clear();
+            }
+            return res;
+        }
+
+        public List<Integer> f2(String s, String[] words) {
+            List<Integer> res = new ArrayList<Integer>();
+            int wordNum = words.length;
+            if (wordNum == 0) {
+                return res;
+            }
+            int wordLen = words[0].length();
+            HashMap<String, Integer> allWords = new HashMap<String, Integer>();
+            for (String w : words) {
+                int value = allWords.getOrDefault(w, 0);
+                allWords.put(w, value + 1);
+            }
+            for (int j = 0; j < wordLen; ++j) {
+                Map<String, Integer> hasWords = new HashMap<>();
+                // 标识当前找到的符合条件的word个数
+                int num = 0;
+                for (int i = j; i < s.length() - wordNum * wordLen + 1; i = i + wordLen) {
+                    while (num < wordNum) {
+                        String word = s.substring(i + num * wordLen, i + (num + 1) * wordLen);
+                        if (allWords.containsKey(word)) {
+                            int value = hasWords.getOrDefault(word, 0);
+                            hasWords.put(word, value + 1);
+                            // 出现情况3
+                            if (hasWords.get(word) > allWords.get(word)) {
+                                int removeNum = 0;
+                                //一直移除单词，直到次数符合了
+                                while (hasWords.get(word) > allWords.get(word)) {
+                                    String firstWord = s.substring(i + removeNum * wordLen, i + (removeNum + 1) * wordLen);
+                                    int v = hasWords.get(firstWord);
+                                    hasWords.put(firstWord, v - 1);
+                                    removeNum++;
+                                }
+                                num = num - removeNum + 1; //加 1 是因为我们把当前单词加入到了 HashMap 2 中
+                                i = i + (removeNum - 1) * wordLen; //这里依旧是考虑到了最外层的 for 循环，看情况二的解释
+                                break;
+                            } else {
+                                ++num;
+                                if (num == wordNum) {
+                                    res.add(i);
+                                    String firstWord = s.substring(i, i + wordLen);
+                                    int tmp = hasWords.get(firstWord);
+                                    hasWords.put(firstWord, tmp - 1);
+                                    num--;
+                                    break;
+                                }
+                            }
+                            // 情况2
+                        } else {
+                            hasWords.clear();
+                            i = i + num * wordLen;
+                            num = 0;
+                            break;
+                        }
+                    }
+
+                }
+            }
+            return res;
+        }
+
+
+    }
+
+//runtime:6 ms
+//memory:39 MB

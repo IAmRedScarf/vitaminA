@@ -1,0 +1,119 @@
+    class Solution {
+        public List<Integer> findSubstring(String s, String[] words) {
+            return f2(s, words);
+        }
+
+        private List<Integer> f1(String s, String[] words) {
+            List<Integer> res = new ArrayList<>();
+            if (s == null || s.length() == 0 || words == null || words.length == 0 || words[0] == null || words[0].length() == 0) {
+                return res;
+            }
+            int numOfWords = words.length;
+            Map<String, Integer> wordNumMap = new HashMap<>();
+            for (String word : words) {
+                if (wordNumMap.containsKey(word)) {
+                    Integer curNum = wordNumMap.get(word);
+                    wordNumMap.put(word, curNum + 1);
+                } else {
+                    wordNumMap.put(word, 1);
+                }
+            }
+            int wordLen = words[0].length();
+            int lenOfCandidate = wordLen * numOfWords;
+            Map<String, Integer> tmpMap = new HashMap<>();
+            for (int i = 0; i <= s.length() - lenOfCandidate; ++i) {
+                String candidate = s.substring(i, i + lenOfCandidate);
+                int j = 0;
+                while (j < candidate.length()) {
+                    String curWord = candidate.substring(j, j + wordLen);
+                    if (!wordNumMap.containsKey(curWord)) {
+                        break;
+                    } else {
+                        if (tmpMap.containsKey(curWord)) {
+                            int curNum = tmpMap.get(curWord);
+                            if (curNum >= wordNumMap.get(curWord)) {
+                                break;
+                            } else {
+                                tmpMap.put(curWord, curNum + 1);
+                            }
+                        } else {
+                            tmpMap.put(curWord, 1);
+                        }
+                    }
+                    j = j + wordLen;
+                }
+                if (j == candidate.length()) {
+                    res.add(i);
+                }
+                tmpMap.clear();
+            }
+            return res;
+        }
+
+        public List<Integer> f2(String s, String[] words) {
+            List<Integer> res = new ArrayList<>();
+            if (s == null || s.length() == 0 || words == null || words.length == 0 || words[0] == null || words[0].length() == 0) {
+                return res;
+            }
+            int wordNum = words.length;
+            int wordLen = words[0].length();
+            
+            Map<String, Integer> allWords = new HashMap<>();
+            for (String word : words) {
+                int value = allWords.getOrDefault(word, 0);
+                allWords.put(word, value + 1);
+            }
+            for (int i = 0; i < wordLen; ++i) {
+                Map<String, Integer> curHasWords = new HashMap<>();
+                // 标识当前找到的符合条件的word个数
+                int num = 0;
+                int j = i;
+                while (j < s.length() - wordNum * wordLen + 1) {
+
+                    while (num < wordNum) {
+                        String curWord = s.substring(j + num * wordLen, j + (num + 1) * wordLen);
+                        if (allWords.containsKey(curWord)) {
+                            int value = curHasWords.getOrDefault(curWord, 0);
+                            curHasWords.put(curWord, value + 1);
+                            if (curHasWords.get(curWord) <= allWords.get(curWord)) {
+                                ++num;
+                                if (num == wordNum) {
+                                    res.add(i);
+                                    String firstWord = s.substring(j, j + wordLen);
+                                    int tmp = curHasWords.get(firstWord);
+                                    curHasWords.put(firstWord, tmp - 1);
+                                    num--;
+                                    i += wordLen;
+                                    break;
+                                }
+                            } else {
+                                int removeNum = 0;
+                                while (curHasWords.get(curWord) > allWords.get(curWord)) {
+                                    String removeWord = s.substring(j + removeNum * wordLen, j + (removeNum + 1) * wordLen);
+                                    int tmp = curHasWords.get(removeWord);
+                                    curHasWords.put(removeWord, tmp - 1);
+                                    removeNum++;
+                                    num--;
+                                }
+                                break;
+                            }
+                        } else {
+                            curHasWords.clear();
+                            num = 0;
+                            i += wordLen;
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+    }
+
+//runtime_error:java.lang.StringIndexOutOfBoundsException: begin -3, end 0, length 18
+  at line 3720, java.base/java.lang.String.checkBoundsBeginEnd
+  at line 1909, java.base/java.lang.String.substring
+  at line 74, Solution.f2
+  at line 3, Solution.findSubstring
+  at line 54, __DriverSolution__.__helper__
+  at line 87, __Driver__.main
+//last_testcase:"barfoothefoobarman" ["foo","bar"]

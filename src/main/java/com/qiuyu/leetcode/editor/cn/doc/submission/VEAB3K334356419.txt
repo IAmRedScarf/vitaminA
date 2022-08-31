@@ -1,0 +1,51 @@
+    class Solution {
+        public boolean isBipartite(int[][] graph) {
+            int n = graph.length;
+            // 0标识节点未染色，1标识节点染为红色，2标识节点染为蓝色
+            int[] flag = new int[n];
+            for (int j = 0; j < n; ++j) {
+                if (flag[j] != 0) {
+                    continue;
+                }
+                Deque<Integer> queue = new LinkedList<>();
+                queue.add(j);
+                while (!queue.isEmpty()) {
+                    int head = queue.pollFirst();
+                    if (flag[head] == 0) {
+                        flag[head] = 1;
+                        for (int neighbour : graph[head]) {
+                            flag[neighbour] = 2;
+                            queue.addLast(neighbour);
+                        }
+                    } else if (flag[head] == 1) {
+                        for (int neighbour : graph[head]) {
+                            if (flag[neighbour] == 0) {
+                                flag[neighbour] = 2;
+                                queue.addLast(neighbour);
+                            } else if (flag[neighbour] == 1) {
+                                return false;
+                            }
+                        }
+                    } else if (flag[head] == 2) {
+                        for (int neighbour : graph[head]) {
+                            if (flag[neighbour] == 0) {
+                                flag[neighbour] = 1;
+                                queue.addLast(neighbour);
+                            } else if (flag[neighbour] == 2) {
+                                return false;
+                            }
+                        }
+                    }
+
+                    
+                }
+            }
+
+
+            return true;
+
+        }
+    }
+
+//runtime:1 ms
+//memory:42 MB
