@@ -58,6 +58,72 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        public int lengthOfLongestSubstring_20220912(String s) {
+            if (s.length() <= 1) {
+                return s.length();
+            }
+            int left = 0, right = 0;
+            int res = 0;
+            Set<Character> window = new HashSet<>();
+            while (right < s.length()) {
+                char cur = s.charAt(right);
+                while (window.contains(cur)) {
+                    window.remove(s.charAt(left));
+                    ++left;
+                }
+                window.add(cur);
+                res = Math.max(right - left + 1, res);
+                ++right;
+            }
+            return res;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public int lengthOfLongestSubstring_20220908(String s) {
+            if (s.length() <= 1) {
+                return s.length();
+            }
+            Set<Character> window = new HashSet<>();
+            int ret = 0;
+            int left = 0, right = 0;
+            while (right < s.length()) {
+                char cur = s.charAt(right);
+                while (window.contains(cur)) {
+                    window.remove(s.charAt(left));
+                    left++;
+                }
+                window.add(cur);
+                ret = Math.max(ret, right - left + 1);
+                right++;
+            }
+            return ret;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public int lengthOfLongestSubstring_20220426(String s) {
             if (s == null || s.length() == 0) {
                 return 0;
@@ -98,7 +164,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
 
         public int lengthOfLongestSubstring(String s) {
-            return lengthOfLongestSubstring_20220426(s);
+            return lengthOfLongestSubstring_20220912(s);
 
 
 
