@@ -42,7 +42,32 @@ public class BinaryTreePostorderTraversal {
  * }
  */
 class Solution {
+    public List<Integer> postorderTraversal20221009(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Deque<TreeNode> tmpStack = new LinkedList<>();
+        TreeNode p = root;
+        while (!tmpStack.isEmpty() || p != null) {
+            while (p != null) {
+                res.add(p.val);
+                if (p.left != null) {
+                    tmpStack.addLast(p.left);
+                }
+                p = p.right;
+            }
+            p = tmpStack.pollLast();
+        }
+        Collections.reverse(res);
+        return res;
+
+    }
+
     public List<Integer> postorderTraversal(TreeNode root) {
+
+        return postorderTraversal20221009(root);
+    }
+
+
+    public List<Integer> postorderTraversal0000001(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         Deque<TreeNode> tmpStack = new LinkedList<>();
         TreeNode p = root;

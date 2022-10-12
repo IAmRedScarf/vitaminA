@@ -29,29 +29,47 @@
 
 package com.qiuyu.leetcode.editor.cn;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class SortOfStacksLcci {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class SortedStack {
+        private Deque<Integer> mainStack;
+        private Deque<Integer> subStack;
 
         public SortedStack() {
-
+            mainStack = new LinkedList<>();
+            subStack = new LinkedList<>();
         }
 
         public void push(int val) {
-
+            while (!subStack.isEmpty() && subStack.peekLast() > val) {
+                mainStack.addLast(subStack.pollLast());
+            }
+            while (!mainStack.isEmpty() && mainStack.peekLast() < val) {
+                subStack.addLast(mainStack.pollLast());
+            }
+            mainStack.addLast(val);
         }
 
         public void pop() {
-
+            while (!subStack.isEmpty()) {
+                mainStack.addLast(subStack.pollLast());
+            }
+            mainStack.pollLast();
         }
 
         public int peek() {
-            return 0;
+            while (!subStack.isEmpty()) {
+                mainStack.addLast(subStack.pollLast());
+            }
+            return mainStack.isEmpty() ? -1 : mainStack.peekLast();
         }
 
         public boolean isEmpty() {
-            return false;
+            return mainStack.isEmpty();
         }
     }
 

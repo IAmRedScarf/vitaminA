@@ -83,6 +83,26 @@ public class BinaryTreePreorderTraversal {
      * }
      */
     class Solution {
+
+        public List<Integer> preorderTraversal20221009(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            Deque<TreeNode> tmpStack = new LinkedList<>();
+            TreeNode p = root;
+            while (!tmpStack.isEmpty() || p != null) {
+                while (p != null) {
+                    res.add(p.val);
+                    if (p.right != null) {
+                        tmpStack.addLast(p.right);
+                    }
+                    p = p.left;
+                }
+                p = tmpStack.pollLast();
+            }
+            return res;
+
+        }
+
+
         public List<Integer> preorderTraversal(TreeNode root) {
             if (root == null) {
                 return new ArrayList<>();

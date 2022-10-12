@@ -84,6 +84,32 @@ public class BinaryTreeInorderTraversal {
      */
     class Solution {
 
+        public List<Integer> inorderTraversal(TreeNode root) {
+            return inorderTraversal20221009(root);
+        }
+
+        public List<Integer> inorderTraversal20221009(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            Deque<TreeNode> stack = new LinkedList<>();
+            TreeNode p = root;
+            while (!stack.isEmpty() || p != null) {
+                while (p != null) {
+                    stack.addLast(p);
+                    p = p.left;
+                }
+                p = stack.pollLast();
+                res.add(p.val);
+                p = p.right;
+            }
+            return res;
+
+
+        }
+
+
+
+
+
         public List<Integer> inorderTraversal_20220513(TreeNode root) {
             List<Integer> res = new ArrayList<>();
             Deque<TreeNode> stack = new LinkedList<>();
@@ -100,10 +126,6 @@ public class BinaryTreeInorderTraversal {
             return res;
         }
 
-
-        public List<Integer> inorderTraversal(TreeNode root) {
-            return inorderTraversal_20220513(root);
-        }
 
 
         public List<Integer> inorderTraversal_old(TreeNode root) {
