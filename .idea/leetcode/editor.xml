@@ -113,6 +113,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/BabyNamesLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/BabyNamesLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 17.07" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/BabyNamesLcci.java" />
+              <option name="titleSlug" value="baby-names-lcci" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/BaoHanMinhanShuDeZhanLcof.java">
           <value>
             <LeetcodeEditor>
@@ -902,6 +913,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/FindTheDuplicateNumber.java" />
               <option name="titleSlug" value="find-the-duplicate-number" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/FirstCommonAncestorLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/FirstCommonAncestorLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 04.08" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/FirstCommonAncestorLcci.java" />
+              <option name="titleSlug" value="first-common-ancestor-lcci" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -2266,6 +2288,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/PathSumIii.java" />
               <option name="titleSlug" value="path-sum-iii" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/PathsWithSumLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/PathsWithSumLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 04.12" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/PathsWithSumLcci.java" />
+              <option name="titleSlug" value="paths-with-sum-lcci" />
             </LeetcodeEditor>
           </value>
         </entry>
