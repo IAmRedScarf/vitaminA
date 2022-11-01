@@ -1719,6 +1719,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/LongestWordLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/LongestWordLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 17.15" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/LongestWordLcci.java" />
+              <option name="titleSlug" value="longest-word-lcci" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/LowestCommonAncestorOfABinaryTree.java">
           <value>
             <LeetcodeEditor>
@@ -2302,6 +2313,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/PeaksAndValleysLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/PeaksAndValleysLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 10.11" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/PeaksAndValleysLcci.java" />
+              <option name="titleSlug" value="peaks-and-valleys-lcci" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/PerfectSquares.java">
           <value>
             <LeetcodeEditor>
@@ -2343,6 +2365,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/PlusOne.java" />
               <option name="titleSlug" value="plus-one" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/PondSizesLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/PondSizesLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 16.19" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/PondSizesLcci.java" />
+              <option name="titleSlug" value="pond-sizes-lcci" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -3204,6 +3237,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/TicTacToeLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/TicTacToeLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 16.04" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/TicTacToeLcci.java" />
+              <option name="titleSlug" value="tic-tac-toe-lcci" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/TopKFrequentElements.java">
           <value>
             <LeetcodeEditor>
@@ -3641,6 +3685,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/ZeroI0mDW.java" />
               <option name="titleSlug" value="0i0mDW" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/ZeroMatrixLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/ZeroMatrixLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 01.08" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/ZeroMatrixLcci.java" />
+              <option name="titleSlug" value="zero-matrix-lcci" />
             </LeetcodeEditor>
           </value>
         </entry>
