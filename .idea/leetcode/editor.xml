@@ -278,6 +278,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/BracketLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/BracketLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 08.09" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/BracketLcci.java" />
+              <option name="titleSlug" value="bracket-lcci" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/BullsAndCows.java">
           <value>
             <LeetcodeEditor>
@@ -308,6 +319,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/CatAndMouseIi.java" />
               <option name="titleSlug" value="cat-and-mouse-ii" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/CheckSubtreeLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/CheckSubtreeLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 04.10" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/CheckSubtreeLcci.java" />
+              <option name="titleSlug" value="check-subtree-lcci" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -363,6 +385,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/CoinChange2.java" />
               <option name="titleSlug" value="coin-change-2" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/CoinLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/CoinLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 08.11" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/CoinLcci.java" />
+              <option name="titleSlug" value="coin-lcci" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -3014,6 +3047,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/SortOfStacksLcci.java" />
               <option name="titleSlug" value="sort-of-stacks-lcci" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/SortedMatrixSearchLcci.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/doc/content/SortedMatrixSearchLcci.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 10.09" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/main/java/com/qiuyu/leetcode/editor/cn/SortedMatrixSearchLcci.java" />
+              <option name="titleSlug" value="sorted-matrix-search-lcci" />
             </LeetcodeEditor>
           </value>
         </entry>
