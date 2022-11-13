@@ -20,20 +20,75 @@
 package com.qiuyu.leetcode.editor.cn;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
 public class LongestWordLcci {
     public static void main(String[] args) {
         Solution solution = new LongestWordLcci().new Solution();
-        String[] words = new String[] {"ttaaaa","pp","tpa","kpaqkt","tktpqq","aqppatp"};
+        String[] words = new String[] {"cat"};
         System.out.println(solution.longestWord(words));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        // 前提是，用例中无相同的单词
         public String longestWord(String[] words) {
+            Arrays.sort(words, (s1, s2) -> {
+                if (s1.length() != s2.length()) {
+                    return s2.length() - s1.length();
+                } else {
+                    return s1.compareTo(s2);
+                }
+            });
+            Set<String> wordSet = new HashSet<>(Arrays.asList(words));
+            for (String word : words) {
+                wordSet.remove(word);
+                if (dfs(word, wordSet)) {
+                    return word;
+                }
+            }
+            return "";
+
+
+
+
+        }
+
+        public boolean dfs(String curWord, Set<String> wordSet) {
+            if (wordSet.contains(curWord)) {
+                return true;
+            }
+            if (curWord.length() == 0) {
+                return true;
+            }
+            for (int j = 0; j < curWord.length(); ++j) {
+                if (wordSet.contains(curWord.substring(0, j + 1)) && dfs(curWord.substring(j + 1),wordSet)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // 前提是，用例中无相同的单词
+        public String longestWord20221010(String[] words) {
             Arrays.sort(words, (s1, s2) -> {
                 if (s1.length() != s2.length()) {
                     return s2.length() - s1.length();
@@ -44,9 +99,9 @@ public class LongestWordLcci {
             Set<String> wordSet = new HashSet<>(Arrays.asList(words));
 
             for (String word : words) {
+                // 排除自身
                 wordSet.remove(word);
                 if (find(word, wordSet)) {
-                    // 排除自身
                     return word;
                 }
             }

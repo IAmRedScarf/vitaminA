@@ -60,6 +60,48 @@ public class M1oyTv {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String minWindow(String s, String t) {
+            int resLen = Integer.MAX_VALUE;
+            String resStr = "";
+            int[] tCharNum = new int[128];
+            int[] needCharNum = new int[128];
+            for (Character c : t.toCharArray()) {
+                tCharNum[c]++;
+                needCharNum[c]++;
+            }
+            int needCnt = t.length();
+            int left = 0, right = 0;
+            while (right < s.length()) {
+                char cur = s.charAt(right);
+                if (tCharNum[cur] > 0) {
+                    if (needCharNum[cur] > 0) {
+                        needCnt--;
+                    }
+                    needCharNum[cur]--;
+                    while (needCnt == 0 && left <= right) {
+                        char leftC = s.charAt(left);
+                        if (tCharNum[leftC] > 0) {
+                            needCharNum[leftC]++;
+                            if (needCharNum[leftC] == 0) {
+                                if (right - left + 1 < resLen) {
+                                    resLen = right - left + 1;
+                                    resStr = s.substring(left, right + 1);
+                                }
+                                needCnt++;
+                            }
+
+                        }
+                        left++;
+                    }
+                }
+                right++;
+            }
+            return resStr;
+
+
+        }
+
+
+        public String minWindow20220909(String s, String t) {
             String res = "";
             int minLen = Integer.MAX_VALUE;
 

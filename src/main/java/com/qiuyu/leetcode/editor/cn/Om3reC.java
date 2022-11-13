@@ -63,9 +63,9 @@ public class Om3reC {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-            if (beginWord.equals(endWord)) {
-                return 2;
-            }
+//            if (beginWord.equals(endWord)) {
+//                return 2;
+//            }
             if (wordList == null || wordList.size() == 0) {
                 return 0;
             }
@@ -76,7 +76,7 @@ public class Om3reC {
             }
 
             Set<String> visited = new HashSet<>();
-            visited.add(beginWord);
+
 
             Set<String> reachSet1 = new HashSet<>();
             reachSet1.add(beginWord);

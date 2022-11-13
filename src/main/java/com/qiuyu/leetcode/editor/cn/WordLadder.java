@@ -57,7 +57,93 @@ public class WordLadder {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
         public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+            Set<String> wordSet = new HashSet<>(wordList);
+            if (!wordSet.contains(endWord)) {
+                return 0;
+            }
+
+            Set<String> reachedSet1 = new HashSet<>();
+            reachedSet1.add(beginWord);
+            Set<String> reachedSet2 = new HashSet<>();
+            reachedSet2.add(endWord);
+
+            Set<String> visited = new HashSet<>();
+
+            int step = 1;
+            while (!reachedSet1.isEmpty() && !reachedSet2.isEmpty()) {
+                if (reachedSet1.size() > reachedSet2.size()) {
+                    Set<String> tmp = reachedSet1;
+                    reachedSet1 = reachedSet2;
+                    reachedSet2 = tmp;
+                }
+                Set<String> tmpReached = new HashSet<>();
+                for (String curWord : reachedSet1) {
+                    if (judgeChangedWord(curWord, wordSet, reachedSet2, visited, tmpReached)) {
+                        return step + 1;
+                    }
+                }
+                step++;
+                reachedSet1 = tmpReached;
+            }
+            return 0;
+
+        }
+
+        private boolean judgeChangedWord(String curWord, Set<String> wordSet, Set<String> targetSet, Set<String> visited, Set<String> curRoundReached) {
+            visited.add(curWord);
+            for (int i = 0; i < curWord.length(); ++i) {
+                StringBuilder sb = new StringBuilder(curWord);
+                char c = curWord.charAt(i);
+                for (int j = 0; j < 26; ++j) {
+                    if (c - 'a' == j) {
+                        continue;
+                    }
+                    sb.setCharAt(i, (char) ('a' + j));
+                    String tmp = sb.toString();
+                    if (targetSet.contains(tmp)) {
+                        return true;
+                    }
+                    if (wordSet.contains(tmp) && !visited.contains(tmp)) {
+                        curRoundReached.add(tmp);
+                        visited.add(tmp);
+                    }
+                    sb.setCharAt(i, c);
+                }
+            }
+            return false;
+        }
+
+
+
+        public int ladderLength20221104(String beginWord, String endWord, List<String> wordList) {
+            Set<String> wordSet = new HashSet<>(wordList);
+            Set<String> visited = new HashSet<>();
+
+            Deque<String> q = new LinkedList<>();
+            q.addLast(beginWord);
+            int step = 1;
+            while (!q.isEmpty()) {
+                int size = q.size();
+                for (int i = 0; i < size; ++i) {
+                    String curWord = q.pollFirst();
+                    Set<String> canReachWords = getChangedWord(curWord, wordSet, visited);
+                    if (canReachWords.contains(endWord)) {
+                        return step + 1;
+                    } else {
+                        for (String word : canReachWords) {
+                            q.addLast(word);
+                        }
+                    }
+                }
+                step++;
+            }
+            return 0;
+        }
+
+
+        public int ladderLength20220809(String beginWord, String endWord, List<String> wordList) {
             if (wordList == null || wordList.size() == 0) {
                 return 0;
             }
@@ -127,6 +213,29 @@ public class WordLadder {
 
             }
             return 0;
+        }
+
+
+        private Set<String> getChangedWord(String curWord, Set<String> wordSet, Set<String> visited) {
+            visited.add(curWord);
+            Set<String> res = new HashSet<>();
+            for (int i = 0; i < curWord.length(); ++i) {
+                StringBuilder sb = new StringBuilder(curWord);
+                char c = curWord.charAt(i);
+                for (int j = 0; j < 26; ++j) {
+                    if (c - 'a' == j) {
+                        continue;
+                    }
+                    sb.setCharAt(i, (char) ('a' + j));
+                    String tmp = sb.toString();
+                    if (wordSet.contains(tmp) && !visited.contains(tmp)) {
+                        res.add(tmp);
+                        visited.add(tmp);
+                    }
+                    sb.setCharAt(i, c);
+                }
+            }
+            return res;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
