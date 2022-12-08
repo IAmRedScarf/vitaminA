@@ -51,7 +51,9 @@ public class PartitionListLcci {
         a3.next = a4;
         a4.next = a5;
         a5.next = a6;
-        solution.partition(a1, 2);
+        ListNode aa = solution.partition(a1, 2);
+        System.out.println("aaa");
+
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 
