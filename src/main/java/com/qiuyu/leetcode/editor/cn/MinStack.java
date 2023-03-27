@@ -53,6 +53,61 @@ import java.util.LinkedList;
 public class MinStack {
 
     //leetcode submit region begin(Prohibit modification and deletion)
+    class MinStack20230220 {
+        private Deque<Long> diffStack;
+        private int curMin;
+
+        public MinStack20230220() {
+            diffStack = new LinkedList<>();
+
+        }
+
+        public void push(int val) {
+            if (diffStack.isEmpty()) {
+                diffStack.add(0L);
+                curMin = val;
+            } else {
+                int preMin = curMin;
+                long diff = (long) val - preMin;
+                diffStack.addLast(diff);
+                if (val < curMin) {
+                    curMin = val;
+                }
+            }
+        }
+
+        public void pop() {
+            long diff = diffStack.pollLast();
+            if (diff >= 0) {
+                // diff大于0，说明该值的入栈，没有导致栈内最小值的更新，即 preMin = curMin
+                // 根据 diff = val - preMin 可以反算出 val
+            } else {
+                // diff小于0，即 val - preMin = diff < 0，说明该值的入栈，导致了栈内最小值的更新，也就是该值，为当前栈内最小值，即 val = curMin
+                // 反算出 preMin
+                int val = curMin;
+                curMin = (int) (val - diff);
+            }
+        }
+
+        public int top() {
+            long diff = diffStack.peekLast();
+            if (diff >= 0) {
+                // diff大于0，说明该值的入栈，没有导致栈内最小值的更新，即 preMin = curMin
+                // 根据 diff = val - preMin 可以反算出 val
+                // 即
+                return (int) (diff + curMin);
+            } else {
+                // diff小于0，即 val - preMin = diff < 0，说明该值的入栈，导致了栈内最小值的更新，也就是该值，为当前栈内最小值，即 val = curMin
+                return curMin;
+            }
+        }
+
+        public int getMin() {
+            return curMin;
+        }
+    }
+
+
     class MinStack_20220514 {
 
         private Deque<Long> data;

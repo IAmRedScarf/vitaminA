@@ -54,6 +54,38 @@ public class LowestCommonAncestorOfABinaryTree {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+
+        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+            return lowestCommonAncestor20230220(root, p, q);
+        }
+
+
+
+        public TreeNode lowestCommonAncestor20230220(TreeNode root, TreeNode p, TreeNode q) {
+            if (root == null) {
+                return null;
+            }
+            if (root == p || root == q) {
+                return root;
+            }
+            TreeNode left = lowestCommonAncestor20230220(root.left, p, q);
+            TreeNode right = lowestCommonAncestor20230220(root.right, p, q);
+            if (left == null) {
+                return right;
+            }
+            if (right == null) {
+                return left;
+            }
+            return root;
+
+        }
+
+
+
+
+
+
+
         // 需要确保p和q都在二叉树中
         public TreeNode lowestCommonAncestor_20220502(TreeNode root, TreeNode p, TreeNode q) {
             if (root == null) {
@@ -72,16 +104,6 @@ public class LowestCommonAncestorOfABinaryTree {
             }
             return root;
         }
-
-
-
-        public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-            return lowestCommonAncestor_20220502(root, p, q);
-        }
-
-
-
-
 
 
 

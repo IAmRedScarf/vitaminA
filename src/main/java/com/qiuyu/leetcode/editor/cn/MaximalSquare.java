@@ -62,6 +62,43 @@ public class MaximalSquare {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int maximalSquare(char[][] matrix) {
+            return maximalSquare20230220(matrix);
+        }
+
+        public int maximalSquare20230220(char[][] matrix) {
+            if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
+                return 0;
+            }
+            int m = matrix.length, n = matrix[0].length;
+            int[][] dp = new int[m][n];
+            int maxLen = 0;
+            for (int i = 0; i < m; ++i) {
+                dp[i][n - 1] = matrix[i][n - 1] == '1' ? 1 : 0;
+                maxLen = Math.max(maxLen, dp[i][n - 1]);
+            }
+            for (int j = 0; j < n; ++j) {
+                dp[0][j] = matrix[0][j] == '1' ? 1 : 0;
+                maxLen = Math.max(maxLen, dp[0][j]);
+            }
+
+            for (int i = 1; i < m; ++i) {
+                for (int j = n - 2; j >= 0; --j) {
+                    dp[i][j] = matrix[i][j] == '0' ? 0 : (Math.min(dp[i - 1][j], Math.min(dp[i][j + 1], dp[i - 1][j + 1]))) + 1;
+                    maxLen = Math.max(maxLen, dp[i][j]);
+                }
+            }
+            return maxLen * maxLen;
+        }
+
+
+
+
+
+
+
+
+
         public int maximalSquare_20220426(char[][] matrix) {
             if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
                 return 0;
@@ -155,7 +192,7 @@ public class MaximalSquare {
 
 
 
-        public int maximalSquare(char[][] matrix) {
+        public int maximalSquare22222222(char[][] matrix) {
             return maximalSquare_20220426(matrix);
 //            if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
 //                return 0;

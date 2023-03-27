@@ -67,6 +67,72 @@ public class ValidateBinarySearchTree {
      * }
      */
     class Solution {
+
+        public boolean isValidBST(TreeNode root) {
+            return isValidBST20230216(root);
+        }
+
+
+
+
+        public boolean isValidBST20230216(TreeNode root) {
+            Integer preVal = null;
+            Deque<TreeNode> stack = new LinkedList<>();
+            TreeNode p = root;
+            while (p != null || !stack.isEmpty()) {
+                while (p != null) {
+                    stack.addLast(p);
+                    p = p.left;
+                }
+                p = stack.pollLast();
+                if (preVal != null) {
+                    if (p.val <= preVal) {
+                        return false;
+                    }
+                }
+                preVal = p.val;
+                p = p.right;
+            }
+            return true;
+        }
+
+
+
+
+
+        long preNodeVal20230217 = Long.MIN_VALUE;
+        public boolean isValidBST20230217(TreeNode root) {
+            if (root == null) {
+                return true;
+            }
+            if (!isValidBST20230217(root.left)) {
+                return false;
+            }
+            if (root.val <= preNodeVal20230217) {
+                return false;
+            }
+            preNodeVal20230217 = root.val;
+            return isValidBST20230217(root.right);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         Integer preNodeVal = null;
         public boolean isValidBST_20220503(TreeNode root) {
             if (root == null) {
@@ -111,10 +177,7 @@ public class ValidateBinarySearchTree {
 
 
 
-        public boolean isValidBST(TreeNode root) {
-//            return isValidBST_20220503(root);
-            return isValidBST_20220503_a(root);
-        }
+
 
 
 

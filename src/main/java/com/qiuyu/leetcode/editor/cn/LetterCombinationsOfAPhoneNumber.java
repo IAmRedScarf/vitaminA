@@ -52,6 +52,45 @@ public class LetterCombinationsOfAPhoneNumber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public List<String> letterCombinations(String digits) {
+            return letterCombinations20230214(digits);
+        }
+
+
+        public List<String> letterCombinations20230214(String digits) {
+            if (digits == null || digits.length() == 0) {
+                return new ArrayList<>();
+            }
+            Map<Character, String> numLettersMap = new HashMap<Character, String>() {{
+                put('2', "abc");
+                put('3', "def");
+                put('4', "ghi");
+                put('5', "jkl");
+                put('6', "mno");
+                put('7', "pqrs");
+                put('8', "tuv");
+                put('9', "wxyz");
+            }};
+            List<String> res = new ArrayList<>();
+            dfs20230214(digits, 0, numLettersMap, new StringBuilder(), res);
+            return res;
+        }
+
+        private void dfs20230214(String digits, int start, Map<Character, String> numLettersMap, StringBuilder sb, List<String> res) {
+            if (sb.length() == digits.length()) {
+                res.add(sb.toString());
+                return;
+            }
+            String available = numLettersMap.get(digits.charAt(start));
+            for (int i = 0; i < available.length(); ++i) {
+                sb.append(available.charAt(i));
+                dfs20230214(digits, 1 + start, numLettersMap, sb, res);
+                sb.deleteCharAt(sb.length() - 1);
+            }
+
+        }
+
+
         private void dfs_20220426(Map<Character, String> numLettersMap, String digits, int start, StringBuilder sb, List<String> res) {
             if (start == digits.length()) {
                 res.add(sb.toString());
@@ -86,19 +125,7 @@ public class LetterCombinationsOfAPhoneNumber {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-        public List<String> letterCombinations(String digits) {
+        public List<String> letterCombinations202222222(String digits) {
             return letterCombinations_20220426(digits);
 //            Map<Character, String> numLettersMap = new HashMap<Character, String>() {{
 //                put('2', "abc");
@@ -132,32 +159,6 @@ public class LetterCombinationsOfAPhoneNumber {
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //        private void backtrack(Map<Character, String> numLetters, List<String> res, String digits, int index, StringBuilder cur) {

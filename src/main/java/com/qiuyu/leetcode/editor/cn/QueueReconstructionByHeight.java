@@ -62,6 +62,19 @@ public class QueueReconstructionByHeight {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public int[][] reconstructQueue(int[][] people) {
+            return reconstructQueue20230322(people);
+        }
+
+
+        public int[][] reconstructQueue20230322(int[][] people) {
+            return null;
+        }
+
+
+
+
+
         public int[][] reconstructQueue_20220508(int[][] people) {
             Arrays.sort(people, (o1, o2) -> {
                 if (o1[0] != o2[0]) {
@@ -85,16 +98,6 @@ public class QueueReconstructionByHeight {
             return res;
 
         }
-
-
-        public int[][] reconstructQueue(int[][] people) {
-            return reconstructQueue_20220508(people);
-        }
-
-
-
-
-
 
 
         public int[][] reconstructQueue_old(int[][] people) {

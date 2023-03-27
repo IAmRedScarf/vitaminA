@@ -37,6 +37,32 @@ public class UniqueBinarySearchTrees {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public int numTrees(int n) {
+            return numTrees20230216(n);
+        }
+
+        // f(i) = f(k - 1) * f(i - k) 求和，其中i为根节点的值
+        public int numTrees20230216(int n) {
+            int[] dp = new int[n + 1];
+            dp[0] = 1;
+            for (int i = 1; i <= n; ++i) {
+                for (int k = 1; k <= i; ++k) {
+                    dp[i] += dp[k - 1] * dp[i - k];
+                }
+            }
+            return dp[n];
+        }
+
+
+
+
+
+
+
+
+
+
+
         public int numTrees_20220503(int n) {
             if (n < 0) {
                 return 0;
@@ -56,17 +82,6 @@ public class UniqueBinarySearchTrees {
 
 
 
-        }
-
-
-
-
-
-
-
-
-        public int numTrees(int n) {
-            return numTrees_20220503(n);
         }
 
 

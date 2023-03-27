@@ -20,18 +20,36 @@
 // 
 // Related Topics 数组 双指针 二分查找 排序 👍 63 👎 0
 
-  
+
 package com.qiuyu.leetcode.editor.cn;
+
+import java.util.Arrays;
+
 public class SmallestDifferenceLcci {
     public static void main(String[] args) {
         Solution solution = new SmallestDifferenceLcci().new Solution();
     }
+
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int smallestDifference(int[] a, int[] b) {
-        return 0;
+    class Solution {
+        public int smallestDifference(int[] a, int[] b) {
+            Arrays.sort(a);
+            Arrays.sort(b);
+            int i = 0, j = 0;
+            long res = Long.MAX_VALUE;
+            while (i < a.length && j < b.length) {
+                res = Math.min(res, Math.abs((long) a[i] - (long) b[j]));
+                if (a[i] < b[j]) {
+                    i++;
+                } else if (a[i] > b[j]) {
+                    j++;
+                } else {
+                    break;
+                }
+            }
+            return (int) res;
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

@@ -55,21 +55,68 @@ public class ImplementTriePrefixTree {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Trie {
-
-        private boolean isEnd;
-        private Trie[] next;
+        public boolean endFlag;
+        public Trie[] next;
 
         public Trie() {
-            isEnd = false;
             next = new Trie[26];
+            endFlag = false;
         }
 
         public void insert(String word) {
-            Trie cur = this;
+            Trie p = this;
+            for (char c : word.toCharArray()) {
+                if (p.next[c - 'a'] == null) {
+                    p.next[c - 'a'] = new Trie();
+                }
+                p = p.next[c - 'a'];
+            }
+            p.endFlag = true;
+
+        }
+
+        public boolean search(String word) {
+            Trie p = this;
+            for (char c : word.toCharArray()) {
+                if (p.next[c - 'a'] == null) {
+                    return false;
+                }
+                p = p.next[c - 'a'];
+            }
+            return p.endFlag;
+        }
+
+        public boolean startsWith(String prefix) {
+            Trie p = this;
+            for (char c : prefix.toCharArray()) {
+                if (p.next[c - 'a'] == null) {
+                    return false;
+                }
+                p = p.next[c - 'a'];
+            }
+            return true;
+        }
+
+
+    }
+
+
+    class Trie2022222 {
+
+        private boolean isEnd;
+        private Trie2022222[] next;
+
+        public Trie2022222() {
+            isEnd = false;
+            next = new Trie2022222[26];
+        }
+
+        public void insert(String word) {
+            Trie2022222 cur = this;
             for (int i = 0; i < word.length(); ++i) {
                 char c = word.charAt(i);
                 if (cur.next[c - 'a'] == null) {
-                    cur.next[c - 'a'] = new Trie();
+                    cur.next[c - 'a'] = new Trie2022222();
                 }
                 cur = cur.next[c - 'a'];
             }
@@ -78,7 +125,7 @@ public class ImplementTriePrefixTree {
         }
 
         public boolean search(String word) {
-            Trie cur = this;
+            Trie2022222 cur = this;
             for (int i = 0; i < word.length(); ++i) {
                 char c = word.charAt(i);
                 if (cur.next[c - 'a'] == null) {
@@ -90,7 +137,7 @@ public class ImplementTriePrefixTree {
         }
 
         public boolean startsWith(String prefix) {
-            Trie cur = this;
+            Trie2022222 cur = this;
             for (int i = 0; i < prefix.length(); ++i) {
                 char c = prefix.charAt(i);
                 if (cur.next[c - 'a'] == null) {
@@ -102,14 +149,6 @@ public class ImplementTriePrefixTree {
         }
     }
     //leetcode submit region end(Prohibit modification and deletion)
-
-
-
-
-
-
-
-
 
 
     class Trie_20220429 {

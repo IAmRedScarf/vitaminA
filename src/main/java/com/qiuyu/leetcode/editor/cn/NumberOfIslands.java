@@ -52,6 +52,56 @@ public class NumberOfIslands {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int numIslands(char[][] grid) {
+            return numIslands20230220(grid);
+        }
+
+        public int numIslands20230220(char[][] grid) {
+            if (grid == null || grid.length == 0 || grid[0] == null || grid[0].length == 0) {
+                return 0;
+            }
+            int m = grid.length, n = grid[0].length;
+            int cnt = 0;
+            boolean[][] visited = new boolean[m][n];
+            for (int i = 0; i < m; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    if (grid[i][j] == '1') {
+                        if (!visited[i][j]) {
+                            cnt++;
+                            spread(grid, visited, i, j);
+                        }
+                    }
+                }
+            }
+            return cnt;
+        }
+
+        private void spread(char[][] grid, boolean[][] visited, int i, int j) {
+            if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length) {
+                return;
+            }
+            if (visited[i][j]) {
+                return;
+            }
+            if (grid[i][j] == '0') {
+                return;
+            }
+            visited[i][j] = true;
+            spread(grid, visited, i + 1, j);
+            spread(grid, visited, i - 1, j);
+            spread(grid, visited, i,j + 1);
+            spread(grid, visited, i, j - 1);
+
+        }
+
+
+
+
+
+
+
+
+
         public int numIslands_20220429(char[][] grid) {
             if (grid == null || grid.length == 0 || grid[0] == null || grid[0].length == 0) {
                 return 0;
@@ -85,31 +135,9 @@ public class NumberOfIslands {
             dfs(grid, i - 1, j, visited);
             dfs(grid, i, j + 1, visited);
             dfs(grid, i, j - 1, visited);
-            visited[i][j] = false;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public int numIslands(char[][] grid) {
+        public int numIslands2022222222222(char[][] grid) {
             return numIslands_20220429(grid);
 //            if (grid == null || grid.length == 0) {
 //                return 0;

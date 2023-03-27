@@ -42,6 +42,32 @@ public class HouseRobber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        public int rob(int[] nums) {
+            return rob20230220(nums);
+        }
+
+        public int rob20230220(int[] nums) {
+            int[] dpRob = new int[nums.length];
+            int[] dpNotRob = new int[nums.length];
+            dpRob[0] = nums[0];
+            for (int i = 1; i < nums.length; ++i) {
+                dpRob[i] = nums[i] + dpNotRob[i - 1];
+                dpNotRob[i] = Math.max(dpRob[i - 1], dpNotRob[i - 1]);
+            }
+            return Math.max(dpRob[nums.length - 1], dpNotRob[nums.length - 1]);
+        }
+
+
+
+
+
+
+
+
+
+
         public int rob_20220429(int[] nums) {
             if (nums == null || nums.length == 0) {
                 return 0;
@@ -65,67 +91,22 @@ public class HouseRobber {
 
 
 
+        public int rob2222222222222(int[] nums) {
 
 
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            int[] dp0 = new int[nums.length];
+            int[] dp1 = new int[nums.length];
+            dp0[0] = 0;
+            dp1[0] = nums[0];
+            for (int i = 1; i < nums.length; ++i) {
+                dp0[i] = Math.max(dp0[i - 1], dp1[i - 1]);
+                dp1[i] = nums[i] + dp0[i - 1];
+            }
+            return Math.max(dp0[nums.length - 1], dp1[nums.length - 1]);
 
-
-
-
-
-
-
-
-        public int rob(int[] nums) {
-            return rob_20220429(nums);
-
-
-//            if (nums == null || nums.length == 0) {
-//                return 0;
-//            }
-//            int[] dp0 = new int[nums.length];
-//            int[] dp1 = new int[nums.length];
-//            dp0[0] = 0;
-//            dp1[0] = nums[0];
-//            for (int i = 1; i < nums.length; ++i) {
-//                dp0[i] = Math.max(dp0[i - 1], dp1[i - 1]);
-//                dp1[i] = nums[i] + dp0[i - 1];
-//            }
-//            return Math.max(dp0[nums.length - 1], dp1[nums.length - 1]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//            int[][] dp = new int[2][nums.length];
-//            dp[0][0] = 0;
-//            dp[1][0] = nums[0];
-//            for (int i = 1; i < nums.length; ++i) {
-//                // 不偷这一家
-//                dp[0][i] = Math.max(dp[0][i - 1], dp[1][i - 1]);
-//                // 偷这一家
-//                dp[1][i] = nums[i] + dp[0][i - 1];
-//            }
-//            return Math.max(dp[0][nums.length - 1], dp[1][nums.length - 1]);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

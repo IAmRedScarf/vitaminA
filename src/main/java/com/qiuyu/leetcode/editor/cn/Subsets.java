@@ -43,6 +43,47 @@ public class Subsets {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public List<List<Integer>> subsets(int[] nums) {
+            return subsets20230217(nums);
+        }
+
+
+
+        public List<List<Integer>> subsets20230217(int[] nums) {
+            List<List<Integer>> res = new ArrayList<>();
+            if (nums == null) {
+                return res;
+            }
+            backtrack20230217(nums, 0, new ArrayList<>(), res);
+            return res;
+        }
+
+        private void backtrack20230217(int[] nums, int start, List<Integer> tmp, List<List<Integer>> res) {
+            res.add(new ArrayList<>(tmp));
+            for (int i = start; i < nums.length; ++i) {
+                tmp.add(nums[i]);
+                backtrack20230217(nums, i + 1, tmp, res);
+                tmp.remove(tmp.size() - 1);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private void dfs(int[] nums, int start, List<Integer> tmp, List<List<Integer>> res) {
 
             res.add(new ArrayList<>(tmp));
@@ -64,11 +105,6 @@ public class Subsets {
             return res;
 
 
-        }
-
-
-        public List<List<Integer>> subsets(int[] nums) {
-            return subsets_20220502(nums);
         }
 
 

@@ -38,11 +38,34 @@ package com.qiuyu.leetcode.editor.cn;
 public class JumpGame {
     public static void main(String[] args) {
         Solution solution = new JumpGame().new Solution();
-        solution.canJump_20220502(new int[] {2,3,1,1,4});
+        System.out.println(solution.canJump_20220502(new int[]{3, 2, 1, 0, 4}));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public boolean canJump(int[] nums) {
+            return canJump20230216(nums);
+        }
+
+
+        public boolean canJump20230216(int[] nums) {
+            // 当前可以到达的最远下标
+            int farthest = 0;
+            int i = 0;
+            while (i < nums.length) {
+                if (farthest >= nums.length - 1) {
+                    return true;
+                }
+                if (i > farthest) {
+                    return false;
+                }
+                farthest = Math.max(i + nums[i], farthest);
+                ++i;
+            }
+            return false;
+
+        }
+
 
         public boolean canJump_20220502(int[] nums) {
             if (nums == null) {
@@ -63,25 +86,6 @@ public class JumpGame {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public boolean canJump(int[] nums) {
-            return canJump_20220502(nums);
-        }
-
         public boolean canJump_old(int[] nums) {
             if (nums == null || nums.length == 0) {
                 throw new IllegalArgumentException("数组非法");
@@ -100,30 +104,6 @@ public class JumpGame {
 
             }
             return false;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //            int maxJumpDistance = nums[0];

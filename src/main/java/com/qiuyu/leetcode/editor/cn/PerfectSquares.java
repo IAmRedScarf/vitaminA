@@ -41,11 +41,31 @@ import java.util.Set;
 public class PerfectSquares {
     public static void main(String[] args) {
         Solution solution = new PerfectSquares().new Solution();
-        solution.numSquares_20220503(12);
+        System.out.println(solution.numSquares_20220503(13));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int numSquares(int n) {
+            return numSquares20230223(n);
+        }
+
+
+        public int numSquares20230223(int n) {
+            int[] dp = new int[n + 1];
+            dp[1] = 1;
+            for (int i = 2; i <= n; ++i) {
+                dp[i] = Integer.MAX_VALUE;
+                for (int j = 1; j * j <= i; ++j) {
+                    dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
+                }
+            }
+            return dp[n];
+        }
+
+
+
+
 
         public int numSquares_20220503(int n) {
             if (n <= 0) {
@@ -61,21 +81,6 @@ public class PerfectSquares {
             return dp[n];
 
         }
-
-
-
-
-
-
-
-
-        public int numSquares(int n) {
-            return numSquares_20220503(n);
-        }
-
-
-
-
 
 
 

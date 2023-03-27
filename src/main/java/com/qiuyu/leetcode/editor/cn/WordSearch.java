@@ -55,6 +55,48 @@ public class WordSearch {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public boolean exist(char[][] board, String word) {
+            return exist20230217(board, word);
+        }
+
+
+        public boolean exist20230217(char[][] board, String word) {
+            if (board == null || board.length == 0 || board[0] == null || board[0].length == 0) {
+                return false;
+            }
+            int m = board.length, n = board[0].length;
+            boolean[][] visited = new boolean[m][n];
+            for (int i = 0; i < m; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    if (dfs20230217(word, 0, board, i, j, visited)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public boolean dfs20230217(String word, int start, char[][] board, int i, int j, boolean[][] visited) {
+            if (start == word.length()) {
+                return true;
+            }
+            if (i < 0 || i >= board.length || j < 0 || j >= board[0].length) {
+                return false;
+            }
+            if (visited[i][j]) {
+                return false;
+            }
+            char cur = board[i][j];
+            visited[i][j] = true;
+            boolean res = cur == word.charAt(start)
+                    && (dfs20230217(word, start + 1, board, i + 1, j, visited)
+                    || dfs20230217(word, start + 1, board, i - 1, j, visited)
+                    || dfs20230217(word, start + 1, board, i, j + 1, visited)
+                    || dfs20230217(word, start + 1, board, i, j - 1, visited));
+            visited[i][j] = false;
+            return res;
+        }
+
 
         public boolean exist_20220503(char[][] board, String word) {
             if (board == null || board.length == 0 || board[0].length == 0) {
@@ -94,21 +136,6 @@ public class WordSearch {
             return res;
 
         }
-
-
-
-
-
-
-
-
-
-
-        public boolean exist(char[][] board, String word) {
-            return exist_20220503(board, word);
-        }
-
-
 
 
         public boolean exist_old(char[][] board, String word) {

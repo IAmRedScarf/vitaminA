@@ -41,6 +41,44 @@ public class GenerateParentheses {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public List<String> generateParenthesis(int n) {
+            return generateParenthesis20230214(n);
+        }
+
+
+        public List<String> generateParenthesis20230214(int n) {
+            List<String> res = new ArrayList<>();
+            if (n < 1) {
+                return res;
+            }
+            backtrack(n, n , n, new StringBuilder(), res);
+            return res;
+        }
+
+
+        private void backtrack(int leftAvailable, int rightAvailable, int n, StringBuilder sb, List<String> res) {
+            if (sb.length() == n * 2) {
+                res.add(sb.toString());
+                return;
+            }
+            if (leftAvailable > rightAvailable) {
+                return;
+            }
+            if (leftAvailable > 0) {
+                sb.append('(');
+                backtrack(leftAvailable - 1, rightAvailable, n, sb, res);
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            sb.append(')');
+            backtrack(leftAvailable, rightAvailable - 1, n, sb, res);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+
+
+
+
+
+
         private void dfs_20220427(int n, StringBuilder sb, int leftAvailable, int rightAvailable, List<String> res) {
             if (sb.length() == n * 2) {
                 res.add(sb.toString());
@@ -63,13 +101,6 @@ public class GenerateParentheses {
         }
 
 
-
-
-
-
-
-
-
         public List<String> generateParenthesis_20220426(int n) {
             List<String> res = new ArrayList<>();
             if (n <= 0 || (n & 1) == 1) {
@@ -83,21 +114,7 @@ public class GenerateParentheses {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public List<String> generateParenthesis(int n) {
+        public List<String> generateParenthesis22222222222(int n) {
             List<String> res = new ArrayList<>();
             if (n == 0) {
                 return res;
@@ -122,12 +139,6 @@ public class GenerateParentheses {
                 dfs001(res, cur + ")", leftRemain, rightRemain - 1);
             }
         }
-
-
-
-
-
-
 
 
 //        private void dfs1(List<String> res, int leftAvailable, int rightAvailable, StringBuilder cur, int n) {

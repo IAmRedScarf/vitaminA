@@ -1,0 +1,49 @@
+    class Solution {
+        Set<String> wordSet;
+        Map<Character, String> numStringMap;
+        public List<String> getValidT9Words(String num, String[] words) {
+            wordSet = new HashSet<>(Arrays.asList(words));
+            numStringMap  = new HashMap<>();
+            numStringMap.put('2', "abc");
+            numStringMap.put('3', "def");
+            numStringMap.put('4', "ghi");
+            numStringMap.put('5', "jkl");
+            numStringMap.put('6', "mno");
+            numStringMap.put('7', "pqrs");
+            numStringMap.put('8', "tuv");
+            numStringMap.put('9', "wxyz");
+            List<String> res = new ArrayList<>();
+            backtrack(num, 0, new StringBuilder(), res);
+            return res;
+
+        }
+
+
+        private void backtrack(String s, int start, StringBuilder sb, List<String> res) {
+            if (sb.length() == s.length()) {
+                if (wordSet.contains(sb.toString())) {
+                    res.add(sb.toString());
+                }
+            } else {
+                for (int i = start; i < s.length(); ++i) {
+                    String available = numStringMap.get(s.charAt(start));
+                    for (char c : available.toCharArray()) {
+                        sb.append(c);
+                        backtrack(s, i + 1, sb, res);
+                        sb.deleteCharAt(sb.length() - 1);
+                    }
+                }
+            }
+        }
+    }
+
+//runtime:N/A
+//memory:N/A
+//total_testcases:33
+//total_correct:12
+//input_formatted:"73328962353432379245754568346322723396359744563667"
+["iujxuizfnulgrdnowzxndjakvhsqguxvnytgjujnnktmokawdp", "rfebuxncdleidbepwaijskgjotdinebaqceezoejyrhgjofnmr", "qddatwmceldhfafqxcikpkijovfgofabradfznejxshikneonp", "rysuauovdqmwdyorrlpjzuechbjknndfpfcwgjnptmxnixtuqm", "qeeauwnbdkeiecdpzbijslhjmudgmeacqcddzmdkyshikmdmns", "vqqcntpgqgxyqshdtnyyxbytzwllhxrnaqwzfsswgqnabdxawf"]
+//expected_output:["rfebuxncdleidbepwaijskgjotdinebaqceezoejyrhgjofnmr","qddatwmceldhfafqxcikpkijovfgofabradfznejxshikneonp","qeeauwnbdkeiecdpzbijslhjmudgmeacqcddzmdkyshikmdmns"]
+//code_output:
+//runtime_error:
+//last_testcase:"73328962353432379245754568346322723396359744563667" ["iujxuizfnulgrdnowzxndjakvhsqguxvnytgjujnnktmokawdp", "rfebuxncdleidbepwaijskgjotdinebaqceezoejyrhgjofnmr", "qddatwmceldhfafqxcikpkijovfgofabradfznejxshikneonp", "rysuauovdqmwdyorrlpjzuechbjknndfpfcwgjnptmxnixtuqm", "qeeauwnbdkeiecdpzbijslhjmudgmeacqcddzmdkyshikmdmns", "vqqcntpgqgxyqshdtnyyxbytzwllhxrnaqwzfsswgqnabdxawf"]

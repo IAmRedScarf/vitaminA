@@ -66,13 +66,100 @@ public class LruCache {
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
-    class LRUCache{
+    class LRUCache {
+        private int capacity;
+        private Map<Integer, DoubleLinkedListNode> keyValueMap;
+        private DoubleLinkedListNode dummyHead;
+        private DoubleLinkedListNode dummyTail;
+        private int size;
+
+
+        public LRUCache(int capacity) {
+            if (capacity < 1) {
+                throw new IllegalArgumentException();
+            }
+            this.capacity = capacity;
+            keyValueMap = new HashMap<>();
+            dummyHead = new DoubleLinkedListNode();
+            dummyTail = new DoubleLinkedListNode();
+            dummyHead.next = dummyTail;
+            dummyTail.pre = dummyHead;
+            this.size = 0;
+        }
+
+        public int get(int key) {
+            if (!keyValueMap.containsKey(key)) {
+                return -1;
+            }
+            DoubleLinkedListNode node = keyValueMap.get(key);
+            moveToHead(node);
+            return node.value;
+        }
+
+        public void put(int key, int value) {
+            if (keyValueMap.containsKey(key)) {
+                DoubleLinkedListNode toBeUpdated = keyValueMap.get(key);
+                toBeUpdated.value = value;
+                moveToHead(toBeUpdated);
+                return;
+            }
+            if (size == capacity) {
+                DoubleLinkedListNode toBeDeleted = dummyTail.pre;
+                removeNode(toBeDeleted);
+                keyValueMap.remove(toBeDeleted.key);
+                size--;
+            }
+            DoubleLinkedListNode toBeInserted = new DoubleLinkedListNode(key, value);
+            insertAfter(toBeInserted, dummyHead);
+            keyValueMap.put(key, toBeInserted);
+            size++;
+        }
+
+        private void moveToHead(DoubleLinkedListNode node) {
+            removeNode(node);
+            insertAfter(node, dummyHead);
+        }
+
+        private void removeNode(DoubleLinkedListNode node) {
+            node.pre.next = node.next;
+            node.next.pre = node.pre;
+            node.next = null;
+            node.pre = null;
+        }
+
+        private void insertAfter(DoubleLinkedListNode node, DoubleLinkedListNode target) {
+            node.next = target.next;
+            node.pre = target;
+
+            target.next = node;
+            node.next.pre = node;
+
+        }
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+    class LRUCache20222222222 {
         private int capacity;
         private Map<Integer, DoubleLinkedListNode> cacheMap;
         private DoubleLinkedListNode dummyHead = new DoubleLinkedListNode(0, 0);
         private DoubleLinkedListNode dummyTail = new DoubleLinkedListNode(0, 0);
 
-        public LRUCache(int capacity) {
+        public LRUCache20222222222(int capacity) {
             this.capacity = capacity;
             cacheMap = new HashMap<>();
             dummyHead.next = dummyTail;
@@ -133,6 +220,10 @@ public class LruCache {
         public int value;
         public DoubleLinkedListNode pre;
         public DoubleLinkedListNode next;
+
+        public DoubleLinkedListNode() {
+
+        }
 
         public DoubleLinkedListNode(int key, int value) {
             this.key = key;
@@ -253,7 +344,7 @@ public class LruCache {
     }
 
 
-//    class LRUCache {
+//    class LRUCache20222222222 {
 //        private int capacity;
 //
 //        private int curSize;
@@ -263,7 +354,7 @@ public class LruCache {
 //        private DoubleLinkedListNode nextTail;
 //
 //
-//        public LRUCache(int capacity) {
+//        public LRUCache20222222222(int capacity) {
 //            this.capacity = capacity;
 //            this.curSize = 0;
 //
@@ -354,8 +445,8 @@ public class LruCache {
 
 
 /**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
+ * Your LRUCache20222222222 object will be instantiated and called as such:
+ * LRUCache20222222222 obj = new LRUCache20222222222(capacity);
  * int param_1 = obj.get(key);
  * obj.put(key,value);
  */

@@ -28,6 +28,37 @@ public class ProductOfArrayExceptSelf {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int[] productExceptSelf(int[] nums) {
+            return productExceptSelf20230223(nums);
+        }
+
+
+        public int[] productExceptSelf20230223(int[] nums) {
+            int len = nums.length;
+            int[] left = new int[len];
+            int[] right = new int[len];
+            left[0] = 1;
+            right[len - 1] = 1;
+            for (int i = 0; i < len - 1; ++i) {
+                left[i + 1] = nums[i] * left[i];
+            }
+            for (int i = len - 1; i > 0; --i) {
+                right[i - 1] = nums[i] * right[i];
+            }
+            int[] res = new int[len];
+            for (int i = 0; i < len; ++i) {
+                res[i] = left[i] * right[i];
+            }
+            return res;
+
+        }
+
+
+
+
+
+
+
 
         public int[] productExceptSelf_20220502(int[] nums) {
             int[] tmpProduct = new int[nums.length];
@@ -43,16 +74,6 @@ public class ProductOfArrayExceptSelf {
             }
             return tmpProduct;
         }
-
-
-        public int[] productExceptSelf(int[] nums) {
-            return productExceptSelf_20220502(nums);
-        }
-
-
-
-
-
 
 
 

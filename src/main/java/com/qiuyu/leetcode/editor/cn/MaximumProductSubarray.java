@@ -26,6 +26,35 @@ public class MaximumProductSubarray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int maxProduct(int[] nums) {
+            return maxProduct20230220(nums);
+        }
+
+        public int maxProduct20230220(int[] nums) {
+            int[] dpMax = new int[nums.length];
+            int[] dpMin = new int[nums.length];
+            dpMax[0] = nums[0];
+            dpMin[0] = nums[0];
+            int res = nums[0];
+            for (int i = 1; i < nums.length; ++i) {
+                dpMax[i] = Math.max(nums[i], Math.max(nums[i] * dpMax[i - 1], nums[i] * dpMin[i - 1]));
+                dpMin[i] = Math.min(nums[i], Math.min(nums[i] * dpMax[i - 1], nums[i] * dpMin[i - 1]));
+                res = Math.max(res, dpMax[i]);
+            }
+            return res;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         public int maxProduct_20220502(int[] nums) {
             if (nums.length == 1) {
@@ -47,16 +76,6 @@ public class MaximumProductSubarray {
 
 
         }
-
-
-
-
-        public int maxProduct(int[] nums) {
-            return maxProduct_20220502(nums);
-        }
-
-
-
 
 
         public int maxProduct_old(int[] nums) {

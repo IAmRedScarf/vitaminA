@@ -44,11 +44,65 @@ import java.util.List;
 public class DecodeString {
     public static void main(String[] args) {
         Solution solution = new DecodeString().new Solution();
-        System.out.println(solution.decodeString("3[a]2[bc]"));
+        System.out.println(solution.decodeString("3[z]2[2[y]pq4[2[jk]e1[f]]]ef"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public String decodeString(String s) {
+            return decodeString20230320(s);
+        }
+
+        public String decodeString20230320(String s) {
+            Deque<Character> stack = new LinkedList<>();
+            for (char c : s.toCharArray()) {
+                if (c != ']') {
+                    stack.addLast(c);
+                } else {
+                    List<Character> repeatList = new ArrayList<>();
+                    while (!stack.isEmpty() && stack.peekLast() != '[') {
+                        repeatList.add(0, stack.pollLast());
+                    }
+                    stack.pollLast();
+                    int repeatNum = 0;
+                    int multiply = 1;
+                    while (!stack.isEmpty()) {
+                        char curC = stack.peekLast();
+                        if (judgeNum(curC)) {
+                            stack.pollLast();
+                            repeatNum += (curC - '0') * multiply;
+                            multiply *= 10;
+                        } else {
+                            break;
+                        }
+                    }
+                    while (repeatNum > 0) {
+                        repeatList.forEach(stack::addLast);
+                        repeatNum--;
+                    }
+
+                }
+            }
+            StringBuilder resSb = new StringBuilder();
+            while (!stack.isEmpty()) {
+                resSb.append(stack.pollFirst());
+            }
+            return resSb.toString();
+        }
+
+
+        private boolean judgeNum(char c) {
+            return c >= '0' && c <= '9';
+        }
+
+
+
+
+
+
+
+
 
         public String decodeString_20220506(String s) {
             Deque<Character> tmpStack = new LinkedList<>();
@@ -92,18 +146,6 @@ public class DecodeString {
             return sb.toString();
         }
 
-
-
-
-
-
-
-
-
-
-        public String decodeString(String s) {
-            return decodeString_20220506(s);
-        }
 
 
 

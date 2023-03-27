@@ -54,6 +54,43 @@ public class RotateImage {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public void rotate(int[][] matrix) {
+            rotate20230215(matrix);
+        }
+
+
+        public void rotate20230215(int[][] matrix) {
+            int n = matrix.length;
+            // 1. 按主对角线翻转
+            for (int i = 0; i < n - 1; ++i) {
+                for (int j = i + 1; j < n; ++j) {
+                    int tmp = matrix[i][j];
+                    matrix[i][j] = matrix[j][i];
+                    matrix[j][i] = tmp;
+                }
+            }
+
+            // 2. x轴方向翻转
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < n / 2; ++j) {
+                    int tmp = matrix[i][j];
+                    matrix[i][j] = matrix[i][n - 1 - j];
+                    matrix[i][n - 1 - j] = tmp;
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
         public void rotate_20220430(int[][] matrix) {
             if (matrix == null) {
                 return;
@@ -88,7 +125,7 @@ public class RotateImage {
 
 
 
-        public void rotate(int[][] matrix) {
+        public void rotate22222222(int[][] matrix) {
             rotate_20220430(matrix);
 //            int n = matrix.length;
 //            for (int i = 0; i < n / 2; ++i) {

@@ -47,6 +47,52 @@ public class GroupAnagrams {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public List<List<String>> groupAnagrams(String[] strs) {
+            return groupAnagrams20230216(strs);
+        }
+
+
+
+        public List<List<String>> groupAnagrams20230216(String[] strs) {
+            Map<String, List<String>> hashStringsMap = new HashMap<>();
+            for (String str : strs) {
+                String hash = strHash(str);
+                if (hashStringsMap.containsKey(hash)) {
+                    hashStringsMap.get(hash).add(str);
+                } else {
+                    List<String> curList = new ArrayList<>();
+                    curList.add(str);
+                    hashStringsMap.put(hash, curList);
+                }
+            }
+            return new ArrayList<>(hashStringsMap.values());
+        }
+
+        private String strHash(String str) {
+            int[] cnt = new int[26];
+            for (char c : str.toCharArray()) {
+                cnt[c - 'a']++;
+            }
+            return Arrays.toString(cnt);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public List<List<String>> groupAnagrams_20220501(String[] strs) {
             Map<String, List<String>> tmpMap = new HashMap<>();
@@ -61,12 +107,6 @@ public class GroupAnagrams {
                 }
             }
             return new ArrayList<>(tmpMap.values());
-        }
-
-
-
-        public List<List<String>> groupAnagrams(String[] strs) {
-            return groupAnagrams_20220501(strs);
         }
 
 

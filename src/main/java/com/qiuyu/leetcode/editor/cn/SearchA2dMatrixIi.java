@@ -50,6 +50,33 @@ public class SearchA2dMatrixIi {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public boolean searchMatrix(int[][] matrix, int target) {
+            return searchMatrix20230223(matrix, target);
+        }
+
+        public boolean searchMatrix20230223(int[][] matrix, int target) {
+            if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
+                return false;
+            }
+            int m = matrix.length, n = matrix[0].length;
+            int i = m - 1, j = 0;
+            while (i >= 0 && j < n) {
+                int bottomLeftValue = matrix[i][j];
+                if (target == bottomLeftValue) {
+                    return true;
+                } else if (target > bottomLeftValue) {
+                    j++;
+                } else {
+                    i--;
+                }
+            }
+            return false;
+        }
+
+
+
+
+
         public boolean searchMatrix_20220502(int[][] matrix, int target) {
             if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
                 return false;
@@ -68,21 +95,6 @@ public class SearchA2dMatrixIi {
             return false;
 
         }
-
-
-
-
-
-
-
-
-        public boolean searchMatrix(int[][] matrix, int target) {
-            return searchMatrix_20220502(matrix, target);
-        }
-
-
-
-
 
 
         public boolean searchMatrix_old(int[][] matrix, int target) {

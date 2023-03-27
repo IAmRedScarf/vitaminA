@@ -25,7 +25,32 @@ public class BestTimeToBuyAndSellStockWithCooldown {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int maxProfit(int[] prices) {
+            return maxProfit20230320(prices);
+        }
 
+
+        public int maxProfit20230320(int[] prices) {
+            int n = prices.length;
+            // 某天结束时未持有股票，非当日卖出
+            int[] dp0 = new int[n];
+            // 某天结束时未持有股票， 当日卖出
+            int[] dp1 = new int[n];
+            // 某天结束时持有股票
+            int[] dp2 = new int[n];
+            dp0[0] = 0;
+            dp1[0] = 0;
+            dp2[0] = -prices[0];
+            for (int i = 1; i < n; ++i) {
+                dp0[i] = Math.max(dp0[i - 1], dp1[i - 1]);
+                dp1[i] = dp2[i - 1] + prices[i];
+                dp2[i] = Math.max(dp2[i - 1], dp0[i - 1] - prices[i]);
+            }
+            return Math.max(dp0[n - 1], dp1[n - 1]);
+
+
+
+        }
 
 
 
@@ -52,24 +77,6 @@ public class BestTimeToBuyAndSellStockWithCooldown {
             return Math.max(dp_no_stock_sell[prices.length - 1], dp_no_stock_no_sell[prices.length - 1]);
 
         }
-
-
-
-
-
-        public int maxProfit(int[] prices) {
-            return maxProfit_20220504(prices);
-        }
-
-
-
-
-
-
-
-
-
-
 
 
 

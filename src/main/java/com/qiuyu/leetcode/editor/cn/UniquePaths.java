@@ -59,6 +59,36 @@ public class UniquePaths {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int uniquePaths(int m, int n) {
+            return uniquePaths20230216(m, n);
+        }
+
+
+        public int uniquePaths20230216(int m, int n) {
+            if (m <= 0 || n <= 0) {
+                return 0;
+            }
+            int[][] dp = new int[m][n];
+            for (int i = 0; i < m; ++i) {
+                dp[i][0] = 1;
+            }
+            for (int i = 1; i < n; ++i) {
+                dp[0][i] = 1;
+            }
+            for (int i = 1; i < m; ++i) {
+                for (int j = 1; j < n; ++j) {
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+                }
+            }
+            return dp[m - 1][n - 1];
+        }
+
+
+
+
+
+
+
         public int uniquePaths_20220502(int m, int n) {
             int[][] dp = new int[m][n];
             for (int j = 0; j < n; ++j) {
@@ -78,9 +108,7 @@ public class UniquePaths {
         }
 
 
-        public int uniquePaths(int m, int n) {
-            return uniquePaths_20220502(m, n);
-        }
+
 
 
         public int uniquePaths_old(int m, int n) {

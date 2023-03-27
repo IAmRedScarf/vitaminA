@@ -78,6 +78,43 @@ public class LinkedListCycleIi {
      * }
      */
     public class Solution {
+        public ListNode detectCycle(ListNode head) {
+            return detectCycle20230220(head);
+        }
+
+
+        public ListNode detectCycle20230220(ListNode head) {
+            if (head == null) {
+                return null;
+            }
+            ListNode pf = head, ps = head;
+            while (pf != null) {
+                pf = pf.next;
+                if (pf == null) {
+                    return null;
+                }
+                pf = pf.next;
+                ps = ps.next;
+                if (pf == ps) {
+                    break;
+                }
+            }
+            if (pf == null) {
+                return null;
+            }
+            ListNode p = head;
+            while (p != ps) {
+                p = p.next;
+                ps = ps.next;
+            }
+            return p;
+        }
+
+
+
+
+
+
 
         public ListNode detectCycle_20220502(ListNode head) {
             if (head == null) {
@@ -102,9 +139,6 @@ public class LinkedListCycleIi {
 
         }
 
-        public ListNode detectCycle(ListNode head) {
-            return detectCycle_20220502(head);
-        }
 
 
         public ListNode detectCycle_old(ListNode head) {

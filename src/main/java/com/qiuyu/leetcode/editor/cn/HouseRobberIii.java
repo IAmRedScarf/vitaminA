@@ -62,32 +62,42 @@ public class HouseRobberIii {
      */
     class Solution {
         public int rob(TreeNode root) {
-            int[] res = dfs_20220803(root);
+            return rob20230320(root);
+        }
+
+
+        public int rob20230320(TreeNode root) {
+            int[] res = rob20230320Helper(root);
             return Math.max(res[0], res[1]);
+        }
+
+        public int[] rob20230320Helper(TreeNode root) {
+            if (root == null) {
+                return new int[]{0, 0};
+            }
+            int[] left = rob20230320Helper(root.left);
+            int[] right = rob20230320Helper(root.right);
+
+            int maxWithCur = root.val + left[1] + right[1];
+            int maxWithoutCur = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+            return new int[]{maxWithCur, maxWithoutCur};
         }
 
 
         /**
          * 返回值，第一个元素为偷当前节点，第二个元素为不偷当前节点
+         *
          * @param root
          * @return
          */
         public int[] dfs_20220803(TreeNode root) {
             if (root == null) {
-                return new int[] {0, 0};
+                return new int[]{0, 0};
             }
             int[] left = dfs_20220803(root.left);
             int[] right = dfs_20220803(root.right);
-            return new int[] {root.val + left[1] + right[1], Math.max(left[0], left[1]) + Math.max(right[0], right[1])};
+            return new int[]{root.val + left[1] + right[1], Math.max(left[0], left[1]) + Math.max(right[0], right[1])};
         }
-
-
-
-
-
-
-
-
 
 
         public int rob_20220517(TreeNode root) {
@@ -99,26 +109,14 @@ public class HouseRobberIii {
 
         private int[] helper_20220517(TreeNode root) {
             if (root == null) {
-                return new int[] {0, 0};
+                return new int[]{0, 0};
             }
             int[] left = helper_20220517(root.left);
             int[] right = helper_20220517(root.right);
             int robCur = root.val + left[1] + right[1];
             int notRobCur = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
-            return new int[] {robCur, notRobCur};
+            return new int[]{robCur, notRobCur};
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         Map<TreeNode, Integer> robMap = new HashMap<>();
@@ -157,18 +155,6 @@ public class HouseRobberIii {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         Map<TreeNode, Integer> hitCurMap = new HashMap<>();
         Map<TreeNode, Integer> missCurMap = new HashMap<>();
 
@@ -197,7 +183,7 @@ public class HouseRobberIii {
             }
             int[] left = anotherDFS(root.left);
             int[] right = anotherDFS(root.right);
-            return new int[] {root.val + left[1] + right[1], Math.max(left[0], left[1]) + Math.max(right[0], right[1])};
+            return new int[]{root.val + left[1] + right[1], Math.max(left[0], left[1]) + Math.max(right[0], right[1])};
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)

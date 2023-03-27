@@ -30,6 +30,7 @@
 
 package com.qiuyu.leetcode.editor.cn;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class KthLargestElementInAnArray {
@@ -40,6 +41,80 @@ public class KthLargestElementInAnArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int findKthLargest(int[] nums, int k) {
+            return findKthLargest20220222000001(nums, k);
+        }
+
+        public int findKthLargest20220222000001(int[] nums, int k) {
+            if (nums == null || nums.length < 1 || k < 0 || k > nums.length) {
+                throw new IllegalArgumentException();
+            }
+            int targetIndex = nums.length - k;
+            int left = 0, right = nums.length - 1;
+            while (true) {
+                int j = partition20220222(nums, left, right);
+                if (j == targetIndex) {
+                    return nums[j];
+                } else if (j < targetIndex) {
+                    left = j + 1;
+                } else {
+                    right = j - 1;
+                }
+            }
+        }
+
+
+        public int partition20220222(int[] nums, int left, int right) {
+            int pivot = nums[left];
+            int i = left + 1, j = right;
+            while (true) {
+                while (i <= right && nums[i] < pivot) {
+                    i++;
+                }
+                while (nums[j] > pivot) {
+                    j--;
+                }
+                if (i >= j) {
+                    break;
+                }
+                swap(nums, i, j);
+                i++;
+                j--;
+            }
+            swap(nums, left, j);
+            return j;
+        }
+
+
+
+
+
+        public int findKthLargest20220222(int[] nums, int k) {
+            if (nums == null || nums.length < 1 || k < 0 || k > nums.length) {
+                throw new IllegalArgumentException();
+            }
+            // 最小堆
+            PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+            for (int i = 0; i < k; ++i) {
+                pq.add(nums[i]);
+            }
+            for (int i = k; i < nums.length; ++i) {
+                if (nums[i] > pq.peek()) {
+                    pq.poll();
+                    pq.add(nums[i]);
+                }
+            }
+            return pq.peek();
+        }
+
+
+
+
+
+
+
+
 
         public int findKthLargest_20220429(int[] nums, int k) {
             if (nums == null || nums.length < k) {
@@ -107,7 +182,7 @@ public class KthLargestElementInAnArray {
 
 
 
-        public int findKthLargest(int[] nums, int k) {
+        public int findKthLargest222222(int[] nums, int k) {
             return findKthLargest_20220429(nums, k);
 //            return findKthLargest_20220430(nums, k);
 

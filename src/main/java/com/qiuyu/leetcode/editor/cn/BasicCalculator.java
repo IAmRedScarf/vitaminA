@@ -43,18 +43,91 @@
 
 package com.qiuyu.leetcode.editor.cn;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 
 public class BasicCalculator {
     public static void main(String[] args) {
         Solution solution = new BasicCalculator().new Solution();
-        solution.calculate("2147483647");
+        System.out.println(solution.calculate("(-1)"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        public int calculate(String s) {
+        public int calculate(String originStr) {
+            Deque<Integer> operands = new LinkedList<>();
+            Deque<Character> operators = new LinkedList<>();
+            String str = originStr.replace(" ", "");
+            operands.add(0);
+            int i = 0;
+            while (i < str.length()) {
+                char c = str.charAt(i);
+                if (c == '(') {
+                    operators.add(c);
+                    ++i;
+                } else if (c == ')') {
+                    if (!operators.isEmpty() && operators.peekLast() != '(') {
+                        oneCalc(operands, operators);
+                    }
+                    operators.pollLast();
+                    ++i;
+                } else {
+                    if (isNum(c)) {
+                        int curNum = 0;
+                        while (i < str.length() && isNum(str.charAt(i))) {
+                            curNum = curNum * 10 + (str.charAt(i) - '0');
+                            ++i;
+                        }
+                        operands.add(curNum);
+                    } else {
+                        if (i > 0 && str.charAt(i - 1) == '(') {
+                            operands.add(0);
+                        }
+                        if (!operators.isEmpty() && operators.peekLast() != '(') {
+                            oneCalc(operands, operators);
+                        }
+                        operators.add(c);
+                        ++i;
+                    }
+                }
+            }
+            oneCalc(operands, operators);
+            return operands.pollLast();
+
+        }
+
+        private void oneCalc(Deque<Integer> operands, Deque<Character> operators) {
+            if (operands.size() < 2 || operators.isEmpty()) {
+                return;
+            }
+            int b = operands.pollLast(), a = operands.pollLast();
+            int res = (operators.pollLast() == '+') ? (a + b) : (a - b);
+            operands.add(res);
+
+        }
+
+
+        // 3 - 2 - 2
+        // 3 2 2
+        // - -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public int calculate2022(String s) {
             Deque<Integer> nums = new LinkedList<>();
             // 防止第一个数为负数
             nums.add(0);

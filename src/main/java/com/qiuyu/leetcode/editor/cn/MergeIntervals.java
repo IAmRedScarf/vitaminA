@@ -53,6 +53,47 @@ public class MergeIntervals {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int[][] merge(int[][] intervals) {
+            return merge20230216(intervals);
+        }
+
+
+
+        public int[][] merge20230216(int[][] intervals) {
+            if (intervals == null || intervals.length == 0) {
+                return new int[0][];
+            }
+            Arrays.sort(intervals, (o1, o2) -> {
+                if (o1[0] == o2[0]) {
+                    return o1[1] - o2[1];
+                } else {
+                    return o1[0] - o2[0];
+                }
+            });
+            List<int[]> resList = new ArrayList<>();
+            resList.add(new int[] {intervals[0][0], intervals[0][1]});
+            for (int i = 1; i < intervals.length; ++i) {
+                int[] curInterval = intervals[i];
+                int[] preInterval = resList.get(resList.size() - 1);
+                if (curInterval[0] > preInterval[1]) {
+                    resList.add(new int[] {curInterval[0], curInterval[1]});
+                } else {
+                    preInterval[1] = Math.max(preInterval[1], curInterval[1]);
+                }
+            }
+            int[][] resArr = new int[resList.size()][];
+            for (int i = 0; i < resList.size(); ++i) {
+                resArr[i] = resList.get(i);
+            }
+            return resArr;
+        }
+
+
+
+
+
+
+
 
         public int[][] merge_20220502(int[][] intervals) {
             if (intervals == null || intervals.length == 0) {
@@ -81,9 +122,7 @@ public class MergeIntervals {
             return arrayRes;
         }
 
-        public int[][] merge(int[][] intervals) {
-            return merge_20220502(intervals);
-        }
+
         public int[][] merge_old(int[][] intervals) {
 //            if (intervals.length == 0) {
 //                return new int[0][2];

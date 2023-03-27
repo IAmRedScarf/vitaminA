@@ -53,6 +53,71 @@ public class ThreeSum {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public List<List<Integer>> threeSum(int[] nums) {
+            return threeSum20220214(nums);
+        }
+
+
+        public List<List<Integer>> threeSum20220214(int[] nums) {
+            List<List<Integer>> res = new ArrayList<>();
+            if (nums == null || nums.length < 3) {
+                return res;
+            }
+            Arrays.sort(nums);
+            for (int i = 0; i < nums.length - 2; ++i) {
+                if (nums[i] > 0) {
+                    break;
+                }
+                if (i > 0 && nums[i] == nums[i - 1]) {
+                    continue;
+                }
+                List<int[]> tmp = find2Num(nums, i + 1, nums.length - 1, -nums[i]);
+                if (!tmp.isEmpty()) {
+                    for (int[] a : tmp) {
+                        List<Integer> elements = new ArrayList<>();
+                        elements.add(nums[i]);
+                        elements.add(a[0]);
+                        elements.add(a[1]);
+                        res.add(elements);
+                    }
+                }
+            }
+            return res;
+        }
+
+        private List<int[]> find2Num(int[] nums, int left, int right, int targetSum) {
+            List<int[]> res = new ArrayList<>();
+            int i = left, j = right;
+            while (i < j) {
+                int sum = nums[i] + nums[j];
+                if (sum == targetSum) {
+                    res.add(new int[] {nums[i], nums[j]});
+                    while (++i <= right && nums[i] == nums[i - 1]);
+                    while (--j >= left && nums[j] == nums[j + 1]);
+                } else if (sum < targetSum) {
+                    ++i;
+                } else {
+                    --j;
+                }
+            }
+            return res;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public List<List<Integer>> threeSum_20220426(int[] nums) {
             List<List<Integer>> res = new ArrayList<>();
             if (nums == null || nums.length < 3) {
@@ -86,7 +151,7 @@ public class ThreeSum {
         }
 
 
-        public List<List<Integer>> threeSum(int[] nums) {
+        public List<List<Integer>> threeSum222222222(int[] nums) {
             return threeSum_20220426(nums);
 //            if (nums == null || nums.length < 3) {
 //                return new ArrayList<>();

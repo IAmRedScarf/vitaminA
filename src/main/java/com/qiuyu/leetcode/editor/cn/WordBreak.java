@@ -55,6 +55,38 @@ public class WordBreak {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public boolean wordBreak(String s, List<String> wordDict) {
+            return wordBreak20230220(s, wordDict);
+        }
+
+
+
+        public boolean wordBreak20230220(String s, List<String> wordDict) {
+            if (wordDict == null || wordDict.size() == 0) {
+                return false;
+            }
+            Set<String> wordSet = new HashSet<>(wordDict);
+            // 开区间
+            boolean[] dp = new boolean[s.length() + 1];
+            dp[0] = true;
+            for (int i = 0; i < s.length(); ++i) {
+                for (int j = i; j >= 0; --j) {
+                    if (dp[j] && wordSet.contains(s.substring(j, i + 1))) {
+                        dp[i + 1] = true;
+                        break;
+                    }
+                }
+            }
+            return dp[s.length()];
+        }
+
+
+
+
+
+
+
+
         public boolean wordBreak_20220502(String s, List<String> wordDict) {
             if (s == null || s.length() == 0 || wordDict.size() == 0) {
                 return false;
@@ -71,23 +103,7 @@ public class WordBreak {
                 }
             }
             return dp[s.length()];
-
-
-
-
-
-
-
-
         }
-
-
-
-
-        public boolean wordBreak(String s, List<String> wordDict) {
-            return wordBreak_20220502(s, wordDict);
-        }
-
 
 
         public boolean wordBreak_old(String s, List<String> wordDict) {

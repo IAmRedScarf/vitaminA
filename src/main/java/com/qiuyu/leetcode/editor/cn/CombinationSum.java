@@ -68,6 +68,60 @@ public class CombinationSum {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public List<List<Integer>> combinationSum(int[] candidates, int target) {
+            return combinationSum20230215(candidates, target);
+        }
+
+        public List<List<Integer>> combinationSum20230215(int[] candidates, int target) {
+            List<List<Integer>> res = new ArrayList<>();
+            if (candidates == null || candidates.length == 0 || target <= 0) {
+                return res;
+            }
+            dfs20230215(candidates, 0, target, new ArrayList<>(), res);
+            return res;
+
+        }
+
+
+        public void dfs20230215(int[] candidates, int start, int target, List<Integer> available, List<List<Integer>> res) {
+            if (target == 0) {
+                res.add(new ArrayList<>(available));
+                return;
+            }
+            if (target < 0) {
+                return;
+            }
+            for (int i = start; i < candidates.length; ++i) {
+                available.add(candidates[i]);
+                dfs20230215(candidates, i, target - candidates[i], available, res);
+                available.remove(available.size() - 1);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private void dfs_20220428(int[] candidates, int start, int target, List<Integer> tmp, List<List<Integer>> res) {
             if (target < 0) {
                 return;
@@ -112,7 +166,7 @@ public class CombinationSum {
 
 
 
-        public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        public List<List<Integer>> combinationSum22222222222(int[] candidates, int target) {
             return combinationSum_20220428(candidates, target);
 //            List<List<Integer>> res = new ArrayList<>();
 //            if (candidates == null || candidates.length == 0) {

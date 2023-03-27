@@ -31,18 +31,51 @@
 
 package com.qiuyu.leetcode.editor.cn;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LongestConsecutiveSequence {
     public static void main(String[] args) {
         Solution solution = new LongestConsecutiveSequence().new Solution();
+        System.out.println(solution.longestConsecutive(new int[] {0,3,7,2,5,8,4,6,0,1}));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int longestConsecutive(int[] nums) {
+            return longestConsecutive20230217(nums);
+        }
+
+
+
+        public int longestConsecutive20230217(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            Set<Integer> numSet = new HashSet<>();
+            for (int num : nums) {
+                numSet.add(num);
+            }
+            int res = 1;
+            for (int num : nums) {
+                if (numSet.contains(num - 1)) {
+                    continue;
+                }
+                int next = num + 1;
+                while (numSet.contains(next)) {
+                    next++;
+                }
+                res = Math.max(res, next - num);
+            }
+            return res;
+
+        }
+
+
+
+
+
+
 
         public int longestConsecutive_20220503(int[] nums) {
             if (nums == null || nums.length == 0) {
@@ -66,37 +99,6 @@ public class LongestConsecutiveSequence {
             return res;
 
         }
-
-
-
-
-
-
-
-        public int longestConsecutive(int[] nums) {
-            return longestConsecutive_20220503(nums);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -50,11 +50,74 @@ public class CourseSchedule {
         int[][] a = new int[2][2];
         a[0] = new int[] {1, 0};
         a[1] = new int[] {0, 1};
-        solution.canFinish_20220429(2, a);
+        solution.canFinish(2, a);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        public boolean canFinish(int numCourses, int[][] prerequisites) {
+            return canFinish20230220(numCourses, prerequisites);
+        }
+
+
+        public boolean canFinish20230220(int numCourses, int[][] prerequisites) {
+            List<List<Integer>> graph = new ArrayList<>();
+            for (int i = 0; i < numCourses; ++i) {
+                graph.add(new ArrayList<>());
+            }
+            for (int[] prerequisite : prerequisites) {
+                graph.get(prerequisite[1]).add(prerequisite[0]);
+            }
+            // 0-未开始搜索，1-搜索中，2-搜索完成
+            int[] status = new int[numCourses];
+            for (int i = 0; i < numCourses; ++i) {
+                if (status[i] == 0) {
+                    if (!dfs20230220(graph, status, i)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+
+        }
+
+        // dfs判断当前节点开始的搜索是否有环
+        // true标识无环
+        private boolean dfs20230220(List<List<Integer>> graph, int[] status, int cur) {
+            List<Integer> neighbors = graph.get(cur);
+            status[cur] = 1;
+            for (Integer neighbor : neighbors) {
+                if (status[neighbor] == 2) {
+                    continue;
+                }
+                // 如果发现邻居节点在搜索中，说明存在环路
+                if (status[neighbor] == 1) {
+                    return false;
+                }
+                if (!dfs20230220(graph, status, neighbor)) {
+                    return false;
+                }
+            }
+            status[cur] = 2;
+            return true;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         List<List<Integer>> edges_20220429;
         // 0-未搜索，1-搜索中，2-搜索完成
@@ -97,28 +160,6 @@ public class CourseSchedule {
             return false;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public boolean canFinish(int numCourses, int[][] prerequisites) {
-            return canFinish_20220429(numCourses, prerequisites);
-        }
 
         public boolean fDfs(int numCourses, int[][] prerequisites) {
             init(numCourses, prerequisites);

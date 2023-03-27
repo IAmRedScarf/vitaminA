@@ -62,6 +62,50 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
      * }
      */
     class Solution {
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            return buildTree20230217(preorder, inorder);
+        }
+
+
+        public TreeNode buildTree20230217(int[] preorder, int[] inorder) {
+            if (preorder == null || preorder.length == 0) {
+                return null;
+            }
+            return buildTree20230217(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+        }
+
+        public TreeNode buildTree20230217(int[] preorder, int preorderStart, int preorderEnd, int[] inorder, int inorderStart, int inorderEnd) {
+            if (preorderStart > preorderEnd) {
+                return null;
+            }
+            int rootVal = preorder[preorderStart];
+            int i = inorderStart;
+            while (i <= inorderEnd) {
+                if (inorder[i] == rootVal) {
+                    break;
+                }
+                ++i;
+            }
+            int leftTreeLen = i - inorderStart;
+            TreeNode root = new TreeNode(rootVal);
+            root.left = buildTree20230217(preorder, preorderStart + 1, preorderStart + leftTreeLen, inorder, inorderStart, i - 1);
+            root.right = buildTree20230217(preorder, preorderStart + leftTreeLen + 1, preorderEnd, inorder, i + 1, inorderEnd);
+            return root;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public TreeNode buildTree_20220503(int[] preorder, int preLeft, int preRight, int[] inorder, int inLeft, int inRight) {
             if (preLeft > preRight) {
@@ -90,18 +134,6 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
 
 
         }
-
-
-        public TreeNode buildTree(int[] preorder, int[] inorder) {
-            return buildTree_20220503(preorder, inorder);
-        }
-
-
-
-
-
-
-
 
         private TreeNode buildTree_old(int[] preorder, int left1, int[] inorder, int left2, int len) {
             if (len == 0) {

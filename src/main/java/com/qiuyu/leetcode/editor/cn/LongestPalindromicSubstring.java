@@ -49,12 +49,46 @@ package com.qiuyu.leetcode.editor.cn;
 public class LongestPalindromicSubstring {
     public static void main(String[] args) {
         Solution solution = new LongestPalindromicSubstring().new Solution();
-        String str = "ccccc";
+        String str = "cbbd";
         System.out.println(solution.longestPalindrome(str));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public String longestPalindrome(String s) {
+            return longestPalindrome20230214(s);
+        }
+
+        public String longestPalindrome20230214(String s) {
+            if (s == null) {
+                return null;
+            }
+            if (s.length() < 2) {
+                return s;
+            }
+            boolean[][] dp = new boolean[s.length()][s.length()];
+            int maxLen = Integer.MIN_VALUE;
+            int start = -1, end = -1;
+            for (int j = 0; j < s.length(); ++j) {
+                for (int i = j; i >= 0; --i) {
+                    dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i <= 1 || dp[i + 1][j - 1]);
+                    if (dp[i][j]) {
+                        int curLen = j - i + 1;
+                        if (curLen > maxLen) {
+                            maxLen = curLen;
+                            start = i;
+                            end = j;
+                        }
+                    }
+                }
+            }
+            return s.substring(start, end + 1);
+        }
+
+
+
+
+
         public String longestPalindrome_20220426(String s) {
             if (null == s || s.length() == 0) {
                 return null;
@@ -69,6 +103,7 @@ public class LongestPalindromicSubstring {
                 for (int i = j; i >= 0; --i) {
                     dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i <= 1 || dp[i + 1][j - 1]);
                     if (dp[i][j] && (j - i + 1 > maxLen)) {
+                        maxLen = j - i + 1;
                         start = i;
                         end = j;
                     }
@@ -77,10 +112,7 @@ public class LongestPalindromicSubstring {
             return s.substring(start, end + 1);
 
 
-
         }
-
-
 
 
         private int palindromeLen(String s, int i, int j) {
@@ -95,7 +127,7 @@ public class LongestPalindromicSubstring {
             return j - i - 1;
         }
 
-        public String longestPalindrome(String s) {
+        public String longestPalindrome202222222(String s) {
             if (null == s || s.length() == 0) {
                 return null;
             }
@@ -119,27 +151,6 @@ public class LongestPalindromicSubstring {
                 }
             }
             return res;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //            String res = "";

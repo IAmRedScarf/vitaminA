@@ -48,16 +48,22 @@ import com.qiuyu.leetcode.editor.cn.model.ListNode;
 public class SortList {
     public static void main(String[] args) {
         Solution solution = new SortList().new Solution();
-        ListNode n1 = new ListNode(3);
-        ListNode n2 = new ListNode(4);
-        ListNode n3 = new ListNode(1);
+        ListNode n1 = new ListNode(4);
+        ListNode n2 = new ListNode(2);
+        ListNode n3 = new ListNode(3);
+        ListNode n4 = new ListNode(1);
 //        ListNode n4 = new ListNode(4);
 //        ListNode n5 = new ListNode(6);
         n1.next = n2;
         n2.next = n3;
-//        n3.next = n4;
+        n3.next = n4;
 //        n4.next = n5;
-        solution.sortList_20220503(n1);
+        ListNode p = solution.sortList(n1);
+        while (p != null) {
+            System.out.println(p.val);
+            p = p.next;
+        }
+
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -72,6 +78,84 @@ public class SortList {
      * }
      */
     class Solution {
+        public ListNode sortList(ListNode head) {
+            return sortList20230220(head);
+        }
+
+
+        public ListNode sortList20230220(ListNode head) {
+            if (head == null || head.next == null) {
+                return head;
+            }
+            ListNode pf = head, ps = head;
+            while (pf != null) {
+                ps = ps.next;
+                pf = pf.next;
+                if (pf != null) {
+                    pf = pf.next;
+                } else {
+                    break;
+                }
+            }
+            ListNode p = head;
+            while (p.next != ps) {
+                p = p.next;
+            }
+            p.next = null;
+            ListNode h1 = sortList20230220(head);
+            ListNode h2 = sortList_20220503(ps);
+            return merge2List20230220(h1, h2);
+
+        }
+
+        private ListNode merge2List20230220(ListNode h1, ListNode h2) {
+            if (h1 == null) {
+                return h2;
+            }
+            if (h2 == null) {
+                return h1;
+            }
+            ListNode p1 = h1, p2 = h2;
+            ListNode dummyHead = new ListNode();
+            ListNode p = dummyHead;
+            while (p1 != null && p2 != null) {
+                if (p1.val < p2.val) {
+                    p.next = p1;
+                    p1 = p1.next;
+                } else {
+                    p.next = p2;
+                    p2 = p2.next;
+                }
+                p = p.next;
+            }
+            while (p1 != null) {
+                p.next = p1;
+                p1 = p1.next;
+                p = p.next;
+            }
+            while (p2 != null) {
+                p.next = p2;
+                p2 = p2.next;
+                p = p.next;
+            }
+            return dummyHead.next;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public ListNode sortList_20220503(ListNode head) {
             if (head == null || head.next == null) {
@@ -134,27 +218,6 @@ public class SortList {
 
 
         }
-
-
-        public ListNode sortList(ListNode head) {
-            return sortList_20220503(head);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         public ListNode merge2SortedList(ListNode l1, ListNode l2) {

@@ -44,13 +44,81 @@
 
 package com.qiuyu.leetcode.editor.cn;
 
+import java.util.Arrays;
+
 public class FindFirstAndLastPositionOfElementInSortedArray {
     public static void main(String[] args) {
         Solution solution = new FindFirstAndLastPositionOfElementInSortedArray().new Solution();
+        System.out.println(Arrays.toString(solution.searchRange(new int[] {5,7,7,8,8,10}, 6)));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int[] searchRange(int[] nums, int target) {
+            return searchRange20230215(nums, target);
+
+        }
+
+        public int[] searchRange20230215(int[] nums, int target) {
+            return new int[] {searchLeftBound20230215(nums, target), searchRightBound20230215(nums, target)};
+        }
+
+        private int searchLeftBound20230215(int[] nums, int target) {
+            int left = 0, right = nums.length - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == target) {
+                    right = mid - 1;
+                } else if (nums[mid] > target) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            if (left == nums.length) {
+                return -1;
+            }
+            return nums[left] == target ? left : -1;
+        }
+
+        private int searchRightBound20230215(int[] nums, int target) {
+            if (nums == null || nums.length == 0) {
+                return -1;
+            }
+            int left = 0, right = nums.length - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == target) {
+                    left = mid + 1;
+                } else if (nums[mid] > target) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            if (left == 0) {
+                return nums[left] == target ? left : -1;
+            }
+            return nums[left - 1] == target ? left - 1 : -1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public int[] searchRange_20220428(int[] nums, int target) {
             return new int[] {leftBound_20220428(nums, target), rightBound_20220428(nums, target)};
 
@@ -94,37 +162,9 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
                 }
             }
             if (right == -1) {
-                return - 1;
+                return -1;
             }
             return nums[right] == target ? right : -1;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public int[] searchRange(int[] nums, int target) {
-            return searchRange_20220428(nums, target);
-//            int leftBound = searchLeftBound(nums, target);
-//            int rightBound = searchRightBound(nums, target);
-//            return new int[]{leftBound, rightBound};
-
         }
 
         private int searchLeftBound(int[] nums, int target) {

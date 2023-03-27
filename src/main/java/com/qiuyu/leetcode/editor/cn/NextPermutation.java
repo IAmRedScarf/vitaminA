@@ -47,17 +47,90 @@
 
 package com.qiuyu.leetcode.editor.cn;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class NextPermutation {
     public static void main(String[] args) {
         Solution solution = new NextPermutation().new Solution();
-        int[] nums = new int[] {1, 3, 2};
+        int[] nums = new int[]{1, 1};
         solution.nextPermutation(nums);
+        System.out.println(Arrays.toString(nums));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public void nextPermutation(int[] nums) {
+            nextPermutation20230215(nums);
+        }
+
+
+        // 4 8 9 5
+        // 5 8 9 4  -> 5 4 8 9
+        public void nextPermutation20230215(int[] nums) {
+            int len = nums.length;
+            int i = len - 1;
+            while (i > 0 && nums[i - 1] >= nums[i]) {
+                i--;
+            }
+            if (i == 0) {
+                reverse(nums);
+                return;
+            }
+            int index = findLastBiggerThanTarget(nums, i, nums.length - 1, nums[i - 1]);
+            swap(nums, i - 1, index);
+            Arrays.sort(nums, i, nums.length);
+        }
+
+
+
+
+
+        // 原数组为降序排列
+        private int findLastBiggerThanTarget(int[] nums, int i, int j, int target) {
+            int left = i, right = j;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == target) {
+                    right = mid - 1;
+                } else if (nums[mid] > target) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+            // 到这一步，left为target可插入的位置
+            // 开始判断
+            if (left == i) {
+                return -1;
+            }
+            return left - 1;
+        }
+
+        private void reverse(int[] nums) {
+            int i = 0, j = nums.length - 1;
+            while (i < j) {
+                swap(nums, i, j);
+                ++i;
+                --j;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private void reverse(int[] nums, int start, int end) {
             int mid = start + (end - start) / 2;
             for (int i = start; i <= mid; ++i) {
@@ -77,8 +150,8 @@ public class NextPermutation {
                 j--;
             }
             if (j == 0) {
-               reverse(nums, 0, nums.length - 1);
-               return;
+                reverse(nums, 0, nums.length - 1);
+                return;
             }
             int k = nums.length - 1;
             while (k >= j && nums[k] <= nums[j - 1]) {
@@ -93,23 +166,7 @@ public class NextPermutation {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public void nextPermutation(int[] nums) {
+        public void nextPermutation22222222222(int[] nums) {
             nextPermutation_20220426(nums);
 //            if (nums.length <= 1) {
 //                System.out.print(Arrays.toString(nums));

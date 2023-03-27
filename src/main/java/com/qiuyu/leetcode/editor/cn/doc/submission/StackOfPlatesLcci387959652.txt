@@ -1,0 +1,59 @@
+    class StackOfPlates {
+        private Integer singlePlateCapacity;
+        private List<Deque<Integer>> plates;
+
+        public StackOfPlates(int cap) {
+            if (cap < 0) {
+                throw new IllegalArgumentException();
+            }
+            this.singlePlateCapacity = cap;
+            plates = new ArrayList<>();
+        }
+
+        public void push(int val) {
+            if (singlePlateCapacity <= 0) {
+                throw new IllegalArgumentException();
+            }
+            if (plates.isEmpty() || plates.get(plates.size() - 1).size() == singlePlateCapacity) {
+                plates.add(new LinkedList<>());
+            }
+            plates.get(plates.size() - 1).addLast(val);
+        }
+
+        public int pop() {
+            if (plates.isEmpty()) {
+                return -1;
+            }
+            int res = plates.get(plates.size() - 1).pollLast();
+            if (plates.get(plates.size() - 1).isEmpty()) {
+                plates.remove(plates.size() - 1);
+            }
+            return res;
+        }
+
+        public int popAt(int index) {
+            if (index < 0 || index >= plates.size() || plates.isEmpty()) {
+                return -1;
+            }
+            int res = plates.get(index).pollLast();
+            if (plates.get(index).isEmpty()) {
+                plates.remove(index);
+            }
+            return res;
+        }
+    }
+
+/**
+ * Your StackOfPlates object will be instantiated and called as such:
+ * StackOfPlates obj = new StackOfPlates(cap);
+ * obj.push(val);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.popAt(index);
+ */
+
+//runtime_error:java.lang.IllegalArgumentException
+  at line 15, StackOfPlates.push
+  at line 63, __Driver__.__helperSelectMethod__
+  at line 89, __Driver__.__helper__
+  at line 110, __Driver__.main
+//last_testcase:["StackOfPlates", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "push", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop", "pop"] [[0], [2], [8], [56], [1], [39], [40], [44], [63], [11], [38], [20], [55], [25], [14], [11], [1], [20], [16], [6], [18], [3], [39], [45], [2], [22], [64], [6], [30], [39], [3], [19], [63], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]

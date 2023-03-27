@@ -60,6 +60,47 @@ public class RemoveNthNodeFromEndOfList {
      * }
      */
     class Solution {
+        public ListNode removeNthFromEnd(ListNode head, int n) {
+            return removeNthFromEnd20230214(head, n);
+        }
+
+        public ListNode removeNthFromEnd20230214(ListNode head, int n) {
+            if (head == null) {
+                return null;
+            }
+            ListNode dummyHead = new ListNode();
+            dummyHead.next = head;
+            ListNode fast = head;
+            int i = 0;
+            while (i < n && fast != null) {
+                fast = fast.next;
+                ++i;
+            }
+            if (i < n) {
+                return null;
+            }
+            ListNode p = dummyHead;
+            while (fast != null) {
+                p = p.next;
+                fast = fast.next;
+            }
+            p.next = p.next.next;
+            return dummyHead.next;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public ListNode removeNthFromEnd_20220426(ListNode head, int n) {
             if (head == null) {
                 return null;
@@ -87,7 +128,7 @@ public class RemoveNthNodeFromEndOfList {
 
 
 
-        public ListNode removeNthFromEnd(ListNode head, int n) {
+        public ListNode removeNthFromEnd222222222(ListNode head, int n) {
             return removeNthFromEnd_20220426(head, n);
 //            if (head == null) {
 //                return null;

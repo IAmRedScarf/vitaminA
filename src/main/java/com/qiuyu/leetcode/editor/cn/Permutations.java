@@ -49,6 +49,48 @@ public class Permutations {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public List<List<Integer>> permute(int[] nums) {
+            return permute20230215(nums);
+        }
+
+
+        public List<List<Integer>> permute20230215(int[] nums) {
+            List<List<Integer>> res = new ArrayList<>();
+            if (nums == null || nums.length == 0) {
+                return res;
+            }
+            boolean[] visited = new boolean[nums.length];
+            backtrack(nums, visited, new ArrayList<>(), res);
+            return res;
+
+        }
+
+        public void backtrack(int[] nums, boolean[] visited, List<Integer> available, List<List<Integer>> res) {
+            if (available.size() == nums.length) {
+                res.add(new ArrayList<>(available));
+                return;
+            }
+            for (int i = 0; i < nums.length; ++i) {
+                if (visited[i]) {
+                    continue;
+                }
+                visited[i] = true;
+                available.add(nums[i]);
+                backtrack(nums, visited, available, res);
+                available.remove(available.size() - 1);
+                visited[i] = false;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
 
         private void dfs_20220428(int[] nums, boolean[] visited, List<Integer> tmp, List<List<Integer>> res) {
             if (tmp.size() == nums.length) {
@@ -87,7 +129,7 @@ public class Permutations {
 
 
 
-        public List<List<Integer>> permute(int[] nums) {
+        public List<List<Integer>> permute22222222(int[] nums) {
             return permute_20220428(nums);
 //            List<List<Integer>> res = new ArrayList<>();
 //            if (nums == null || nums.length == 0) {

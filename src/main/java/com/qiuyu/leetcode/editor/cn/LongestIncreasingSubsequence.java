@@ -49,6 +49,7 @@
 package com.qiuyu.leetcode.editor.cn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LongestIncreasingSubsequence {
@@ -58,6 +59,30 @@ public class LongestIncreasingSubsequence {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int lengthOfLIS(int[] nums) {
+            return lengthOfLIS20230320(nums);
+        }
+
+        public int lengthOfLIS20230320(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            int[] dp = new int[nums.length];
+            int maxLen = 1;
+            Arrays.fill(dp, 1);
+            for (int i = 1; i < nums.length; ++i) {
+                for (int j = i - 1; j >= 0; --j) {
+                    if (nums[i] > nums[j]) {
+                        dp[i] = Math.max(dp[i], dp[j] + 1);
+                    }
+                }
+                maxLen = Math.max(maxLen, dp[i]);
+            }
+            return maxLen;
+
+        }
+
+
 
 
 
@@ -79,17 +104,6 @@ public class LongestIncreasingSubsequence {
             }
             return res;
         }
-
-
-
-
-
-
-
-        public int lengthOfLIS(int[] nums) {
-            return lengthOfLIS_20220503(nums);
-        }
-
 
 
 

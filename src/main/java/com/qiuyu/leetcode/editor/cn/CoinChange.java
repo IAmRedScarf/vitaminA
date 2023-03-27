@@ -71,8 +71,35 @@ public class CoinChange {
     class Solution {
 
         public int coinChange(int[] coins, int amount) {
-            return coinChange_20220721(coins, amount);
+            return coinChange20230320(coins, amount);
         }
+
+
+        public int coinChange20230320(int[] coins, int amount) {
+            int[] dp = new int[1 + amount];
+            dp[0] = 0;
+            for (int i = 1; i <= amount; ++i) {
+                dp[i] = -1;
+                for (int coin : coins) {
+                    if (i >= coin && dp[i - coin] >= 0) {
+                        if (dp[i] == -1) {
+                            dp[i] = dp[i - coin] + 1;
+                        } else {
+                            dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+                        }
+                    }
+                }
+            }
+            return dp[amount];
+
+        }
+
+
+
+
+
+
+
 
         public int coinChange_20220721(int[] coins, int amount) {
             int[] dp = new int[amount + 1];

@@ -33,16 +33,62 @@
 
 package com.qiuyu.leetcode.editor.cn;
 
+
 import java.util.*;
 
 public class TopKFrequentElements {
     public static void main(String[] args) {
         Solution solution = new TopKFrequentElements().new Solution();
-        solution.topKFrequent_20220505(new int[] {1,1,1,2,2,3}, 2);
+        solution.topKFrequent20230320(new int[] {1,1,1,2,2,3}, 2);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        public int[] topKFrequent(int[] nums, int k) {
+            return topKFrequent20230320(nums, k);
+
+        }
+
+
+        public int[] topKFrequent20230320(int[] nums, int k) {
+            Map<Integer, Integer> numCountMap = new HashMap<>();
+            for (int num : nums) {
+                numCountMap.put(num, numCountMap.getOrDefault(num, 0) + 1);
+            }
+            PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(arr -> arr[1]));
+            List<Integer> unique = new ArrayList<>(numCountMap.keySet());
+            for (int i = 0; i < k; ++i) {
+                pq.add(new int[]{unique.get(i), numCountMap.get(unique.get(i))});
+            }
+            for (int i = k; i < unique.size(); ++i) {
+                if (numCountMap.get(unique.get(i)) > pq.peek()[1]) {
+                    pq.poll();
+                    pq.add(new int[]{unique.get(i), numCountMap.get(unique.get(i))});
+                }
+            }
+            int[] res = new int[pq.size()];
+            for (int i = 0; i < res.length; ++i) {
+                res[i] = pq.poll()[0];
+            }
+            return res;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public int[] topKFrequent_20220505(int[] nums, int k) {
             Map<Integer, Integer> numCountMap = new HashMap<>();
@@ -69,21 +115,6 @@ public class TopKFrequentElements {
             return res;
 
         }
-
-
-        public int[] topKFrequent(int[] nums, int k) {
-            return topKFrequent_20220505(nums, k);
-
-        }
-
-
-
-
-
-
-
-
-
 
 
 

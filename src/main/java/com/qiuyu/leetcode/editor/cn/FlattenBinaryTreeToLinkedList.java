@@ -47,6 +47,9 @@ package com.qiuyu.leetcode.editor.cn;
 
 import com.qiuyu.leetcode.editor.cn.model.TreeNode;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class FlattenBinaryTreeToLinkedList {
     public static void main(String[] args) {
         Solution solution = new FlattenBinaryTreeToLinkedList().new Solution();
@@ -69,6 +72,33 @@ public class FlattenBinaryTreeToLinkedList {
      * }
      */
     class Solution {
+        public void flatten(TreeNode root) {
+            flatten20230217(root);
+        }
+
+
+        public void flatten20230217(TreeNode root) {
+            TreeNode p = root;
+            while (p != null) {
+                if (p.left != null) {
+                    TreeNode tmp = p.left;
+                    while (tmp.right != null) {
+                        tmp = tmp.right;
+                    }
+                    tmp.right = p.right;
+                    p.right = p.left;
+                    p.left = null;
+                }
+                p = p.right;
+            }
+
+        }
+
+
+
+
+
+
 
         public void flatten_20220503(TreeNode root) {
             TreeNode p = root;
@@ -85,16 +115,6 @@ public class FlattenBinaryTreeToLinkedList {
                 p = p.right;
             }
         }
-
-
-
-        public void flatten(TreeNode root) {
-            flatten_20220503(root);
-        }
-
-
-
-
 
         public void flatten_old(TreeNode root) {
             TreeNode cur = root;

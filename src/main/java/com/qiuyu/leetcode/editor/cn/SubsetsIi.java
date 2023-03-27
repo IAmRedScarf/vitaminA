@@ -47,6 +47,38 @@ public class SubsetsIi {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public List<List<Integer>> subsetsWithDup(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return new ArrayList<>();
+            }
+            Arrays.sort(nums);
+            boolean[] visited = new boolean[nums.length];
+            List<List<Integer>> res = new ArrayList<>();
+            dfs(nums, 0, new ArrayList<>(), res);
+            return res;
+        }
+
+
+        private void dfs20221208(int[] nums, int start, List<Integer> tmp, List<List<Integer>> res) {
+            res.add(new ArrayList<>(tmp));
+            for (int i = start; i < nums.length; ++i) {
+                if (i > start && nums[i] == nums[i - 1]) {
+                    continue;
+                }
+                tmp.add(nums[i]);
+                dfs20221208(nums, i + 1, tmp, res);
+                tmp.remove(tmp.size() - 1);
+            }
+        }
+
+
+
+
+
+
+
+
+
 
         private void dfs(int[] nums, int start, List<Integer> tmp, List<List<Integer>> res) {
             res.add(new ArrayList<>(tmp));
@@ -75,10 +107,6 @@ public class SubsetsIi {
 
         }
 
-
-        public List<List<Integer>> subsetsWithDup(int[] nums) {
-            return subsetsWithDup_20220502(nums);
-        }
 
 
 

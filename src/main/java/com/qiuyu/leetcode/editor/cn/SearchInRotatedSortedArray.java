@@ -56,6 +56,76 @@ public class SearchInRotatedSortedArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public int search(int[] nums, int target) {
+            return search20230215(nums, target);
+        }
+        public int search20230215(int[] nums, int target) {
+            if (nums == null || nums.length == 0) {
+                return -1;
+            }
+            int len = nums.length;
+            // 1.确定旋转点
+            int turnPointIndex = findTurnPointIndex(nums);
+            if (target <= nums[len - 1]) {
+                return binarySearch(nums, turnPointIndex, len - 1, target);
+            } else {
+                if (turnPointIndex == 0) {
+                    return -1;
+                } else {
+                    return binarySearch(nums, 0, turnPointIndex, target);
+                }
+            }
+        }
+
+        private int binarySearch(int[] nums, int i, int j, int target) {
+            int left = i, right = j;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == target) {
+                    return mid;
+                } else if (nums[mid] > target) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            return -1;
+        }
+
+
+        private int findTurnPointIndex(int[] nums) {
+            int left = 0, right = nums.length - 1;
+            while (left < right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == nums[right]) {
+                    right = mid;
+                } else if (nums[mid] < nums[right]) {
+                    right = mid;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            return left;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public int search_20220428(int[] nums, int target) {
             if (nums == null || nums.length == 0) {
                 return -1;
@@ -105,7 +175,7 @@ public class SearchInRotatedSortedArray {
 
 
 
-        public int search(int[] nums, int target) {
+        public int search2222222222(int[] nums, int target) {
             return search_20220428(nums, target);
 //            if (nums == null || nums.length == 0) {
 //                return -1;

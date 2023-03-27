@@ -68,6 +68,58 @@ public class SortColors {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public void sortColors(int[] nums) {
+            sortColors20230216(nums);
+        }
+
+
+        public void sortColors20230216(int[] nums) {
+            if (nums == null || nums.length <= 1) {
+                return;
+            }
+            int putIndex = 0;
+            for (int i = putIndex; i < nums.length; ++i) {
+                if (nums[i] == 0) {
+                    swap(nums, putIndex, i);
+                    putIndex++;
+                }
+            }
+            for (int i = putIndex; i < nums.length; ++i) {
+                if (nums[i] == 1) {
+                    swap(nums, putIndex, i);
+                    putIndex++;
+                }
+            }
+        }
+
+        public void sortColors20230217(int[] nums) {
+            if (nums == null || nums.length <= 1) {
+                return;
+            }
+            int putIndex0 = 0, putIndex1 = 0;
+            for (int i = 0; i < nums.length; ++i) {
+                if (nums[i] == 0) {
+                    swap(nums, putIndex0++, i);
+                    if (nums[i] == 1) {
+                        swap(nums, putIndex1++, i);
+                    }
+                } else if (nums[i] == 1) {
+                    swap(nums, putIndex1++, i);
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public void sortColors_20220502_b(int[] nums) {
             int left0 = 0, left1 = 0;
             int right = 0;
@@ -110,10 +162,7 @@ public class SortColors {
 
         }
 
-        public void sortColors(int[] nums) {
-//            sortColors_20220502_a(nums);
-            sortColors_20220502_b(nums);
-        }
+
 
 
 

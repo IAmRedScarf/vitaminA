@@ -43,6 +43,8 @@
 
 package com.qiuyu.leetcode.editor.cn;
 
+import java.util.Arrays;
+
 public class MaximumSubarray {
     public static void main(String[] args) {
         Solution solution = new MaximumSubarray().new Solution();
@@ -50,6 +52,35 @@ public class MaximumSubarray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public int maxSubArray(int[] nums) {
+            return maxSubArray20230216(nums);
+        }
+
+
+
+
+        public int maxSubArray20230216(int[] nums) {
+            int len = nums.length;
+            int[] dp = new int[len];
+            dp[0] = nums[0];
+            int res = dp[0];
+            for (int i = 1; i < len; ++i) {
+                dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
+                res = Math.max(res, dp[i]);
+            }
+            return res;
+
+        }
+
+
+
+
+
+
+
+
+
 
         public int maxSubArray_20220513(int[] nums) {
             int[] dp = new int[nums.length];
@@ -63,19 +94,6 @@ public class MaximumSubarray {
 
 
         }
-
-
-        public int maxSubArray(int[] nums) {
-            return maxSubArray_20220513(nums);
-        }
-
-
-
-
-
-
-
-
 
 
         public int maxSubArray_old(int[] nums) {

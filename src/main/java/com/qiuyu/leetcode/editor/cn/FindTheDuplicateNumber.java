@@ -65,6 +65,30 @@ public class FindTheDuplicateNumber {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int findDuplicate(int[] nums) {
+            return findDuplicate20230223(nums);
+        }
+
+
+        public int findDuplicate20230223(int[] nums) {
+            int fast = 0;
+            int slow = 0;
+            do {
+                fast = nums[nums[fast]];
+                slow = nums[slow];
+            } while (fast != slow);
+
+            fast = 0;
+            while (fast != slow) {
+                fast = nums[fast];
+                slow = nums[slow];
+            }
+            return slow;
+
+        }
+
+
+
 
         // 转化为链表是否存在环
         // 数值的范围为 1-n ，下标的范围是 0-n
@@ -85,22 +109,6 @@ public class FindTheDuplicateNumber {
             return slow;
 
         }
-
-
-
-
-        public int findDuplicate(int[] nums) {
-            return findDuplicate_20220503(nums);
-        }
-
-
-
-
-
-
-
-
-
 
 
         public int findDuplicate_old(int[] nums) {

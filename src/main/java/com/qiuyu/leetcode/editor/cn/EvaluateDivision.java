@@ -59,26 +59,105 @@
 
 package com.qiuyu.leetcode.editor.cn;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EvaluateDivision {
     public static void main(String[] args) {
         Solution solution = new EvaluateDivision().new Solution();
-        List<String> tmp = new ArrayList<>();
-        tmp.add("a");
-        tmp.add("b");
+        List<String> tmp1 = new ArrayList<>();
+        tmp1.add("a");
+        tmp1.add("b");
         List<List<String>> equations = new ArrayList<>();
-        equations.add(tmp);
-        double[] values = new double[]{0.5d};
+        equations.add(tmp1);
+        List<String> tmp2 = new ArrayList<>();
+        tmp2.add("b");
+        tmp2.add("c");
+        equations.add(tmp2);;
+        double[] values = new double[]{2.0d, 3.0};
         solution.calcEquation(equations, values, null);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
 
     public class Solution {
+
+        public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+            return calcEquation20230324(equations, values, queries);
+        }
+
+        public double[] calcEquation20230324(List<List<String>> equations, double[] values, List<List<String>> queries) {
+            int num = 0;
+            Map<String, Integer> variableNumMap = new HashMap<>();
+            for (List<String> vList : equations) {
+                for (String v : vList) {
+                    if (!variableNumMap.containsKey(v)) {
+                        variableNumMap.put(v, num++);
+                    }
+                }
+            }
+            UnionFind uf = new UnionFind(variableNumMap.size());
+            for (int i = 0; i < equations.size(); ++i) {
+                List<String> equation = equations.get(i);
+                uf.union(variableNumMap.get(equation.get(0)), variableNumMap.get(equation.get(1)), values[i]);
+            }
+            double[] res = new double[queries.size()];
+            for (int i = 0; i < queries.size(); ++i) {
+                List<String> query = queries.get(i);
+                String x = query.get(0);
+                String y = query.get(1);
+                if (!variableNumMap.containsKey(x) || !variableNumMap.containsKey(y)) {
+                    res[i] = -1.0d;
+                } else if (!uf.judgeConnected(variableNumMap.get(x), variableNumMap.get(y))) {
+                    res[i] = -1.0d;
+                } else {
+                    res[i] = uf.ratios[variableNumMap.get(y)] / uf.ratios[variableNumMap.get(x)];
+                }
+            }
+            return res;
+
+
+        }
+
+        class UnionFind {
+            private int[] parents;
+            public double[] ratios;
+
+            public UnionFind(int n) {
+                parents = new int[n];
+                for (int i = 0; i < n; ++i) {
+                    parents[i] = i;
+                }
+                ratios = new double[n];
+                Arrays.fill(ratios, 1.0d);
+            }
+
+
+            public void union(int x, int y, double ratio) {
+                int xParent = findParent(x);
+                int yParent = findParent(y);
+                if (xParent != yParent) {
+                    parents[yParent] = xParent;
+                    ratios[yParent] = ratios[x] / ratios[y] * ratio;
+                }
+            }
+
+            public int findParent(int x) {
+                if (x != parents[x]) {
+                    int origin = parents[x];
+                    parents[x] = findParent(parents[x]);
+                    ratios[x] *= ratios[origin];
+                }
+                return parents[x];
+            }
+
+
+            public boolean judgeConnected(int x, int y) {
+                int xP = findParent(x);
+                int yP = findParent(y);
+                return xP == yP;
+            }
+        }
+
 
         class Union_Find_20220508 {
             private int[] parents;
@@ -156,28 +235,6 @@ public class EvaluateDivision {
 
 
 
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
-            return calcEquation_20220508(equations, values, queries);
         }
 
 

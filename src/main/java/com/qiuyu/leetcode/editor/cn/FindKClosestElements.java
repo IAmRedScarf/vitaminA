@@ -40,6 +40,7 @@ package com.qiuyu.leetcode.editor.cn;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +53,86 @@ public class FindKClosestElements {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public List<Integer> findClosestElements(int[] arr, int k, int x) {
+            if (k < 0 || k > arr.length) {
+                throw new IllegalArgumentException();
+            }
+            List<Integer> res = new ArrayList<>();
+            if (k == 0) {
+                return res;
+            }
+            int targetIndex = findClosestIndex(arr, x);
+            res.add(arr[targetIndex]);
+            int left = targetIndex - 1, right = targetIndex + 1;
+            for (int i = 1; i < k; ++i) {
+                if (left < 0) {
+                    res.add(arr[right]);
+                    right++;
+                    continue;
+                }
+                if (right >= arr.length) {
+                    res.add(0, arr[left]);
+                    left--;
+                    continue;
+                }
+                if (Math.abs(arr[left] - x) < Math.abs(arr[right] - x)) {
+                    res.add(0, arr[left]);
+                    left--;
+                } else if (Math.abs(arr[left] - x) == Math.abs(arr[right] - x)) {
+                    res.add(0, arr[left]);
+                    left--;
+                } else {
+                    res.add(arr[right]);
+                    right++;
+                }
+            }
+            res.sort(Comparator.comparingInt(a -> a));
+            return res;
+        }
+
+
+
+        private int findClosestIndex(int[] arr, int x) {
+            int left = 0, right = arr.length - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (arr[mid] == x) {
+                    return mid;
+                } else if (arr[mid] > x) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            if (left >= arr.length) {
+                return right;
+            }
+            if (right < 0) {
+                return left;
+            }
+            int leftLen = Math.abs(arr[left] - x);
+            int rightLen = Math.abs(arr[right] - x);
+            if (leftLen < rightLen) {
+                return left;
+            } else if (leftLen > rightLen) {
+                return right;
+            } else {
+                return arr[left] < arr[right] ? left : right;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public List<Integer> findClosestElements20221111(int[] arr, int k, int x) {
             int n = arr.length;
             if (k >= n) {
                 return Arrays.stream(arr).boxed().collect(Collectors.toList());
