@@ -57,6 +57,14 @@ import java.util.List;
 public class QueueReconstructionByHeight {
     public static void main(String[] args) {
         Solution solution = new QueueReconstructionByHeight().new Solution();
+        int[] a1 = new int[] {7,0};
+        int[] a2 = new int[] {4,4};
+        int[] a3 = new int[] {7,1};
+        int[] a4 = new int[] {5,0};
+        int[] a5 = new int[] {6,1};
+        int[] a6 = new int[] {5,2};
+        int[][] people = new int[][] {a1, a2, a3, a4, a5, a6};
+        solution.reconstructQueue(people);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -68,8 +76,24 @@ public class QueueReconstructionByHeight {
 
 
         public int[][] reconstructQueue20230322(int[][] people) {
-            return null;
+            Arrays.sort(people, (p1, p2) -> {
+                if (p1[0] != p2[0]) {
+                    return p2[0] - p1[0];
+                } else {
+                    return p1[1] - p2[1];
+                }
+            });
+            List<int[]> peopleList = new ArrayList<>();
+            for (int[] person : people) {
+                peopleList.add(person[1], person);
+            }
+            return peopleList.toArray(new int[0][0]);
         }
+
+
+
+
+
 
 
 
