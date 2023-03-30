@@ -62,46 +62,31 @@ public class PathSumIii {
      * }
      */
     class Solution {
-
-        int res_20220507 = 0;
-        public int pathSum_20220507(TreeNode root, int targetSum) {
-            if (root == null) {
-                return 0;
-            }
-            Map<Integer, Integer> preSumCountMap = new HashMap<>();
-            preSumCountMap.put(0, 1);
-            dfs_20220507(root, 0, targetSum, preSumCountMap);
-            return res_20220507;
-
+        public int pathSum(TreeNode root, int targetSum) {
+            return pathSum20230328(root, targetSum);
         }
 
-        private void dfs_20220507(TreeNode root, int preSum, int targetSum, Map<Integer, Integer> preSumCountMap) {
-            if (root == null) {
+        int pathSumCount = 0;
+        int targetSumGlobal = 0;
+        Map<Long, Integer> sumFromRootCountMap = new HashMap<>();
+        public int pathSum20230328(TreeNode root, int targetSum) {
+            targetSumGlobal = targetSum;
+            sumFromRootCountMap.put(0L, 1);
+            calculateSumFromRoot(root, 0);
+            return pathSumCount;
+        }
+
+        public void calculateSumFromRoot(TreeNode cur, long preSum) {
+            if (cur == null) {
                 return;
             }
-            preSum += root.val;
-            res_20220507 += preSumCountMap.getOrDefault(preSum - targetSum, 0);
-            int originCount = preSumCountMap.getOrDefault(preSum, 0);
-            preSumCountMap.put(preSum, originCount + 1);
-            dfs_20220507(root.left, preSum, targetSum, preSumCountMap);
-            dfs_20220507(root.right, preSum, targetSum, preSumCountMap);
-            preSumCountMap.put(preSum, originCount);
+            long sumFromRoot = preSum + cur.val;
+            pathSumCount += sumFromRootCountMap.getOrDefault(sumFromRoot - targetSumGlobal, 0);
+            sumFromRootCountMap.put(sumFromRoot, sumFromRootCountMap.getOrDefault(sumFromRoot, 0) + 1);
+            calculateSumFromRoot(cur.left, sumFromRoot);
+            calculateSumFromRoot(cur.right, sumFromRoot);
+            sumFromRootCountMap.put(sumFromRoot, sumFromRootCountMap.get(sumFromRoot) - 1);
         }
-
-
-        public int pathSum(TreeNode root, int targetSum) {
-            return pathSum_20220507(root, targetSum);
-        }
-
-
-
-
-
-
-
-
-
-
 
         int a_path = 0;
         int b_path = 0;
@@ -130,6 +115,57 @@ public class PathSumIii {
             dfs(root.right, sumCountMap, curSum, targetSum);
             sumCountMap.put(curSum, sumCountMap.get(curSum) - 1);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        int res_20220507 = 0;
+        public int pathSum_20220507(TreeNode root, int targetSum) {
+            if (root == null) {
+                return 0;
+            }
+            Map<Integer, Integer> preSumCountMap = new HashMap<>();
+            preSumCountMap.put(0, 1);
+            dfs_20220507(root, 0, targetSum, preSumCountMap);
+            return res_20220507;
+
+        }
+
+        private void dfs_20220507(TreeNode root, int preSum, int targetSum, Map<Integer, Integer> preSumCountMap) {
+            if (root == null) {
+                return;
+            }
+            preSum += root.val;
+            res_20220507 += preSumCountMap.getOrDefault(preSum - targetSum, 0);
+            int originCount = preSumCountMap.getOrDefault(preSum, 0);
+            preSumCountMap.put(preSum, originCount + 1);
+            dfs_20220507(root.left, preSum, targetSum, preSumCountMap);
+            dfs_20220507(root.right, preSum, targetSum, preSumCountMap);
+            preSumCountMap.put(preSum, originCount);
+        }
+
+
+
+
 
 
 
