@@ -48,11 +48,57 @@ package com.qiuyu.leetcode.editor.cn;
 public class TargetSum {
     public static void main(String[] args) {
         Solution solution = new TargetSum().new Solution();
-        solution.findTargetSumWays_20220503(new int[]{1,1,1,1,1}, 3);
+        solution.findTargetSumWays(new int[]{100}, -200);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+
+        public int findTargetSumWays(int[] nums, int target) {
+            return findTargetSumWays20230330(nums, target);
+        }
+
+
+        public int findTargetSumWays20230330(int[] nums, int target) {
+            int sum = 0;
+            for (int num : nums) {
+                sum += num;
+            }
+            if (((target + sum) & 1) == 1) {
+                return 0;
+            }
+            int targetSum = (target + sum) / 2;
+            if (targetSum < 0) {
+                return 0;
+            }
+            int[][] dp = new int[1 + nums.length][1 + targetSum];
+            dp[0][0] = 1;
+            for (int i = 0; i < nums.length; ++i) {
+                for (int j = 0; j <= targetSum; ++j) {
+                    if (nums[i] > j) {
+                        dp[i + 1][j] = dp[i][j];
+                    } else {
+                        dp[i + 1][j] = dp[i][j - nums[i]] + dp[i][j];
+                    }
+                }
+            }
+            return dp[nums.length][targetSum];
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         int res_20220503_a = 0;
         public int findTargetSumWays_20220503_a(int[] nums, int target) {
@@ -101,26 +147,7 @@ public class TargetSum {
                 }
             }
             return dp[newTarget];
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
-        public int findTargetSumWays(int[] nums, int target) {
-//            return findTargetSumWays_20220503(nums, target);
-           return findTargetSumWays_20220503_a(nums, target);
-        }
-
-
 
 
         Integer res = 0;

@@ -80,6 +80,37 @@ public class ConvertBstToGreaterTree {
      */
     class Solution {
 
+        public TreeNode convertBST(TreeNode root) {
+            return convertBST20230330(root);
+        }
+
+
+
+        public TreeNode convertBST20230330(TreeNode root) {
+            traverse(root);
+            return root;
+        }
+
+        Integer rightSideSum = 0;
+        public void traverse(TreeNode root) {
+            if (root == null) {
+                return;
+            }
+            traverse(root.right);
+            root.val += rightSideSum;
+            rightSideSum = root.val;
+            traverse(root.left);
+        }
+
+
+
+
+
+
+
+
+
+
 
 
         public TreeNode convertBST_20220430(TreeNode root) {
@@ -101,7 +132,7 @@ public class ConvertBstToGreaterTree {
 
 
         int sum = 0;
-        public TreeNode convertBST(TreeNode root) {
+        public TreeNode convertBST111111111(TreeNode root) {
             return convertBST_20220430(root);
 //            if (root != null) {
 //                convertBST(root.right);

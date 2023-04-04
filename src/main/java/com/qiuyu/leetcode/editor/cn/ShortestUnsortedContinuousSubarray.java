@@ -53,11 +53,54 @@ public class ShortestUnsortedContinuousSubarray {
     public static void main(String[] args) {
         Solution solution = new ShortestUnsortedContinuousSubarray().new Solution();
         int[] nums = new int[] {2,6,4,8,10,9,15};
-        solution.findUnsortedSubarray_20220430(nums);
+        System.out.println(solution.findUnsortedSubarray(nums));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int findUnsortedSubarray(int[] nums) {
+            return findUnsortedSubarray20230330(nums);
+        }
+
+        public int findUnsortedSubarray20230330(int[] nums) {
+            int right = -1;
+            int leftMax = nums[0];
+            int i = 1;
+            while (i < nums.length) {
+                if (nums[i] < leftMax) {
+                    right = i;
+                } else if (nums[i] > leftMax) {
+                    leftMax = nums[i];
+                }
+                i++;
+            }
+            int left = -1;
+            int rightMin = nums[nums.length - 1];
+            int j = nums.length - 2;
+            while (j >= 0) {
+                if (nums[j] > rightMin) {
+                    left = j;
+                } else if (nums[j] < rightMin) {
+                    rightMin = nums[j];
+                }
+                j--;
+            }
+            return right == -1 ? 0 : (right - left + 1);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public int findUnsortedSubarray_20220501(int[] nums) {
             if (nums == null || nums.length <= 1) {
@@ -129,33 +172,10 @@ public class ShortestUnsortedContinuousSubarray {
                 }
             }
             return realRight - realLeft + 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
 
 
-        public int findUnsortedSubarray(int[] nums) {
-//            return findUnsortedSubarray_20220430(nums);
-            return findUnsortedSubarray_20220501(nums);
-        }
 
         private int f1(int[] nums) {
             if (nums == null || nums.length <= 1) {

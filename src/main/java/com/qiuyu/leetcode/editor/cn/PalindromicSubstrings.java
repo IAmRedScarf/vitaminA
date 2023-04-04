@@ -43,6 +43,29 @@ public class PalindromicSubstrings {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int countSubstrings(String s) {
+            return countSubstrings20230330(s);
+        }
+
+        public int countSubstrings20230330(String s) {
+            int len = s.length();
+            boolean[][] dp = new boolean[len][len];
+            int res = 0;
+            for (int i = len - 1; i >= 0; --i) {
+                for (int j = i; j < len; ++j) {
+                    boolean headTailEqual = s.charAt(i) == s.charAt(j);
+                    dp[i][j] = (j - i < 3) ? headTailEqual : (dp[i + 1][j - 1] && headTailEqual);
+                    if (dp[i][j]) {
+                        res++;
+                    }
+                }
+            }
+            return res;
+        }
+
+
+
+
         public int countSubstrings_20220501_a(String s) {
             if (s == null || s.length() == 0) {
                 return 0;
@@ -68,8 +91,6 @@ public class PalindromicSubstrings {
 
 
             return res;
-
-
         }
 
 
@@ -100,18 +121,6 @@ public class PalindromicSubstrings {
 
 
         }
-
-
-
-
-        public int countSubstrings(String s) {
-            return countSubstrings_20220501_a(s);
-        }
-
-
-
-
-
 
         public int countSubstrings_old(String s) {
             if (s == null) {

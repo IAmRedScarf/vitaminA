@@ -51,6 +51,67 @@ public class FindAllAnagramsInAString {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public List<Integer> findAnagrams(String s, String p) {
+            return findAnagrams20230329(s, p);
+        }
+
+
+
+        public List<Integer> findAnagrams20230329(String s, String p) {
+            if (s.length() < p.length()) {
+                return new ArrayList<>();
+            }
+            int[] need = new int[26];
+            for (char c : p.toCharArray()) {
+                need[c - 'a']++;
+
+            }
+            int matchCount = 0;
+            List<Integer> res = new ArrayList<>();
+            int right = 0;
+            int left = 0;
+            while (right < s.length()) {
+                char cur = s.charAt(right);
+                if (need[cur - 'a'] > 0) {
+                    matchCount++;
+                }
+                need[cur - 'a']--;
+                if (matchCount == p.length()) {
+                    while (left <= right) {
+                        if (right - left + 1 == p.length()) {
+                            res.add(left);
+                        }
+                        char leftC = s.charAt(left);
+                        need[leftC - 'a']++;
+                        left++;
+                        if (need[leftC - 'a'] > 0) {
+                            matchCount--;
+                            break;
+                        }
+                    }
+                }
+                right++;
+            }
+            return res;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public List<Integer> findAnagrams_20220503(String s, String p) {
             int[] letterCount = new int[26];
@@ -97,16 +158,6 @@ public class FindAllAnagramsInAString {
             }
             return res;
         }
-
-
-
-
-        public List<Integer> findAnagrams(String s, String p) {
-            return findAnagrams_20220503(s, p);
-        }
-
-
-
 
 
 

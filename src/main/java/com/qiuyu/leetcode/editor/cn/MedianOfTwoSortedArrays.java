@@ -64,12 +64,86 @@ package com.qiuyu.leetcode.editor.cn;
 public class MedianOfTwoSortedArrays {
     public static void main(String[] args) {
         Solution solution = new MedianOfTwoSortedArrays().new Solution();
-        System.out.println(solution.f(new int[]{1,3}, new int[] {2}));
+        System.out.println(solution.findMedianSortedArrays(new int[]{}, new int[] {1}));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
         public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+            return findMedianSortedArrays20230330002(nums1, nums2);
+        }
+
+
+        public double findMedianSortedArrays20230330001(int[] nums1, int[] nums2) {
+            int aStart = 0, bStart = 0;
+            int left = -1, right = -1;
+            int len = nums1.length + nums2.length;
+            for (int i = 0; i <= len / 2; ++i) {
+                left = right;
+                if (aStart < nums1.length && (bStart >= nums2.length || nums1[aStart] <= nums2[bStart])) {
+                    right = nums1[aStart++];
+                } else {
+                    right = nums2[bStart++];
+                }
+            }
+            if ((len & 1) == 1) {
+                return right;
+            } else {
+                return (left + right) / 2.0d;
+            }
+        }
+
+        /**
+         * 分隔两个数组
+         */
+        public double findMedianSortedArrays20230330002(int[] nums1, int[] nums2) {
+            // i，j为两个数组分割位置
+            // i+j为分割后左边的数字个数
+            // 数量为偶数时，i+j=len/2；数量为奇数时，i+j=(len+1)/2
+            // 因此无论奇偶，i+j=(len+1)/2
+            if (nums1.length > nums2.length) {
+                return findMedianSortedArrays20230330002(nums2, nums1);
+            }
+            int len = nums1.length + nums2.length;
+            int iMin = 0, iMax = nums1.length;
+            while (iMin <= iMax) {
+                int i = (iMin + iMax) / 2;
+                int j = (len + 1) / 2 - i;
+                if (i > 0 && j < nums2.length && nums1[i - 1] > nums2[j]) {
+                    iMax = i - 1;
+                } else if (j > 0 && i < nums1.length && nums2[j - 1] > nums1[i]) {
+                    iMin = i + 1;
+                } else {
+                    // 此时i到边界、或者j到边界、或者i与j满足切分条件
+                    int maxLeft;
+                    if (i == 0) {
+                        maxLeft = nums2[j - 1];
+                    } else if (j == 0) {
+                        maxLeft = nums1[i - 1];
+                    } else {
+                        maxLeft = Math.max(nums1[i - 1], nums2[j - 1]);
+                    }
+                    if ((len & 1) == 1) {
+                        return maxLeft;
+                    }
+
+                    int minRight;
+                    if (i == nums1.length) {
+                        minRight = nums2[j];
+                    } else if (j == nums2.length) {
+                        minRight = nums1[i];
+                    } else {
+                        minRight = Math.min(nums1[i], nums2[j]);
+                    }
+                    return (maxLeft + minRight) / 2.0d;
+                }
+            }
+            return 0;
+        }
+
+
+        public double findMedianSortedArrays0000000000(int[] nums1, int[] nums2) {
             if (nums1.length == 0 && nums2.length == 0) {
                 throw new IllegalArgumentException("no answer");
             }

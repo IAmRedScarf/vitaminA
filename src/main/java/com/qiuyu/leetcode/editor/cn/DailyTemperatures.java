@@ -44,6 +44,31 @@ public class DailyTemperatures {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int[] dailyTemperatures(int[] temperatures) {
+            return dailyTemperatures20230330(temperatures);
+        }
+
+
+        public int[] dailyTemperatures20230330(int[] temperatures) {
+            int len = temperatures.length;
+            int[] res = new int[len];
+            Deque<int[]> minStack = new LinkedList<>();
+            for (int i = len - 1; i >= 0; --i) {
+                int cur = temperatures[i];
+                while (!minStack.isEmpty() && minStack.peekLast()[1] <= cur) {
+                    minStack.pollLast();
+                }
+                res[i] = minStack.isEmpty() ? 0 : minStack.peekLast()[0] - i;
+                minStack.addLast(new int[]{i, cur});
+            }
+            return res;
+        }
+
+
+
+
+
+
 
         public int[] dailyTemperatures_20220510(int[] temperatures) {
 
@@ -68,19 +93,6 @@ public class DailyTemperatures {
 
         }
 
-
-
-
-
-
-
-
-
-
-
-        public int[] dailyTemperatures(int[] temperatures) {
-            return dailyTemperatures_20220510(temperatures);
-        }
 
         public int[] dailyTemperatures_20220501(int[] temperatures) {
             // 递减栈，从栈底到栈顶元素递减

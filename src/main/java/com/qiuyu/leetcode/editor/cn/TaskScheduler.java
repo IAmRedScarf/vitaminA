@@ -52,18 +52,75 @@
 
 package com.qiuyu.leetcode.editor.cn;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TaskScheduler {
     public static void main(String[] args) {
         Solution solution = new TaskScheduler().new Solution();
+        char[] tasks = new char[] {'A','A','A','B','B','B'};
+        System.out.println(solution.leastInterval(tasks, 2));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public int leastInterval(char[] tasks, int n) {
+            return leastInterval20230330(tasks, n);
+        }
+
+
+        public int leastInterval20230330(char[] tasks, int n) {
+            int[] taskCntArr = new int[26];
+            for (char c : tasks) {
+                taskCntArr[c - 'A']++;
+            }
+            int singleTaskCntMax = 0;
+            for (int cnt : taskCntArr) {
+                singleTaskCntMax = Math.max(singleTaskCntMax, cnt);
+            }
+            int numOfMaxCntTask = 0;
+            for (int j : taskCntArr) {
+                if (j == singleTaskCntMax) {
+                    numOfMaxCntTask++;
+                }
+            }
+            if (numOfMaxCntTask >= (n + 1)) {
+                return tasks.length;
+            } else {
+                int base = numOfMaxCntTask + (n + 1) * (singleTaskCntMax - 1);
+                if (tasks.length > base) {
+                    return tasks.length;
+                } else {
+                    return base;
+                }
+            }
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public int leastInterval_20220501_b(char[] tasks, int n) {
             int[] taskCount = new int[26];
             int singleTaskCountMax = 0;
@@ -128,11 +185,6 @@ public class TaskScheduler {
 
         }
 
-        public int leastInterval(char[] tasks, int n) {
-//            return leastInterval_20220501_a(tasks, n);
-            return leastInterval_20220501_b(tasks, n);
-
-        }
 
         public int leastInterval_pre(char[] tasks, int n) {
 

@@ -41,6 +41,37 @@ public class SubarraySumEqualsK {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public int subarraySum(int[] nums, int k) {
+            return subarraySum20230330(nums, k);
+
+        }
+
+        public int subarraySum20230330(int[] nums, int k) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            Map<Integer, Integer> preSumCountMap = new HashMap<>();
+            preSumCountMap.put(0, 1);
+            int res = 0;
+            int preSum = 0;
+            for (int num : nums) {
+                int curSum = preSum + num;
+                res += preSumCountMap.getOrDefault(curSum - k, 0);
+                preSumCountMap.put(curSum, preSumCountMap.getOrDefault(curSum, 0) + 1);
+                preSum = curSum;
+            }
+            return res;
+        }
+
+
+
+
+
+
+
+
+
         public int subarraySum_20220430_a(int[] nums, int k) {
             if (nums == null) {
                 return 0;
@@ -81,20 +112,6 @@ public class SubarraySumEqualsK {
         }
 
 
-
-
-
-
-
-
-
-
-        public int subarraySum(int[] nums, int k) {
-            return subarraySum_20220430_a(nums, k);
-//            return subarraySum_20220430(nums, k);
-//            return f2(nums, k);
-
-        }
 
         private int f1(int[] nums, int k) {
             if (nums == null || nums.length == 0) {
