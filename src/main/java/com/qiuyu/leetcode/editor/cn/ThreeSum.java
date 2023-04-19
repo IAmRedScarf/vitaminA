@@ -47,15 +47,58 @@ import java.util.List;
 public class ThreeSum {
     public static void main(String[] args) {
         Solution solution = new ThreeSum().new Solution();
-        int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
+        int[] nums = new int[]{34,55,79,28,46,33,2,48,31,-3,84,71,52,-3,93,15,21,-43,57,-6,86,56,94,74,83,-14,28,-66,46,-49,62,-11,43,65,77,12,47,61,26,1,13,29,55,-82,76,26,15,-29,36,-29,10,-70,69,17,49};
         System.out.println(solution.threeSum(nums));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public List<List<Integer>> threeSum(int[] nums) {
-            return threeSum20220214(nums);
+            return threeSum20230417(nums);
         }
+
+        public List<List<Integer>> threeSum20230417(int[] nums) {
+            List<List<Integer>> res = new ArrayList<>();
+            if (nums == null || nums.length < 3) {
+                return res;
+            }
+            Arrays.sort(nums);
+            for (int i = 0; i <= nums.length - 3; ++i) {
+                if (nums[i] > 0) {
+                    break;
+                }
+                if (i > 0 && nums[i] == nums[i - 1]) {
+                    continue;
+                }
+                int target = -nums[i];
+                int left = i + 1, right = nums.length - 1;
+                while (left < right) {
+                    if (nums[left] + nums[right] == target) {
+                        List<Integer> tmp = new ArrayList<>();
+                        tmp.add(nums[i]);
+                        tmp.add(nums[left]);
+                        tmp.add(nums[right]);
+                        res.add(tmp);
+                        while (left < right && nums[++left] == nums[left - 1]);
+                        while (right > left && nums[--right] == nums[right + 1]);
+                    } else if (nums[left] + nums[right] > target) {
+                        right--;
+                    } else {
+                        left++;
+                    }
+                }
+            }
+            return res;
+
+        }
+
+
+
+
+
+
+
+
 
 
         public List<List<Integer>> threeSum20220214(int[] nums) {

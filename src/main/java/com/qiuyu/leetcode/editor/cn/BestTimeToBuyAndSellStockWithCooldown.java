@@ -29,6 +29,36 @@ public class BestTimeToBuyAndSellStockWithCooldown {
             return maxProfit20230320(prices);
         }
 
+        public int maxProfit20230409(int[] prices) {
+            int len = prices.length;
+            // 当天结束持有股票
+            int[] dp1 = new int[len];
+            dp1[0] = -prices[0];
+            // 当天未持有股票，当天有卖出
+            int[] dp2 = new int[len];
+            // 当天未持有股票，当天无卖出
+            int[] dp3 = new int[len];
+
+
+
+            for (int i = 1; i < len; ++i) {
+                dp1[i] = Math.max(dp1[i - 1], dp3[i - 1] - prices[i]);
+                dp2[i] = dp1[i - 1] + prices[i];
+                dp3[i] = Math.max(dp2[i - 1], dp3[i - 1]);
+            }
+            return Math.max(dp2[len - 1], dp3[len - 1]);
+
+        }
+
+
+
+
+
+
+
+
+
+
 
         public int maxProfit20230320(int[] prices) {
             int n = prices.length;

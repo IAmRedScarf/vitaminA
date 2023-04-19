@@ -44,7 +44,45 @@ public class FindAllNumbersDisappearedInAnArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
         public List<Integer> findDisappearedNumbers(int[] nums) {
+            return findDisappearedNumbers20230409(nums);
+        }
+
+
+        public List<Integer> findDisappearedNumbers20230409(int[] nums) {
+            int n = nums.length;
+            for (int i = 0; i < n; ++i) {
+                nums[(nums[i] - 1) % n] += n;
+            }
+            List<Integer> res = new ArrayList<>();
+            for (int i = 0; i < n; ++i) {
+                if (nums[i] <= n) {
+                    res.add(i + 1);
+                    nums[i] %= n;
+                }
+            }
+            return res;
+        }
+
+
+        public List<Integer> findDisappearedNumbers2023040901(int[] nums) {
+            int[] tmp = new int[nums.length];
+            for (int num : nums) {
+                if (tmp[num - 1] == 0) {
+                    tmp[num - 1]++;
+                }
+            }
+            List<Integer> res = new ArrayList<>();
+            for (int i = 0; i < tmp.length; ++i) {
+                if (tmp[i] == 0) {
+                    res.add(i + 1);
+                }
+            }
+            return res;
+        }
+
+        public List<Integer> findDisappearedNumbers00000000(int[] nums) {
             List<Integer> res = new ArrayList<>();
             int n = nums.length;
             for (int num : nums) {

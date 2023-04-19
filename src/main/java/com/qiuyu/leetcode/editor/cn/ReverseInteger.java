@@ -57,6 +57,27 @@ public class ReverseInteger {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int reverse(int x) {
+            return reverse20230418(x);
+        }
+
+
+        public int reverse20230418(int x) {
+            int res = 0;
+            while (x != 0) {
+                int tmp = x % 10;
+                if (res > Integer.MAX_VALUE / 10 || res < Integer.MIN_VALUE / 10) {
+                    return 0;
+                }
+                res = res * 10 + tmp;
+                x = x / 10;
+            }
+            return res;
+        }
+
+
+
+
+        public int reverse222222222(int x) {
             int rev = 0;
             while (x != 0) {
                 int digit = x % 10;

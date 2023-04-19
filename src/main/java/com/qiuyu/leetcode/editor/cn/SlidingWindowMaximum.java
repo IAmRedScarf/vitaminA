@@ -1,4 +1,5 @@
-//给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位
+//给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。
+// 滑动窗口每次只向右移动一位
 //。 
 //
 // 返回滑动窗口中的最大值。 
@@ -69,14 +70,62 @@ import java.util.*;
 public class SlidingWindowMaximum {
     public static void main(String[] args) {
         Solution solution = new SlidingWindowMaximum().new Solution();
-        List<String> a = new ArrayList<>();
-        a.add("aaa");
-        a.add("bbb");
-        System.out.println(a.toString());
+        int[] nums = new int[]{1, -1};
+        System.out.println(Arrays.toString(solution.maxSlidingWindow(nums, 1)));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public int[] maxSlidingWindow(int[] nums, int k) {
+            return maxSlidingWindow202304040000000(nums, k);
+        }
+
+        public int[] maxSlidingWindow202304040000000(int[] nums, int k) {
+            // 存储的是下标
+            Deque<Integer> minStack = new LinkedList<>();
+            for (int i = 0; i < k; ++i) {
+                while (!minStack.isEmpty() && nums[minStack.peekLast()] <= nums[i]) {
+                    minStack.pollLast();
+                }
+                minStack.add(i);
+            }
+            int[] res = new int[nums.length - k + 1];
+            res[0] = nums[minStack.peekFirst()];
+            for (int i = k; i < nums.length; ++i) {
+                while (!minStack.isEmpty() && nums[minStack.peekLast()] <= nums[i]) {
+                    minStack.pollLast();
+                }
+                minStack.add(i);
+                while (!minStack.isEmpty() && minStack.peekFirst() < i - k + 1) {
+                    minStack.pollFirst();
+                }
+                res[i - k + 1] = nums[minStack.peekFirst()];
+            }
+            return res;
+
+        }
+
+
+
+
+        public int[] maxSlidingWindow20230404(int[] nums, int k) {
+            PriorityQueue<int[]> pq = new PriorityQueue<>((arr1, arr2) -> arr2[1] - arr1[1]);
+            for (int i = 0; i < k; ++i) {
+                pq.add(new int[]{i, nums[i]});
+            }
+            int[] res = new int[nums.length - k + 1];
+            res[0] = pq.peek()[1];
+            for (int i = k; i < nums.length; ++i) {
+                while (!pq.isEmpty() && pq.peek()[0] < i - k + 1) {
+                    pq.poll();
+                }
+                pq.add(new int[]{i, nums[i]});
+                res[i - k + 1] = pq.peek()[1];
+            }
+            return res;
+        }
+
 
         public int[] maxSlidingWindow_20220512_a(int[] nums, int k) {
             Deque<int[]> queue = new LinkedList<>();
@@ -89,7 +138,7 @@ public class SlidingWindowMaximum {
                         break;
                     }
                 }
-                queue.addLast(new int[] {i, nums[i]});
+                queue.addLast(new int[]{i, nums[i]});
             }
             int[] res = new int[nums.length - k + 1];
             res[0] = queue.peekFirst()[1];
@@ -103,7 +152,7 @@ public class SlidingWindowMaximum {
                         break;
                     }
                 }
-                queue.addLast(new int[] {i, nums[i]});
+                queue.addLast(new int[]{i, nums[i]});
 
                 while (!queue.isEmpty() && queue.peekFirst()[0] < i - k + 1) {
                     queue.pollFirst();
@@ -123,13 +172,13 @@ public class SlidingWindowMaximum {
                 }
             });
             for (int i = 0; i < k; ++i) {
-                pq.add(new int[] {i, nums[i]});
+                pq.add(new int[]{i, nums[i]});
             }
             int[] res = new int[nums.length - k + 1];
             res[0] = pq.peek()[1];
             int j = 1;
             for (int i = k; i < nums.length; ++i) {
-                pq.add(new int[] {i, nums[i]});
+                pq.add(new int[]{i, nums[i]});
                 while (!pq.isEmpty() && pq.peek()[0] < i - k + 1) {
                     pq.poll();
                 }
@@ -137,21 +186,6 @@ public class SlidingWindowMaximum {
             }
             return res;
         }
-
-        public int[] maxSlidingWindow(int[] nums, int k) {
-            return maxSlidingWindow_20220512_a(nums, k);
-        }
-
-
-
-
-
-
-
-
-
-
-
 
 
         public int[] maxSlidingWindow_old(int[] nums, int k) {

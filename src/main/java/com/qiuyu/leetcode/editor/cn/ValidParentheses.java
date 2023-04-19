@@ -65,6 +65,42 @@ public class ValidParentheses {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public boolean isValid(String s) {
+            return isValid20230409(s);
+        }
+
+        public boolean isValid20230409(String s) {
+            Deque<Character> stack = new LinkedList<>();
+            for (char c : s.toCharArray()) {
+                if (c == '(' || c == '[' || c == '{') {
+                    stack.addLast(c);
+                } else {
+                    if (c == ')') {
+                        if (stack.isEmpty() || stack.peekLast() != '(') {
+                            return false;
+                        }
+                        stack.pollLast();
+                    } else if (c == ']') {
+                        if (stack.isEmpty() || stack.peekLast() != '[') {
+                            return false;
+                        }
+                        stack.pollLast();
+                    } else {
+                        if (stack.isEmpty() || stack.peekLast() != '{') {
+                            return false;
+                        }
+                        stack.pollLast();
+                    }
+                }
+            }
+            return stack.isEmpty();
+        }
+
+
+
+
+
+
 
         public boolean isValid_20220513(String s) {
             Map<Character, Character> tmpMap = new HashMap<>();
@@ -85,20 +121,6 @@ public class ValidParentheses {
             }
             return stack.isEmpty();
         }
-
-
-
-
-
-
-
-        public boolean isValid(String s) {
-            return isValid_20220513(s);
-        }
-
-
-
-
 
 
         public boolean isValid_old(String s) {

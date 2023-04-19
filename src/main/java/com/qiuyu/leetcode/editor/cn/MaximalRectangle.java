@@ -62,15 +62,72 @@ public class MaximalRectangle {
     public static void main(String[] args) {
         Solution solution = new MaximalRectangle().new Solution();
         char[][] matrix = new char[4][5];
-        matrix[0] = new char[] {'1','0','1','0','0'};
-        matrix[1] = new char[] {'1','0','1','1','1'};
-        matrix[2] = new char[] {'1','1','1','1','1'};
-        matrix[3] = new char[] {'1','0','0','1','0'};
+        matrix[0] = new char[]{'1', '0', '1', '0', '0'};
+        matrix[1] = new char[]{'1', '0', '1', '1', '1'};
+        matrix[2] = new char[]{'1', '1', '1', '1', '1'};
+        matrix[3] = new char[]{'1', '0', '0', '1', '0'};
         solution.maximalRectangle_20220511(matrix);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int maximalRectangle(char[][] matrix) {
+            return maximalRectangle20230404(matrix);
+        }
+
+
+        public int maximalRectangle20230404(char[][] matrix) {
+            int m = matrix.length, n = matrix[0].length;
+            int[][] arr = new int[m][n];
+            for (int j = 0; j < n; ++j) {
+                arr[0][j] = matrix[0][j] == '1' ? 1 : 0;
+            }
+            for (int i = 1; i < m; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    arr[i][j] = matrix[i][j] == '0' ? 0 : (1 + arr[i - 1][j]);
+                }
+            }
+            int res = 0;
+            for (int i = 0; i < m; ++i) {
+                res = Math.max(res, calculateMaxArea(arr[i]));
+            }
+            return res;
+
+
+        }
+
+
+        private int calculateMaxArea(int[] nums) {
+            int len = nums.length;
+            int[] leftFirstShorterIndex = new int[len];
+            Deque<int[]> maxStack = new LinkedList<>();
+            for (int i = 0; i < len; ++i) {
+                while (!maxStack.isEmpty() && maxStack.peekLast()[1] >= nums[i]) {
+                    maxStack.pollLast();
+                }
+                leftFirstShorterIndex[i] = maxStack.isEmpty() ? -1 : maxStack.peekLast()[0];
+                maxStack.addLast(new int[]{i, nums[i]});
+            }
+            int[] rightFirstShorterIndex = new int[len];
+            maxStack.clear();
+            for (int i = len - 1; i >= 0; --i) {
+                while (!maxStack.isEmpty() && maxStack.peekLast()[1] >= nums[i]) {
+                    maxStack.pollLast();
+                }
+                rightFirstShorterIndex[i] = maxStack.isEmpty() ? len : maxStack.peekLast()[0];
+                maxStack.addLast(new int[]{i, nums[i]});
+            }
+            int maxRectangleArea = 0;
+            for (int i = 0; i < len; ++i) {
+                if (nums[i] != 0) {
+                    maxRectangleArea = Math.max(maxRectangleArea, nums[i] * (rightFirstShorterIndex[i] - leftFirstShorterIndex[i] - 1));
+                }
+            }
+            return maxRectangleArea;
+
+        }
+
+
         public int maximalRectangle_20220511(char[][] matrix) {
             int m = matrix.length, n = matrix[0].length;
             int[][] tmpMatrix = new int[m][n];
@@ -133,29 +190,6 @@ public class MaximalRectangle {
             }
             return res;
         }
-
-
-
-
-
-
-
-        public int maximalRectangle(char[][] matrix) {
-            return maximalRectangle_20220511(matrix);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         public int maximalRectangle_old(char[][] matrix) {
             if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {

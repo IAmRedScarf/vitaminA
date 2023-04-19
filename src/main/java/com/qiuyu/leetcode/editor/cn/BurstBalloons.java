@@ -39,10 +39,71 @@ package com.qiuyu.leetcode.editor.cn;
 public class BurstBalloons {
     public static void main(String[] args) {
         Solution solution = new BurstBalloons().new Solution();
+        System.out.println(solution.maxCoins(new int[]{3,1,5,8}));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int maxCoins(int[] nums) {
+            return maxCoins20230417(nums);
+        }
+
+        public int maxCoins20230417(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                return 0;
+            }
+            int[] arr = new int[nums.length + 2];
+            arr[0] = 1;
+            arr[arr.length - 1] = 1;
+            for (int i = 0; i < nums.length; ++i) {
+                arr[i + 1] = nums[i];
+            }
+            int[][] dp = new int[arr.length][arr.length];
+            for (int i = arr.length - 3; i >= 0 ; --i) {
+                for (int j = i + 1; j <= arr.length - 1; ++j) {
+                    for (int k = i + 1; k < j; ++k) {
+                        dp[i][j] = Math.max(dp[i][j], dp[i][k] + dp[k][j] + arr[i] * arr[k] * arr[j]);
+                    }
+                }
+            }
+            return dp[0][arr.length - 1];
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        public int maxCoins20230404(int[] nums) {
+            int[] arr =  new int[nums.length + 2];
+            arr[0] = 1;
+            arr[arr.length - 1] = 1;
+            for (int i = 0; i < nums.length; ++i) {
+                arr[i + 1] = nums[i];
+            }
+            int[][] dp = new int[arr.length][arr.length];
+
+            for (int i = arr.length - 3; i >= 0; --i) {
+                for (int j = i + 2; j < arr.length; ++j) {
+                    for (int k = i + 1; k < j; ++k) {
+                        dp[i][j] = Math.max(dp[i][j], dp[i][k] + dp[k][j] + arr[i] * arr[k] * arr[j]);
+                    }
+                }
+            }
+            return dp[0][arr.length - 1];
+
+        }
+
+
+
+
+
 
         public int maxCoins_20220512(int[] nums) {
             if (nums == null || nums.length == 0) {
@@ -66,19 +127,9 @@ public class BurstBalloons {
                 }
             }
             return dp[0][fixLen - 1];
-
-
-
-
-
-
         }
 
 
-
-        public int maxCoins(int[] nums) {
-            return maxCoins_20220512(nums);
-        }
 
 
 

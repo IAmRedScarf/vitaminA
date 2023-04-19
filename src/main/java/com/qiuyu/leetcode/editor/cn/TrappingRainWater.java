@@ -42,6 +42,41 @@ public class TrappingRainWater {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public int trap(int[] height) {
+            return trap20230404(height);
+        }
+
+
+        public int trap20230404(int[] height) {
+            int len = height.length;
+            int[] leftMax = new int[len];
+            int tmp = height[0];
+            for (int i = 0; i < len; ++i) {
+                if (height[i] > tmp) {
+                    tmp = height[i];
+                }
+                leftMax[i] = tmp;
+            }
+            int[] rightMax = new int[len];
+            tmp = height[len - 1];
+            for (int i = len - 1; i >= 0; --i) {
+                if (height[i] > tmp) {
+                    tmp = height[i];
+                }
+                rightMax[i] = tmp;
+            }
+            int sum = 0;
+            for (int i = 0; i < len; ++i) {
+                sum += Math.min(leftMax[i], rightMax[i]) - height[i];
+            }
+            return sum;
+        }
+
+
+
+
+
+
         public int trap_20220510(int[] height) {
             int len = height.length;
             // 左边（包括自己）最高，也就是截止当前下标最高的
@@ -72,19 +107,6 @@ public class TrappingRainWater {
 
         }
 
-
-
-
-
-
-
-
-
-
-
-        public int trap(int[] height) {
-            return trap_20220510(height);
-        }
 
 
         public int trap_old(int[] height) {

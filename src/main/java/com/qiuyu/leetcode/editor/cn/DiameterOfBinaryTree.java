@@ -57,8 +57,31 @@ public class DiameterOfBinaryTree {
      */
     class Solution {
         public int diameterOfBinaryTree(TreeNode root) {
-            return diameterOfBinaryTree_20220730(root);
+            return diameterOfBinaryTree20230409(root);
         }
+
+
+        int maxNodeNum = 0;
+        public int diameterOfBinaryTree20230409(TreeNode root) {
+            helper(root);
+            return maxNodeNum - 1;
+        }
+
+        private int helper(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+            int leftDepth = helper(root.left);
+            int rightDepth = helper(root.right);
+            maxNodeNum = Math.max(maxNodeNum, leftDepth + rightDepth + 1);
+            return Math.max(leftDepth, rightDepth) + 1;
+        }
+
+
+
+
+
+
 
 
         int res_20220730 = 0;

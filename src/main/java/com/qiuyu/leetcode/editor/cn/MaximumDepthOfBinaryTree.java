@@ -44,24 +44,38 @@ public class MaximumDepthOfBinaryTree {
      */
     class Solution {
 
+        public int maxDepth(TreeNode root) {
+            return maxDepth20230409(root);
+        }
+
+
+        public int maxDepth20230409(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+            return 1 + Math.max(maxDepth20230409(root.left), maxDepth20230409(root.right));
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public int maxDepth_20220513(TreeNode root) {
             if (root == null) {
                 return 0;
             }
             return 1 + Math.max(maxDepth_20220513(root.left), maxDepth_20220513(root.right));
         }
-
-
-        public int maxDepth(TreeNode root) {
-            return maxDepth_20220513(root);
-        }
-
-
-
-
-
-
-
 
 
         public int maxDepth_old(TreeNode root) {

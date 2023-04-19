@@ -46,6 +46,30 @@ public class BestTimeToBuyAndSellStock {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public int maxProfit(int[] prices) {
+            return maxProfit20230409(prices);
+        }
+
+        public int maxProfit20230409(int[] prices) {
+            int len = prices.length;
+            int preMin = prices[0];
+            int maxProfit = 0;
+            for (int i = 1; i < len; ++i) {
+                if (prices[i] >= preMin) {
+                    maxProfit = Math.max(maxProfit, prices[i] - preMin);
+                } else {
+                    preMin = prices[i];
+                }
+            }
+            return maxProfit;
+
+
+
+        }
+
+
+
+
         public int maxProfit_20220513(int[] prices) {
             int res = 0;
             int preMin = prices[0];
@@ -56,21 +80,7 @@ public class BestTimeToBuyAndSellStock {
                 }
             }
             return res;
-
-
-
-
-
         }
-
-
-        public int maxProfit(int[] prices) {
-            return maxProfit_20220513(prices);
-        }
-
-
-
-
 
 
         public int maxProfit_old(int[] prices) {

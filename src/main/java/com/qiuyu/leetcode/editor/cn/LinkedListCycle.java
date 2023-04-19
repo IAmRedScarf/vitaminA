@@ -75,6 +75,45 @@ public class LinkedListCycle {
      * }
      */
     public class Solution {
+        public boolean hasCycle(ListNode head) {
+            return hasCycle20230407(head);
+        }
+
+
+        public boolean hasCycle20230407(ListNode head) {
+            if (head == null) {
+                return false;
+            }
+            ListNode pf = head, ps = head;
+//            do {
+//                pf = pf.next;
+//                if (pf == null) {
+//                    return false;
+//                }
+//                pf = pf.next;
+//                ps = ps.next;
+//            } while (pf != ps && pf != null);
+//
+//            return pf != null;
+
+            while (pf != null && pf.next != null) {
+                pf = pf.next.next;
+                ps = ps.next;
+                if (pf == ps) {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+
+
+
+
+
+
+
         public boolean hasCycle_20220513(ListNode head) {
             if (head == null || head.next == null) {
                 return false;
@@ -90,11 +129,6 @@ public class LinkedListCycle {
             return false;
         }
 
-
-
-        public boolean hasCycle(ListNode head) {
-            return hasCycle_20220513(head);
-        }
 
 
 

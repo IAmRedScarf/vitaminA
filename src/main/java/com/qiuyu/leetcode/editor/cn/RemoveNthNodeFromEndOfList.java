@@ -61,8 +61,41 @@ public class RemoveNthNodeFromEndOfList {
      */
     class Solution {
         public ListNode removeNthFromEnd(ListNode head, int n) {
-            return removeNthFromEnd20230214(head, n);
+            return removeNthFromEnd20230418(head, n);
         }
+
+        public ListNode removeNthFromEnd20230418(ListNode head, int n) {
+            if (n <= 0) {
+                return head;
+            }
+            ListNode pf = head;
+            int i = 0;
+            while (i < n && pf != null) {
+                pf = pf.next;
+                i++;
+            }
+            if (i != n) {
+                return head;
+            }
+            ListNode preHead = new ListNode(0);
+            preHead.next = head;
+            ListNode p = preHead;
+            while (pf != null) {
+                pf = pf.next;
+                p = p.next;
+            }
+            p.next = p.next.next;
+            return preHead.next;
+
+        }
+
+
+
+
+
+
+
+
 
         public ListNode removeNthFromEnd20230214(ListNode head, int n) {
             if (head == null) {

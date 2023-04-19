@@ -53,6 +53,83 @@ public class RemoveInvalidParentheses {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public List<String> removeInvalidParentheses(String s) {
+            return removeInvalidParentheses20230404(s);
+        }
+
+        Set<String> available;
+        int maxValidStrLen;
+        int maxScore;
+        public List<String> removeInvalidParentheses20230404(String s) {
+            available = new HashSet<>();
+            int leftNum = 0, rightNum = 0;
+            for (char c : s.toCharArray()) {
+                if (c == '(') {
+                    leftNum++;
+                } else if (c == ')') {
+                    rightNum++;
+                }
+            }
+            maxScore = Math.min(leftNum, rightNum);
+            dfs20230405(s, 0, new StringBuilder(), 0);
+            return new ArrayList<>(available);
+        }
+
+        private void dfs20230405(String s, int start, StringBuilder sb, int score) {
+            if (score < 0 || score > maxScore) {
+                return;
+            }
+            if (start == s.length()) {
+                if (score == 0 && sb.length() >= maxValidStrLen) {
+                    if (sb.length() > maxValidStrLen) {
+                        maxValidStrLen = sb.length();
+                        available.clear();
+                    }
+                    available.add(sb.toString());
+                }
+                return;
+            }
+
+
+            char cur = s.charAt(start);
+            if (cur == '(') {
+                // 不取当前左括号
+                dfs20230405(s, start + 1, sb, score);
+
+                // 取当前左括号
+                dfs20230405(s, start + 1, sb.append('('), score + 1);
+                sb.deleteCharAt(sb.length() - 1);
+            } else if (cur == ')') {
+                // 不取当前右括号
+                dfs20230405(s, start + 1, sb, score);
+
+                // 取当前右括号
+                dfs20230405(s, start + 1, sb.append(')'), score - 1);
+                sb.deleteCharAt(sb.length() - 1);
+            } else {
+                dfs20230405(s, start + 1, sb.append(cur), score);
+                sb.deleteCharAt(sb.length() - 1);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         int scoreMax;
         Set<String> res;
@@ -172,10 +249,6 @@ public class RemoveInvalidParentheses {
             }
         }
 
-
-        public List<String> removeInvalidParentheses(String s) {
-            return removeInvalidParentheses_20220512_a(s);
-        }
 
 
 //        int maxValidLen = 0;

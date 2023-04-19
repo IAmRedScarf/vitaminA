@@ -56,6 +56,29 @@ public class TwoSum {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int[] twoSum(int[] nums, int target) {
+            return  twoSum20230409(nums, target);
+        }
+
+
+
+        public int[] twoSum20230409(int[] nums, int target) {
+            Map<Integer, Integer> valueIndexMap = new HashMap<>();
+            for (int i = 0; i < nums.length; ++i) {
+                if (valueIndexMap.containsKey(target - nums[i])) {
+                    return new int[]{i, valueIndexMap.get(target - nums[i])};
+                }
+                valueIndexMap.put(nums[i], i);
+            }
+            return null;
+
+        }
+
+
+
+
+
+
         public int[] twoSum_20220513(int[] nums, int target) {
             Map<Integer, Integer> tmpMap = new HashMap<>();
             for (int i = 0; i < nums.length; ++i) {
@@ -68,11 +91,6 @@ public class TwoSum {
             return null;
         }
 
-
-        public int[] twoSum(int[] nums, int target) {
-            return twoSum_20220513(nums, target);
-
-        }
 
 
 

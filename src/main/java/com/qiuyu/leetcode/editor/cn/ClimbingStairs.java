@@ -34,6 +34,30 @@ public class ClimbingStairs {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public int climbStairs(int n) {
+            return climbStairs20230409(n);
+        }
+
+        public int climbStairs20230409(int n) {
+            if (n == 1) {
+                return 1;
+            }
+            if (n == 2) {
+                return 2;
+            }
+            int f1 = 1, f2 = 2;
+            int res = 0;
+            for (int i = 3; i <= n; ++i) {
+                res = f1 + f2;
+                f1 = f2;
+                f2 = res;
+            }
+            return res;
+        }
+
+
+
+
         public int climbStairs_20220513(int n) {
             if (n == 1) {
                 return 1;
@@ -48,18 +72,6 @@ public class ClimbingStairs {
             return res;
 
         }
-
-
-
-
-
-
-        public int climbStairs(int n) {
-            return climbStairs_20220513(n);
-        }
-
-
-
 
         public int climbStairs_old(int n) {
             if (n == 1) {

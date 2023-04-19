@@ -61,6 +61,48 @@ public class CountingBits {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public int[] countBits(int n) {
+            return countBits202340901(n);
+        }
+
+        public int[] countBits202340901(int n) {
+            int[] dp = new int[n + 1];
+            dp[0] = 0;
+            for (int i = 1; i <= n; ++i) {
+                if ((i & 1) == 1) {
+                    dp[i] = dp[i - 1] + 1;
+                } else {
+                    dp[i] = dp[i >> 1];
+                }
+            }
+            return dp;
+        }
+
+
+
+        public int[] countBits2023409(int n) {
+            int[] res = new int[n + 1];
+            for (int i = 0; i <= n; ++i) {
+                res[i] = countOnes20230409(i);
+            }
+            return res;
+        }
+
+        private int countOnes20230409(int i) {
+            int cnt = 0;
+            while (i != 0) {
+                if ((i & 1) == 1) {
+                    cnt++;
+                }
+                i >>>= 1;
+            }
+            return cnt;
+        }
+
+
+
+
+
 
         public int[] countBits_20220515_b(int n) {
             int[] res = new int[n + 1];
@@ -104,13 +146,6 @@ public class CountingBits {
             }
             return res;
         }
-
-
-        public int[] countBits(int n) {
-            return countBits_20220515_b(n);
-        }
-
-
 
 
 

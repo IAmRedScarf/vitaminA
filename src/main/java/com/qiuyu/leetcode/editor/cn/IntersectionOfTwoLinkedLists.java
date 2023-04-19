@@ -120,6 +120,62 @@ public class IntersectionOfTwoLinkedLists {
      * }
      */
     public class Solution {
+
+        public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+            return getIntersectionNode20230407(headA, headB);
+        }
+
+        public ListNode getIntersectionNode20230407(ListNode headA, ListNode headB) {
+            int lenA = 0, lenB = 0;
+            ListNode p = headA;
+            while (p != null) {
+                lenA++;
+                p = p.next;
+            }
+            p = headB;
+            while (p != null) {
+                lenB++;
+                p = p.next;
+            }
+            return lenA > lenB ? getIntersectionNode20230407(headA, lenA, headB, lenB) : getIntersectionNode20230407(headB, lenB, headA, lenA);
+
+
+        }
+
+        private ListNode getIntersectionNode20230407(ListNode l1, int len1, ListNode l2, int len2) {
+            if (len1 < len2 || len1 <= 0 || len2 <= 0) {
+                return null;
+            }
+            ListNode p1 = l1, p2 = l2;
+            for (int i = 0; i < len1 - len2; ++i) {
+                p1 = p1.next;
+            }
+            while (p1 != null) {
+                if (p1 == p2) {
+                    return p1;
+                }
+                p1 = p1.next;
+                p2 = p2.next;
+            }
+            return null;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public ListNode getIntersectionNode_20220514(ListNode headA, ListNode headB) {
             if (headA == null || headB == null) {
                 return null;
@@ -158,9 +214,6 @@ public class IntersectionOfTwoLinkedLists {
 
         }
 
-        public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-            return getIntersectionNode_20220514(headA, headB);
-        }
 
 
         public ListNode getIntersectionNode_old(ListNode headA, ListNode headB) {

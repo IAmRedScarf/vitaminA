@@ -43,6 +43,51 @@ public class MoveZeroes {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public void moveZeroes(int[] nums) {
+            moveZeroes20230409(nums);
+        }
+        public void moveZeroes20230409(int[] nums) {
+            int i = 0, j = 0;
+            while (j < nums.length) {
+                if (nums[j] != 0) {
+                    swap(nums, i, j);
+                    i++;
+                }
+                j++;
+            }
+        }
+
+
+
+        public void moveZeroes20230408(int[] nums) {
+            int zeroIndex = 0;
+            while (zeroIndex < nums.length && nums[zeroIndex] != 0) {
+                zeroIndex++;
+            }
+            int notZeroIndex = zeroIndex + 1;
+            while (notZeroIndex < nums.length && nums[notZeroIndex] == 0) {
+                notZeroIndex++;
+            }
+            while (zeroIndex < nums.length && notZeroIndex < nums.length) {
+                swap(nums, zeroIndex, notZeroIndex);
+                zeroIndex++;
+                while (zeroIndex < nums.length && nums[zeroIndex] != 0) {
+                    zeroIndex++;
+                }
+                notZeroIndex++;
+                while (notZeroIndex < nums.length && nums[notZeroIndex] == 0) {
+                    notZeroIndex++;
+                }
+            }
+
+        }
+
+
+
+
+
+
+
 
         public void moveZeroes_20220515_a(int[] nums) {
             int j = 0;
@@ -74,10 +119,6 @@ public class MoveZeroes {
 
         }
 
-
-        public void moveZeroes(int[] nums) {
-            moveZeroes_20220515_a(nums);
-        }
 
 
         public void moveZeroes_old(int[] nums) {
@@ -112,6 +153,9 @@ public class MoveZeroes {
         }
 
         private void swap(int[] nums, int i, int j) {
+            if (i == j) {
+                return;
+            }
             int tmp = nums[i];
             nums[i] = nums[j];
             nums[j] = tmp;

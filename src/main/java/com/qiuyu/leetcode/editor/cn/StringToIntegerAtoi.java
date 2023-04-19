@@ -79,48 +79,95 @@
 // 
 // Related Topics 字符串 👍 1360 👎 0
 
-  
+
 package com.qiuyu.leetcode.editor.cn;
+
 public class StringToIntegerAtoi {
     public static void main(String[] args) {
         Solution solution = new StringToIntegerAtoi().new Solution();
         solution.myAtoi("42");
     }
+
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int myAtoi(String s) {
-        int index = 0;
-        while (index < s.length() && s.charAt(index) == ' ') {
-            index++;
+    class Solution {
+
+        public int myAtoi(String s) {
+            return myAtoi20230418(s);
         }
-        if (index == s.length()) {
-            return 0;
-        }
-        int sign = 1;
-        if (s.charAt(index) == '+') {
-            index++;
-        } else if (s.charAt(index) == '-') {
-            sign = -1;
-            index++;
-        }
-        int res = 0;
-        while (index < s.length()) {
-            if (s.charAt(index) < '0' || s.charAt(index) > '9') {
-                break;
+
+
+        public int myAtoi20230418(String s) {
+            int index = 0;
+            while (index < s.length() && s.charAt(index) == ' ') {
+                index++;
             }
-            int digit = s.charAt(index) - '0';
-            if (res > Integer.MAX_VALUE / 10 || (res == Integer.MAX_VALUE / 10 && digit > Integer.MAX_VALUE % 10)) {
-                return Integer.MAX_VALUE;
+            if (index == s.length()) {
+                return 0;
             }
-            if (res < Integer.MIN_VALUE / 10 || (res == Integer.MIN_VALUE / 10 && digit > -(Integer.MIN_VALUE % 10))) {
-                return Integer.MIN_VALUE;
+            int sign = 1;
+            if (s.charAt(index) == '+') {
+                index++;
+            } else if (s.charAt(index) == '-') {
+                sign = -1;
+                index++;
             }
-            res = res * 10 + sign * digit;
-            index++;
+            int res = 0;
+            while (index < s.length()) {
+                if (s.charAt(index) < '0' || s.charAt(index) > '9') {
+                    break;
+                }
+                int digitNum = s.charAt(index) - '0';
+                if (res > Integer.MAX_VALUE / 10 || (res == Integer.MAX_VALUE / 10 && digitNum > Integer.MAX_VALUE % 10)) {
+                    return Integer.MAX_VALUE;
+                }
+                if (res < Integer.MIN_VALUE / 10 || (res == Integer.MIN_VALUE / 10 && digitNum > 7)) {
+                    return Integer.MIN_VALUE;
+                }
+                res = res * 10 + sign * digitNum;
+                index++;
+            }
+            return res;
         }
-        return res;
+
+
+
+
+
+
+        public int myAtoi22222222(String s) {
+
+            int index = 0;
+            while (index < s.length() && s.charAt(index) == ' ') {
+                index++;
+            }
+            if (index == s.length()) {
+                return 0;
+            }
+            int sign = 1;
+            if (s.charAt(index) == '+') {
+                index++;
+            } else if (s.charAt(index) == '-') {
+                sign = -1;
+                index++;
+            }
+            int res = 0;
+            while (index < s.length()) {
+                if (s.charAt(index) < '0' || s.charAt(index) > '9') {
+                    break;
+                }
+                int digit = s.charAt(index) - '0';
+                if (res > Integer.MAX_VALUE / 10 || (res == Integer.MAX_VALUE / 10 && digit > Integer.MAX_VALUE % 10)) {
+                    return Integer.MAX_VALUE;
+                }
+                if (res < Integer.MIN_VALUE / 10 || (res == Integer.MIN_VALUE / 10 && digit > -(Integer.MIN_VALUE % 10))) {
+                    return Integer.MIN_VALUE;
+                }
+                res = res * 10 + sign * digit;
+                index++;
+            }
+            return res;
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

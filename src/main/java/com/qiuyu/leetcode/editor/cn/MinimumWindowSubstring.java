@@ -55,11 +55,63 @@ import java.util.Objects;
 public class MinimumWindowSubstring {
     public static void main(String[] args) {
         Solution solution = new MinimumWindowSubstring().new Solution();
-        solution.minWindow("cabwefgewcwaefgcf", "cae");
+        System.out.println(solution.minWindow("ADOBECODEBANC", "ABC"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public String minWindow(String s, String t) {
+            return minWindow20230404(s, t);
+        }
+
+
+
+
+        public String minWindow20230404(String s, String t) {
+            int[] need = new int[128];
+            for (char c : t.toCharArray()) {
+                need[c - 'A']++;
+            }
+            int matchCnt = 0;
+            int right = 0;
+            int left = 0;
+            int resLen = Integer.MAX_VALUE;
+            int start = -1;
+            while (right < s.length()) {
+                char cur = s.charAt(right);
+                if (need[cur - 'A'] > 0) {
+                    matchCnt++;
+                }
+                need[cur - 'A']--;
+                while (matchCnt == t.length()) {
+                    int curLen = right - left + 1;
+                    if (curLen < resLen) {
+                        resLen = curLen;
+                        start = left;
+                    }
+
+                    char leftC = s.charAt(left);
+                    need[leftC - 'A']++;
+                    if (need[leftC - 'A'] > 0) {
+                        matchCnt--;
+                    }
+                    left++;
+                }
+                right++;
+            }
+            return start == -1 ? "" : s.substring(start, start + resLen);
+        }
+
+
+
+
+
+
+
+
+
+
 
         public String minWindow_20220508(String s, String t) {
             Map<Character, Integer> letterCountMap = new HashMap<>();
@@ -111,21 +163,6 @@ public class MinimumWindowSubstring {
             return res;
 
         }
-
-
-
-        public String minWindow(String s, String t) {
-            return minWindow_20220508(s, t);
-        }
-
-
-
-
-
-
-
-
-
 
 
 

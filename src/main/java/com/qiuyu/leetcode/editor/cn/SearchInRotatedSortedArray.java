@@ -52,14 +52,65 @@ package com.qiuyu.leetcode.editor.cn;
 public class SearchInRotatedSortedArray {
     public static void main(String[] args) {
         Solution solution = new SearchInRotatedSortedArray().new Solution();
+        System.out.println(solution.search(new int[]{4,5,6,7,0,1,2}, 0));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
         public int search(int[] nums, int target) {
-            return search20230215(nums, target);
+            return search20230418(nums, target);
         }
+
+        public int search20230418(int[] nums, int target) {
+            // 找到最大值所在的索引
+            int pivot = nums[0];
+            int left = 0, right = nums.length - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] >= pivot) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+            int leftHalfRes = search(nums, 0, right, target);
+            return leftHalfRes != -1 ? leftHalfRes : search(nums, right + 1, nums.length - 1, target);
+
+        }
+
+        private int search(int[] nums, int start, int end, int target) {
+            if (start >= nums.length || start > end) {
+                return -1;
+            }
+            int left = start, right = end;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == target) {
+                    return mid;
+                } else if (nums[mid] > target) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            return -1;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public int search20230215(int[] nums, int target) {
             if (nums == null || nums.length == 0) {
                 return -1;

@@ -42,8 +42,52 @@ public class GenerateParentheses {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public List<String> generateParenthesis(int n) {
-            return generateParenthesis20230214(n);
+            return generateParenthesis20230418(n);
         }
+
+        public List<String> generateParenthesis20230418(int n) {
+            List<String> res = new ArrayList<>();
+            if (n <= 0) {
+                return res;
+            }
+            bt(n, n, n, new StringBuilder(), res);
+            return res;
+
+        }
+
+        private void bt(int n, int availableLeft, int availableRight, StringBuilder sb, List<String> res) {
+            if (availableLeft > availableRight) {
+                return;
+            }
+            if (sb.length() == n * 2) {
+                res.add(sb.toString());
+                return;
+            }
+            if (availableLeft > 0) {
+                sb.append('(');
+                bt(n, availableLeft - 1, availableRight, sb, res);
+                sb.deleteCharAt(sb.length() - 1);
+            }
+
+            if (availableRight > 0) {
+                sb.append(')');
+                bt(n, availableLeft, availableRight - 1, sb, res);
+                sb.deleteCharAt(sb.length() - 1);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         public List<String> generateParenthesis20230214(int n) {

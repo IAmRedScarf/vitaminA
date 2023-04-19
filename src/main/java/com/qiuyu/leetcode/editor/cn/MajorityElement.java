@@ -36,6 +36,37 @@ public class MajorityElement {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int majorityElement(int[] nums) {
+            return majorityElement20230407(nums);
+        }
+
+        public int majorityElement20230407(int[] nums) {
+            if (nums == null || nums.length == 0) {
+                throw new IllegalArgumentException();
+            }
+            int candidate = nums[0];
+            int score = 0;
+            for (int num : nums) {
+                if (score == 0) {
+                    candidate = num;
+                }
+                if (num == candidate) {
+                    score++;
+                } else {
+                    score--;
+                }
+            }
+            return candidate;
+        }
+
+
+
+
+
+
+
+
+
         public int majorityElement_20220515(int[] nums) {
             int candidate = -1;
             int count = 0;
@@ -56,15 +87,6 @@ public class MajorityElement {
             }
             return candidate;
         }
-
-
-
-        public int majorityElement(int[] nums) {
-            return majorityElement_20220515(nums);
-        }
-
-
-
 
         public int majorityElement_old(int[] nums) {
             int candidate = nums[0];

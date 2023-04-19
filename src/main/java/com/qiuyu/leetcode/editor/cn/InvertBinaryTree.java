@@ -51,6 +51,36 @@ public class InvertBinaryTree {
      * }
      */
     class Solution {
+
+        public TreeNode invertTree(TreeNode root) {
+            return invertTree20230409(root);
+        }
+
+        public TreeNode invertTree20230409(TreeNode root) {
+            invertTreeHelper(root);
+            return root;
+        }
+
+        private void invertTreeHelper(TreeNode root) {
+            if (root == null) {
+                return;
+            }
+            invertTree20230409(root.left);
+            invertTreeHelper(root.right);
+            TreeNode tmp = root.left;
+            root.left = root.right;
+            root.right = tmp;
+        }
+
+
+
+
+
+
+
+
+
+
         public TreeNode invertTree_20220515(TreeNode root) {
             helper_20220515(root);
             return root;
@@ -66,12 +96,6 @@ public class InvertBinaryTree {
             helper_20220515(root.left);
             helper_20220515(root.right);
         }
-
-        public TreeNode invertTree(TreeNode root) {
-            return invertTree_20220515(root);
-        }
-
-
 
 
         public TreeNode invertTree_old(TreeNode root) {

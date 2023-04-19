@@ -50,6 +50,7 @@ package com.qiuyu.leetcode.editor.cn;
 
 import com.qiuyu.leetcode.editor.cn.model.ListNode;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -69,6 +70,46 @@ public class MergeKSortedLists {
  * }
  */
 class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        return mergeKLists20230404(lists);
+    }
+
+    public ListNode mergeKLists20230404(ListNode[] lists) {
+
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(Comparator.comparingInt(node -> node.val));
+        for (ListNode node : lists) {
+            if (node != null) {
+                pq.add(node);
+            }
+        }
+        ListNode dummyHead = new ListNode(0);
+        ListNode p = dummyHead;
+        while (!pq.isEmpty()) {
+            ListNode cur = pq.poll();
+            p.next = cur;
+            if (cur.next != null) {
+                pq.add(cur.next);
+            }
+            p = p.next;
+        }
+        return dummyHead.next;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private ListNode mergeKLists_20220426(ListNode[] lists) {
         if (lists.length == 0) {
             return null;
@@ -97,7 +138,7 @@ class Solution {
 
 
 
-    public ListNode mergeKLists(ListNode[] lists) {
+    public ListNode mergeKLists222222222222(ListNode[] lists) {
         if (lists.length == 0) {
             return null;
         }

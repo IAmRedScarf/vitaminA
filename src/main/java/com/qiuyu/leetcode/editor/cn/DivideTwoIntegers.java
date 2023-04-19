@@ -42,6 +42,55 @@ public class DivideTwoIntegers {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int divide(int dividend, int divisor) {
+            return divide20230418(dividend, divisor);
+        }
+
+        public int divide20230418(int dividend, int divisor) {
+            if (divisor == 0) {
+                throw new IllegalArgumentException();
+            }
+            if (dividend == 0) {
+                return 0;
+            }
+            if (divisor == 1) {
+                return dividend;
+            }
+            if (divisor == -1) {
+                if (dividend == Integer.MIN_VALUE) {
+                    return Integer.MAX_VALUE;
+                } else {
+                    return -dividend;
+                }
+            }
+            long a = dividend, b = divisor;
+            int sign = 1;
+            if ((a > 0 && b < 0) || (a < 0 && b > 0)) {
+                sign = -1;
+            }
+            return sign * positiveDivide(Math.abs(a), Math.abs(b));
+        }
+
+        private int positiveDivide(long a, long b) {
+            if (a < b) {
+                return 0;
+            }
+            int count = 1;
+            long tmp = b;
+            while (tmp + tmp <= a) {
+                count = count + count;
+                tmp = tmp + tmp;
+            }
+            return count + positiveDivide(a - tmp, b);
+        }
+
+
+
+
+
+
+
+
+        public int divide22222222222(int dividend, int divisor) {
             if (divisor == 0) {
                 throw new IllegalArgumentException("除数非法");
             }

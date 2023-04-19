@@ -47,11 +47,45 @@ import java.util.*;
 public class LongestValidParentheses {
     public static void main(String[] args) {
         Solution solution = new LongestValidParentheses().new Solution();
-        System.out.println(solution.longestValidParentheses(")()())"));
+        System.out.println(solution.longestValidParentheses("()(())"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int longestValidParentheses(String s) {
+            return longestValidParentheses20230404(s);
+        }
+
+
+        public int longestValidParentheses20230404(String s) {
+            if (s.length() <= 1) {
+                return 0;
+            }
+            int maxLen = 0;
+            int[] dp = new int[s.length()];
+            for (int i = 1; i < s.length(); ++i) {
+                if (s.charAt(i) == '(') {
+                    dp[i] = 0;
+                } else {
+                    if (s.charAt(i - 1) == '(') {
+                        dp[i] = (i - 2 >= 0 ? dp[i - 2] : 0) + 2;
+                    } else {
+                        if (dp[i - 1] == 0) {
+                            dp[i] = 0;
+                        } else {
+                            if (i - 1 - dp[i - 1] >= 0 && s.charAt(i - 1 - dp[i - 1]) == '(') {
+                                dp[i] = dp[i - 1] + 2 + (i - 2 - dp[i - 1] >= 0 ? dp[i - 2 - dp[i - 1]] : 0);
+                            }
+                        }
+                    }
+
+                }
+                maxLen = Math.max(maxLen, dp[i]);
+            }
+            return maxLen;
+
+        }
+
 
         public int longestValidParentheses_20220511(String s) {
             int maxLen = 0;
@@ -103,16 +137,6 @@ public class LongestValidParentheses {
             return res;
 
         }
-
-
-
-        public int longestValidParentheses(String s) {
-            return longestValidParentheses_20220511(s);
-        }
-
-
-
-
 
 
         public int longestValidParentheses_old(String s) {

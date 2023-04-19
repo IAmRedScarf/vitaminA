@@ -56,8 +56,38 @@ public class LongestPalindromicSubstring {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String longestPalindrome(String s) {
-            return longestPalindrome20230214(s);
+            return longestPalindrome20230417(s);
         }
+
+        public String longestPalindrome20230417(String s) {
+            if (s == null || s.length() == 0) {
+                return s;
+            }
+            boolean[][] dp = new boolean[s.length()][s.length()];
+            int maxLen = 0;
+            String res = "";
+            for (int i = s.length() - 1; i >= 0; --i) {
+                for (int j = i; j < s.length(); ++j) {
+                    dp[i][j] = (j - i <= 2) ? (s.charAt(i) == s.charAt(j)) : (s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1]);
+                    if (dp[i][j] && (j - i + 1) > maxLen) {
+                        maxLen = j - i + 1;
+                        res = s.substring(i, j + 1);
+                    }
+                }
+            }
+            return res;
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         public String longestPalindrome20230214(String s) {
             if (s == null) {

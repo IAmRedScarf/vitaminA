@@ -42,6 +42,23 @@ public class HammingDistance {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int hammingDistance(int x, int y) {
+            return hammingDistance20230409(x, y);
+        }
+
+        public int hammingDistance20230409(int x, int y) {
+            int diffCnt = 0;
+            int tmp = x ^ y;
+            while (tmp != 0) {
+                diffCnt++;
+                tmp &= (tmp - 1);
+            }
+            return diffCnt;
+        }
+
+
+
+
 
         public int hammingDistance_20220515(int x, int y) {
             int res = 0;
@@ -55,9 +72,7 @@ public class HammingDistance {
 
 
 
-        public int hammingDistance(int x, int y) {
-            return hammingDistance_20220515(x, y);
-        }
+
 
 
 

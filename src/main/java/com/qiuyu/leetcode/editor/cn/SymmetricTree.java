@@ -58,6 +58,37 @@ public class SymmetricTree {
      */
     class Solution {
 
+        public boolean isSymmetric(TreeNode root) {
+            return isSymmetric20230409(root);
+        }
+
+
+        public boolean isSymmetric20230409(TreeNode root) {
+            if (root == null) {
+                return true;
+            }
+            return compare2Tree(root.left, root.right);
+        }
+
+        private boolean compare2Tree(TreeNode root1, TreeNode root2) {
+            if (root1 == null && root2 == null) {
+                return true;
+            }
+            if (root1 == null || root2 == null) {
+                return false;
+            }
+            return root1.val == root2.val && compare2Tree(root1.left, root2.right) && compare2Tree(root1.right, root2.left);
+        }
+
+
+
+
+
+
+
+
+
+
         public boolean isSymmetric_20220513(TreeNode root) {
             if (root == null) {
                 return false;
@@ -77,15 +108,6 @@ public class SymmetricTree {
             return root1.val == root2.val && helper_20220513(root1.left, root2.right) && helper_20220513(root1.right, root2.left);
 
         }
-
-
-        public boolean isSymmetric(TreeNode root) {
-            return isSymmetric_20220513(root);
-        }
-
-
-
-
 
 
         public boolean isSymmetric_old(TreeNode root) {

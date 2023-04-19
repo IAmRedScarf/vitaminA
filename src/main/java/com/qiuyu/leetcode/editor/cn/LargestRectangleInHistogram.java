@@ -43,11 +43,56 @@ import java.util.List;
 public class LargestRectangleInHistogram {
     public static void main(String[] args) {
         Solution solution = new LargestRectangleInHistogram().new Solution();
-        solution.largestRectangleArea_20220510(new int[] {2,1,5,6,2,3});
+        System.out.println(solution.largestRectangleArea(new int[] {2,1,5,6,2,3}));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public int largestRectangleArea(int[] heights) {
+            return largestRectangleArea20230404(heights);
+        }
+
+
+        public int largestRectangleArea20230404(int[] heights) {
+            int len = heights.length;
+            int[] leftFirstShorterIndex = new int[1 + len];
+            Deque<int[]> maxStack = new LinkedList<>();
+            for (int i = 0; i < len; ++i) {
+                while (!maxStack.isEmpty() && maxStack.peekLast()[1] >= heights[i]) {
+                    maxStack.pollLast();
+                }
+                leftFirstShorterIndex[i] = maxStack.isEmpty() ? -1 : maxStack.peekLast()[0];
+                maxStack.addLast(new int[] {i, heights[i]});
+            }
+            int[] rightFirstShorterIndex = new int[len];
+            maxStack.clear();
+            for (int i = len - 1; i >= 0; --i) {
+                while (!maxStack.isEmpty() && maxStack.peekLast()[1] >= heights[i]) {
+                    maxStack.pollLast();
+                }
+                rightFirstShorterIndex[i] = maxStack.isEmpty() ? len : maxStack.peekLast()[0];
+                maxStack.addLast(new int[] {i, heights[i]});
+            }
+            int maxRectangleArea = 0;
+            for (int i = 0; i < len; ++i) {
+                maxRectangleArea = Math.max(maxRectangleArea, (rightFirstShorterIndex[i] - leftFirstShorterIndex[i] - 1) * heights[i]);
+            }
+            return maxRectangleArea;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public int largestRectangleArea_20220510(int[] nums) {
             int[] leftFirstSmall = new int[nums.length];
@@ -135,15 +180,6 @@ public class LargestRectangleInHistogram {
 
 
         }
-
-
-
-
-
-        public int largestRectangleArea(int[] heights) {
-            return largestRectangleArea_20220510(heights);
-        }
-
 
 
         public int largestRectangleArea_old(int[] heights) {

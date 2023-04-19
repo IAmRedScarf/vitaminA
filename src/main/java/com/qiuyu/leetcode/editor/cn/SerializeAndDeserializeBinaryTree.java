@@ -89,6 +89,65 @@ public class SerializeAndDeserializeBinaryTree {
     public class Codec {
         // Encodes a tree to a single string.
         public String serialize(TreeNode root) {
+            return serialize20230404(root);
+        }
+
+
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(String data) {
+            return deserialize20230404(data);
+        }
+
+
+
+
+        public String serialize20230404(TreeNode root) {
+            StringBuilder sb = new StringBuilder();
+            serialize20230404(root, sb);
+            sb.deleteCharAt(sb.length() - 1);
+            return sb.toString();
+        }
+
+        private void serialize20230404(TreeNode root, StringBuilder sb) {
+            if (root == null) {
+                sb.append("#").append(',');
+                return;
+            }
+            sb.append(root.val).append(',');
+            serialize20230404(root.left, sb);
+            serialize20230404(root.right, sb);
+        }
+
+
+        int index = 0;
+        String[] valArr;
+        public TreeNode deserialize20230404(String data) {
+             valArr = data.split(",");
+             return deserialize20230404();
+        }
+
+        private TreeNode deserialize20230404() {
+            if (valArr[index].equals("#")) {
+                return null;
+            }
+            TreeNode root = new TreeNode(Integer.parseInt(valArr[index]));
+            index++;
+            root.left = deserialize20230404();
+            index++;
+            root.right = deserialize20230404();
+            return root;
+        }
+
+
+
+
+
+
+
+
+
+
+        public String serialize22222222222(TreeNode root) {
             StringBuilder sb = new StringBuilder();
             dfs_20220512(root, sb);
             sb.deleteCharAt(sb.length() - 1);
@@ -108,7 +167,7 @@ public class SerializeAndDeserializeBinaryTree {
         }
 
         // Decodes your encoded data to tree.
-        public TreeNode deserialize(String data) {
+        public TreeNode deserialize2222222222(String data) {
             String[] tmpData = data.split(",");
             return deserialize(tmpData);
 

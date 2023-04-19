@@ -71,22 +71,46 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RegularExpressionMatching {
     public static void main(String[] args) {
         Solution solution = new RegularExpressionMatching().new Solution();
-        System.out.println(solution.isMatch("ab", ".*"));
-        List<Integer> aa = new ArrayList<>();
-        aa.add(10);
-        aa.add(15);
-
-        List<Integer> bb = new ArrayList<>();
-        bb.add(20);
-        bb.add(25);
-        List<List<Integer>> a = new ArrayList<>();
-        a.add(aa);
-        a.add(bb);
-        System.out.println(solution.f(a));
+        System.out.println(solution.isMatch("aa", "a*"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        public boolean isMatch(String s, String p) {
+            return isMatch20230404(s, p);
+        }
+
+
+        public boolean isMatch20230404(String s, String p) {
+            if (p.length() == 0) {
+                return s.length() == 0;
+            }
+            boolean[][] dp = new boolean[p.length() + 1][s.length() + 1];
+            dp[0][0] = true;
+            for (int i = 0; i < p.length(); ++i) {
+                if (p.charAt(i) == '*' && dp[i - 1][0]) {
+                    dp[i + 1][0] = true;
+                }
+            }
+            for (int i = 0; i < p.length(); ++i) {
+                for (int j = 0; j < s.length(); ++j) {
+                    if (p.charAt(i) == '*') {
+                        dp[i + 1][j + 1] = dp[i - 1][j + 1] || ((p.charAt(i - 1) == '.' || p.charAt(i - 1) == s.charAt(j)) && dp[i + 1][j]);
+                    } else {
+                        dp[i + 1][j + 1] = (p.charAt(i) == '.' || p.charAt(i) == s.charAt(j)) && dp[i][j];
+                    }
+                }
+            }
+            return dp[p.length()][s.length()];
+
+        }
+
+
+
+
+
+
+
         public boolean isMatch_20220426(String s, String p) {
             if (s == null || p == null) {
                 return false;
@@ -118,7 +142,7 @@ public class RegularExpressionMatching {
         }
 
 
-        public boolean isMatch(String s, String p) {
+        public boolean isMatch00000000000000000(String s, String p) {
             return isMatch_20220426(s, p);
 //            if (s == null || p == null) {
 //                return false;

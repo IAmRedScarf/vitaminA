@@ -59,6 +59,48 @@ public class BinaryTreeMaximumPathSum {
      * }
      */
     class Solution {
+        public int maxPathSum(TreeNode root) {
+            return maxPathSum20230404(root);
+        }
+        int globalMaxPathSum = Integer.MIN_VALUE;
+        public int maxPathSum20230404(TreeNode root) {
+            inTraverse(root);
+            return globalMaxPathSum;
+        }
+
+        // 返回包含根节点的单边最大值
+        private int inTraverse(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+            int leftSum = inTraverse(root.left);
+            int rightSum = inTraverse(root.right);
+            int curMaxPathSum = root.val;
+            if (leftSum > 0) {
+                curMaxPathSum += leftSum;
+            }
+            if (rightSum > 0) {
+                curMaxPathSum += rightSum;
+            }
+            globalMaxPathSum = Math.max(globalMaxPathSum, curMaxPathSum);
+            return root.val + Math.max(0, Math.max(leftSum, rightSum));
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         int res_20220515 = Integer.MIN_VALUE;
 
         public int maxPathSum_20220515(TreeNode root) {
@@ -130,9 +172,7 @@ public class BinaryTreeMaximumPathSum {
             return root.val + Math.max(Math.max(leftMax, rightMax), 0);
         }
 
-        public int maxPathSum(TreeNode root) {
-            return maxPathSum_20220515(root);
-        }
+
 
 
     }

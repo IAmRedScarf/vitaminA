@@ -55,9 +55,59 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] searchRange(int[] nums, int target) {
-            return searchRange20230215(nums, target);
+            return searchRange20230419(nums, target);
 
         }
+
+
+
+        public int[] searchRange20230419(int[] nums, int target) {
+            if (nums == null || nums.length == 0) {
+                return new int[] {-1, -1};
+            }
+            return new int[] {searchLeftBound20230419(nums, target), searchRightBound20230419(nums, target)};
+        }
+
+        private int searchLeftBound20230419(int[] nums, int target) {
+            int left = 0, right = nums.length - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == target) {
+                    right = mid - 1;
+                } else if (nums[mid] > target) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            if (left == nums.length) {
+                return -1;
+            }
+            return nums[left] == target ? left : -1;
+        }
+
+        private int searchRightBound20230419(int[] nums, int target) {
+            int left = 0, right = nums.length - 1;
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] == target) {
+                    left = mid + 1;
+                } else if (nums[mid] > target) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            if (right < 0) {
+                return -1;
+            }
+            return nums[right] == target ? right : -1;
+        }
+
+
+
+
+
 
         public int[] searchRange20230215(int[] nums, int target) {
             return new int[] {searchLeftBound20230215(nums, target), searchRightBound20230215(nums, target)};

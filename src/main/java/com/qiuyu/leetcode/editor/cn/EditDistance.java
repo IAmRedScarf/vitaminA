@@ -55,6 +55,42 @@ public class EditDistance {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public int minDistance(String word1, String word2) {
+            return minDistance20230404(word1, word2);
+        }
+
+        public int minDistance20230404(String word1, String word2) {
+            int len1 = word1.length(), len2 = word2.length();
+            int[][] dp = new int[1 + len1][1 + len2];
+            for (int i = 0; i < len1; ++i) {
+                dp[i + 1][0] = i + 1;
+            }
+            for (int j = 0; j < len2; ++j) {
+                dp[0][j + 1] = j + 1;
+            }
+            for (int i = 0; i < len1; ++i) {
+                for (int j = 0; j < len2; ++j) {
+                    if (word1.charAt(i) == word2.charAt(j)) {
+                        dp[i + 1][j + 1] = dp[i][j];
+                    } else {
+                        dp[i + 1][j + 1] = 1 + Math.min(dp[i + 1][j], Math.min(dp[i][j + 1], dp[i][j]));
+                    }
+                }
+            }
+            return dp[len1][len2];
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public int minDistance_20220511(String word1, String word2) {
             if (word1 == null || word2 == null) {
                 return 0;
@@ -87,20 +123,6 @@ public class EditDistance {
 
 
         }
-
-
-
-
-
-        public int minDistance(String word1, String word2) {
-            return minDistance_20220511(word1, word2);
-        }
-
-
-
-
-
-
 
 
 

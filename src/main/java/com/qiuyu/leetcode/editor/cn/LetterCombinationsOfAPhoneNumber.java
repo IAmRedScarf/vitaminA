@@ -53,8 +53,46 @@ public class LetterCombinationsOfAPhoneNumber {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public List<String> letterCombinations(String digits) {
-            return letterCombinations20230214(digits);
+            return letterCombinations20230418(digits);
         }
+
+        Map<Character, String> globalNumLettersMap;
+
+        public List<String> letterCombinations20230418(String digits) {
+            globalNumLettersMap = new HashMap<Character, String>() {{
+                put('2', "abc");
+                put('3', "def");
+                put('4', "ghi");
+                put('5', "jkl");
+                put('6', "mno");
+                put('7', "pqrs");
+                put('8', "tuv");
+                put('9', "wxyz");
+            }};
+            List<String> res = new ArrayList<>();
+            if (digits == null || digits.length() == 0) {
+                return res;
+            }
+            dfs20230418(digits, 0, new StringBuilder(), res);
+            return res;
+
+        }
+
+        private void dfs20230418(String digits, int start, StringBuilder sb, List<String> res) {
+            if (start == digits.length()) {
+                res.add(sb.toString());
+            } else {
+                String letters = globalNumLettersMap.get(digits.charAt(start));
+                for (char c : letters.toCharArray()) {
+                    sb.append(c);
+                    dfs20230418(digits, 1 + start, sb, res);
+                    sb.deleteCharAt(sb.length() - 1);
+                }
+            }
+        }
+
+
+
 
 
         public List<String> letterCombinations20230214(String digits) {

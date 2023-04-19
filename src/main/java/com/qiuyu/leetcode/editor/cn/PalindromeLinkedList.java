@@ -52,6 +52,48 @@ public class PalindromeLinkedList {
      * }
      */
     class Solution {
+        public boolean isPalindrome(ListNode head) {
+            return isPalindrome20230408(head);
+        }
+
+        public boolean isPalindrome20230408(ListNode head) {
+            if (head == null || head.next == null) {
+                return true;
+            }
+            ListNode pf = head.next, ps = head;
+            while (pf != null && pf.next != null) {
+                pf = pf.next.next;
+                ps = ps.next;
+            }
+            ListNode tmp = ps.next;
+            ps.next = null;
+            ListNode p1 = head, p2 = reverse20230407(tmp);
+            while (p2 != null) {
+                if (p1.val != p2.val) {
+                    return false;
+                }
+                p1 = p1.next;
+                p2 = p2.next;
+            }
+            return true;
+
+        }
+
+        private ListNode reverse20230407(ListNode head) {
+            if (head == null || head.next == null) {
+                return head;
+            }
+            ListNode pre = null, cur = head;
+            while (cur != null) {
+                ListNode next = cur.next;
+                cur.next = pre;
+                pre = cur;
+                cur = next;
+            }
+            return pre;
+        }
+
+
 
         public boolean isPalindrome_20220515(ListNode head) {
             ListNode fast = head, slow = head;
@@ -91,11 +133,6 @@ public class PalindromeLinkedList {
                 cur = next;
             }
             return pre;
-        }
-
-
-        public boolean isPalindrome(ListNode head) {
-            return isPalindrome_20220515(head);
         }
 
 

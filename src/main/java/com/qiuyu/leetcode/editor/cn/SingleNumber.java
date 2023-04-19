@@ -27,6 +27,25 @@ public class SingleNumber {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
+        public int singleNumber(int[] nums) {
+            return singleNumber20230407(nums);
+
+        }
+
+
+        public int singleNumber20230407(int[] nums) {
+            int target = 0;
+            for (int num : nums) {
+                target ^= num;
+            }
+            return target;
+        }
+
+
+
+
+
+
 
         public int singleNumber_20220513(int[] nums) {
             int res = 0;
@@ -38,10 +57,6 @@ public class SingleNumber {
 
         }
 
-        public int singleNumber(int[] nums) {
-            return singleNumber_20220513(nums);
-
-        }
 
 
 
